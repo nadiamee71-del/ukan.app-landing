@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="UKAN — Application fitness tout-en-un. Rejoignez la liste d'attente." />
+  <title>UKAN — Fitness tout-en-un</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0b;
+      --bg-elevated: #141416;
+      --text: #fafafa;
+      --text-muted: #a1a1aa;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.15);
+      --border: rgba(255, 255, 255, 0.08);
+      --orb-1: rgba(34, 197, 94, 0.12);
+      --orb-2: rgba(99, 102, 241, 0.1);
+    }
+    body.light {
+      --bg: #f4f4f5;
+      --bg-elevated: #ffffff;
+      --text: #18181b;
+      --text-muted: #71717a;
+      --accent: #16a34a;
+      --accent-soft: rgba(22, 163, 74, 0.12);
+      --border: rgba(0, 0, 0, 0.08);
+      --orb-1: rgba(22, 163, 74, 0.08);
+      --orb-2: rgba(99, 102, 241, 0.06);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "DM Sans", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .bg-orbs {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .bg-orbs::before,
+    .bg-orbs::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+    }
+    .bg-orbs::before {
+      width: 420px;
+      height: 420px;
+      background: var(--orb-1);
+      top: -120px;
+      right: -80px;
+    }
+    .bg-orbs::after {
+      width: 360px;
+      height: 360px;
+      background: var(--orb-2);
+      bottom: 10%;
+      left: -100px;
+    }
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--text); }
+    .theme-toggle {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 2px;
+      background: var(--bg-elevated);
+    }
+    .tt-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .tt-btn:hover { color: var(--text); }
+    .tt-btn.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .hero {
+      padding: 4rem 0 5rem;
+      text-align: center;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent-soft);
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+    }
+    h1 {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: clamp(2.5rem, 6vw, 3.75rem);
+      font-weight: 400;
+      line-height: 1.1;
+      max-width: 18ch;
+      margin: 0 auto 1rem;
+    }
+    .hero p.lead {
+      color: var(--text-muted);
+      font-size: 1.125rem;
+      max-width: 42ch;
+      margin: 0 auto 2rem;
+    }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      align-items: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 1.5rem;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary {
+      background: var(--accent);
+      color: #052e16;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 8px 24px var(--accent-soft);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .social-proof {
+      margin-top: 2.5rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+    .social-proof strong { color: var(--text); }
+    section {
+      padding: 3.5rem 0;
+      border-top: 1px solid var(--border);
+    }
+    h2 {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--text-muted);
+      max-width: 48ch;
+      margin: 0 auto 2.5rem;
+      font-size: 0.95rem;
+    }
+    .grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+    .card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: rgba(34, 197, 94, 0.25); }
+    .card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .card .icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    @media (max-width: 520px) {
+      .stats { grid-template-columns: 1fr; }
+    }
+    .stat-num {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 2rem;
+      color: var(--accent);
+    }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); }
+    .waitlist {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      padding: 2.5rem 1.5rem;
+      max-width: 480px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .waitlist form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    @media (min-width: 480px) {
+      .waitlist form { flex-direction: row; }
+    }
+    .waitlist input {
+      flex: 1;
+      padding: 0.85rem 1rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+    .waitlist input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .success-msg {
+      display: none;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--accent);
+    }
+    footer {
+      padding: 2.5rem 0 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--text-muted); }
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="dark">
+  <div class="bg-orbs" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header>
+      <a class="logo" href="#">UKAN</a>
+      <nav>
+        <a href="#features">Fonctionnalités</a>
+        <a href="#waitlist">Liste d'attente</a>
+        <div class="theme-toggle" role="group" aria-label="Thème">
+          <button type="button" class="tt-btn active" data-theme="dark" aria-pressed="true">Sombre</button>
+          <button type="button" class="tt-btn" data-theme="light" aria-pressed="false">Clair</button>
+        </div>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <span class="badge">Bientôt disponible</span>
+      <h1>Tout votre fitness, une seule app française</h1>
+      <p class="lead">Entraînements, nutrition, défis et cours live — conçu pour vous pousser sans vous perdre.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#waitlist">Rejoindre la liste</a>
+        <a class="btn btn-ghost" href="#features">Découvrir</a>
+      </div>
+      <p class="social-proof"><strong>+2&nbsp;000</strong> personnes déjà inscrites sur la liste d'attente</p>
+    </section>
+
+    <section id="features">
+      <h2 class="reveal">Ce qui vous attend</h2>
+      <p class="section-sub reveal">Bibliothèque d'exercices, scan alimentaire IA, défis, cours collectifs et plus encore.</p>
+      <div class="grid">
+        <article class="card reveal">
+          <div class="icon" aria-hidden="true">📚</div>
+          <h3>Bibliothèque d'exercices</h3>
+          <p>Programmes structurés et fiches claires pour progresser à votre rythme.</p>
+        </article>
+        <article class="card reveal">
+          <div class="icon" aria-hidden="true">📷</div>
+          <h3>FoodScan IA</h3>
+          <p>Estimez vos repas en un cliché pour rester aligné avec vos objectifs.</p>
+        </article>
+        <article class="card reveal">
+          <div class="icon" aria-hidden="true">🔥</div>
+          <h3>Hard Challenge</h3>
+          <p>Défis courts et intenses pour casser la routine et mesurer vos progrès.</p>
+        </article>
+        <article class="card reveal">
+          <div class="icon" aria-hidden="true">🎥</div>
+          <h3>Cours collectifs live</h3>
+          <p>Sessions en direct avec coach pour garder la motivation du groupe.</p>
+        </article>
+        <article class="card reveal">
+          <div class="icon" aria-hidden="true">🎮</div>
+          <h3>Sport & gaming</h3>
+          <p>Gamification légère : streaks, badges et objectifs qui donnent envie.</p>
+        </article>
+        <article class="card reveal">
+          <div class="icon" aria-hidden="true">🤖</div>
+          <h3>Alter ego IA</h3>
+          <p>Un coach virtuel qui s'adapte à votre humeur et à votre charge du jour.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="reveal">En chiffres</h2>
+      <p class="section-sub reveal">Une base pensée pour durer, pas pour brûler les étapes.</p>
+      <div class="stats reveal">
+        <div>
+          <div class="stat-num">500+</div>
+          <div class="stat-label">Mouvements référencés</div>
+        </div>
+        <div>
+          <div class="stat-num">24/7</div>
+          <div class="stat-label">Suivi &amp; rappels</div>
+        </div>
+        <div>
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Pensé en France</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="waitlist">
+      <h2 class="reveal">Soyez les premiers informés</h2>
+      <p class="section-sub reveal">Laissez votre e-mail — pas de spam, uniquement le lancement et les nouveautés.</p>
+      <div class="waitlist reveal">
+        <form id="waitlist-form" onsubmit="return false;">
+          <label for="email-input" class="visually-hidden">E-mail</label>
+          <input type="email" id="email-input" name="email" placeholder="vous@exemple.com" autocomplete="email" />
+          <button type="button" class="btn btn-primary" id="waitlist-btn">S'inscrire</button>
+        </form>
+        <p id="success-msg" class="success-msg" role="status">Merci ! Vous êtes sur la liste.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; <span id="year"></span> UKAN. Tous droits réservés.</p>
+    </footer>
+  </div>
+
+  <style>
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+  <script>
+    (function () {
+      var THEME_KEY = "ukan-theme";
+
+      function setTheme(theme) {
+        var isDark = theme === "dark";
+        document.body.className = isDark ? "dark" : "light";
+        document.querySelectorAll(".tt-btn").forEach(function (btn) {
+          var active = btn.getAttribute("data-theme") === theme;
+          btn.classList.toggle("active", active);
+          btn.setAttribute("aria-pressed", active ? "true" : "false");
+        });
+        localStorage.setItem(THEME_KEY, theme);
+      }
+
+      document.querySelectorAll(".tt-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          setTheme(btn.getAttribute("data-theme"));
+        });
+      });
+
+      var saved = localStorage.getItem(THEME_KEY);
+      if (saved === "light" || saved === "dark") {
+        setTheme(saved);
+      }
+
+      var obs = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) e.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.12 }
+      );
+      document.querySelectorAll(".reveal").forEach(function (el) {
+        obs.observe(el);
+      });
+
+      function submitWaitlist() {
+        var input = document.getElementById("email-input");
+        var v = (input && input.value) || "";
+        if (!v.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())) {
+          input.style.borderColor = "rgba(248, 113, 113, 0.6)";
+          return;
+        }
+        input.style.borderColor = "";
+        document.getElementById("success-msg").style.display = "block";
+        input.value = "";
+      }
+
+      var waitlistBtn = document.getElementById("waitlist-btn");
+      if (waitlistBtn) waitlistBtn.addEventListener("click", submitWaitlist);
+      var emailInput = document.getElementById("email-input");
+      if (emailInput) {
+        emailInput.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") submitWaitlist();
+        });
+      }
+
+      var y = document.getElementById("year");
+      if (y) y.textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
