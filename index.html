@@ -397,8 +397,127 @@
       overflow: hidden;
       min-height: 0;
     }
-    .features-panel .grid {
+    .features-catalog {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
       padding-top: 1.25rem;
+      max-width: 42rem;
+      margin: 0 auto;
+    }
+    .feature-category {
+      --cat-accent: #71717a;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      overflow: hidden;
+      border-left: 4px solid var(--cat-accent);
+    }
+    .feature-category--social { --cat-accent: #3b82f6; }
+    .feature-category--training { --cat-accent: #ea580c; }
+    .feature-category--ia { --cat-accent: #a855f7; }
+    .feature-category--nutrition { --cat-accent: #22c55e; }
+    .feature-category--coach { --cat-accent: #eab308; }
+    .feature-category--money { --cat-accent: #ef4444; }
+    .feature-cat-head {
+      padding: 1rem 1.15rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .feature-cat-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+    .feature-cat-count {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+    .feature-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .feature-item {
+      padding: 0.85rem 1.15rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .feature-item:last-child {
+      border-bottom: none;
+    }
+    .feature-item-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+    }
+    .feature-item-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin: 0 0 0.5rem;
+    }
+    .feature-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      align-items: center;
+    }
+    .ft-tag {
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.22rem 0.5rem;
+      border-radius: 4px;
+    }
+    .ft-tag--v1 {
+      background: rgba(34, 197, 94, 0.2);
+      color: #86efac;
+    }
+    body.light .ft-tag--v1 {
+      color: #166534;
+    }
+    .ft-tag--v2 {
+      background: rgba(234, 179, 8, 0.2);
+      color: #fde047;
+    }
+    body.light .ft-tag--v2 {
+      color: #854d0e;
+    }
+    .ft-tag--free {
+      background: rgba(34, 197, 94, 0.12);
+      color: var(--text);
+    }
+    .ft-tag--paid {
+      background: rgba(239, 68, 68, 0.15);
+      color: #fca5a5;
+    }
+    body.light .ft-tag--paid {
+      color: #b91c1c;
+    }
+    .ft-tag--elev {
+      background: rgba(59, 130, 246, 0.18);
+      color: #93c5fd;
+    }
+    body.light .ft-tag--elev {
+      color: #1d4ed8;
+    }
+    .ft-tag--coach {
+      background: rgba(234, 179, 8, 0.18);
+      color: #fde68a;
+    }
+    body.light .ft-tag--coach {
+      color: #92400e;
+    }
+    .features-footnote {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 1.25rem;
+      padding: 0 0.5rem 0.25rem;
+      line-height: 1.5;
+      max-width: 36rem;
+      margin-left: auto;
+      margin-right: auto;
     }
     @media (prefers-reduced-motion: reduce) {
       .features-panel {
@@ -924,7 +1043,7 @@
 
     <section id="features" class="section-features">
       <h2 class="reveal">Ce qui vous attend</h2>
-      <p class="section-sub reveal">Bibliothèque d'exercices, scan alimentaire IA, défis, cours collectifs et plus encore — avec des coachs exclusivement certifiés.</p>
+      <p class="section-sub reveal">Plus de 30 fonctionnalités en six blocs : social &amp; communauté, entraînement &amp; sport, IA &amp; analyse, nutrition &amp; santé, Coach Pro, monétisation &amp; événements.</p>
       <div class="features-toggle-wrap reveal">
         <button type="button" class="btn btn-ghost btn-features-expand" id="features-toggle" aria-expanded="false" aria-controls="features-panel">
           <span id="features-toggle-text">Voir toutes les fonctionnalités</span>
@@ -933,37 +1052,217 @@
       </div>
       <div id="features-panel" class="features-panel" role="region" aria-label="Toutes les fonctionnalités UKAN" aria-hidden="true">
         <div class="features-panel-inner">
-          <div class="grid">
-            <article class="card reveal">
-              <div class="icon" aria-hidden="true">📚</div>
-              <h3>Bibliothèque d'exercices</h3>
-              <p>Programmes structurés et fiches claires pour progresser à votre rythme.</p>
+          <div class="features-catalog">
+            <article class="feature-category feature-category--social reveal">
+              <header class="feature-cat-head">
+                <h3 class="feature-cat-title">Social &amp; communauté</h3>
+                <p class="feature-cat-count">6 fonctions</p>
+              </header>
+              <ul class="feature-list">
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Réseau social sportif</div>
+                  <p class="feature-item-desc">Fil d’activité, publications, likes et commentaires.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--free">Gratuit</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Forum d’entraide</div>
+                  <p class="feature-item-desc">Questions et réponses au sein de la communauté.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--free">Gratuit</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Chat communautaire</div>
+                  <p class="feature-item-desc">Messagerie de groupe et canaux thématiques.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--free">Gratuit</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Chat Match</div>
+                  <p class="feature-item-desc">Matching sportif : trouver un partenaire ou un coach.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--free">Gratuit</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Événements</div>
+                  <p class="feature-item-desc">Créer ou rejoindre des événements (accès gratuit ou payant).</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--free">Gratuit</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Transformation Story</div>
+                  <p class="feature-item-desc">Partager son évolution physique en stories.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--free">Gratuit</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+              </ul>
             </article>
-            <article class="card reveal">
-              <div class="icon" aria-hidden="true">📷</div>
-              <h3>FoodScan IA</h3>
-              <p>Estimez vos repas en un cliché pour rester aligné avec vos objectifs.</p>
+
+            <article class="feature-category feature-category--training reveal">
+              <header class="feature-cat-head">
+                <h3 class="feature-cat-title">Entraînement &amp; sport</h3>
+                <p class="feature-cat-count">7 fonctions</p>
+              </header>
+              <ul class="feature-list">
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Bibliothèque exercices</div>
+                  <p class="feature-item-desc">GIF et vidéos d’exercices (60+ disponibles au lancement).</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--free">Gratuit</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Fiche machine salle</div>
+                  <p class="feature-item-desc">QR code ou recherche : nom, muscles visés, mode d’emploi.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--free">Gratuit</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Hard Challenge</div>
+                  <p class="feature-item-desc">Défis sportifs collectifs avec suivi de progression.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--free">Gratuit</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Sport Gaming</div>
+                  <p class="feature-item-desc">Entraînement sous forme de jeu vidéo et quêtes.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--free">Gratuit</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Vis Training</div>
+                  <p class="feature-item-desc">Salle virtuelle partagée — entraînement à distance.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--paid">Payant</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Cours live à la séance</div>
+                  <p class="feature-item-desc">Accès payant à un cours live en direct.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--paid">Payant</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Replay 30 jours</div>
+                  <p class="feature-item-desc">Accès au replay d’un cours pendant 30 jours.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--paid">Payant</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+              </ul>
             </article>
-            <article class="card reveal">
-              <div class="icon" aria-hidden="true">🔥</div>
-              <h3>Hard Challenge</h3>
-              <p>Défis courts et intenses pour casser la routine et mesurer vos progrès.</p>
+
+            <article class="feature-category feature-category--ia reveal">
+              <header class="feature-cat-head">
+                <h3 class="feature-cat-title">IA &amp; analyse</h3>
+                <p class="feature-cat-count">4 fonctions</p>
+              </header>
+              <ul class="feature-list">
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">FoodScan IA — photo</div>
+                  <p class="feature-item-desc">Photo du repas pour estimer calories et macronutriments.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--paid">Payant</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">FoodScan IA — vocal</div>
+                  <p class="feature-item-desc">Dictée d’un repas pour calcul automatique.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--paid">Payant</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Alter Ego IA</div>
+                  <p class="feature-item-desc">Coach IA personnel 24/7 (quota ou offre illimitée).</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v2">V2</span><span class="ft-tag ft-tag--paid">Payant</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Correction posture IA</div>
+                  <p class="feature-item-desc">Analyse de la posture par caméra avec correction en temps réel.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v2">V2</span><span class="ft-tag ft-tag--paid">Payant</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+              </ul>
             </article>
-            <article class="card reveal">
-              <div class="icon" aria-hidden="true">🎥</div>
-              <h3>Cours collectifs live</h3>
-              <p>Sessions en direct avec coach pour garder la motivation du groupe.</p>
+
+            <article class="feature-category feature-category--nutrition reveal">
+              <header class="feature-cat-head">
+                <h3 class="feature-cat-title">Nutrition &amp; santé</h3>
+                <p class="feature-cat-count">4 fonctions</p>
+              </header>
+              <ul class="feature-list">
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Calculatrice nutritionnelle</div>
+                  <p class="feature-item-desc">Calories, macros et besoins journaliers.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--paid">Payant</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Suivi avant / après</div>
+                  <p class="feature-item-desc">Photos d’évolution avec comparaison par dates.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--paid">Payant</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Habitudes (1–2)</div>
+                  <p class="feature-item-desc">Suivi d’habitudes de base — gratuit jusqu’à 2 habitudes.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--free">Gratuit</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Habitudes (3+)</div>
+                  <p class="feature-item-desc">Suivi avancé au-delà de 2 habitudes.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--paid">Payant</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+              </ul>
             </article>
-            <article class="card reveal">
-              <div class="icon" aria-hidden="true">🎮</div>
-              <h3>Sport & gaming</h3>
-              <p>Gamification légère : streaks, badges et objectifs qui donnent envie.</p>
+
+            <article class="feature-category feature-category--coach reveal">
+              <header class="feature-cat-head">
+                <h3 class="feature-cat-title">Coach Pro</h3>
+                <p class="feature-cat-count">6 fonctions</p>
+              </header>
+              <ul class="feature-list">
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Dashboard revenus</div>
+                  <p class="feature-item-desc">Revenus, statistiques et graphiques en temps réel.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Marketplace coach</div>
+                  <p class="feature-item-desc">Profil visible auprès des sportifs — acquisition de clients.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Gestion élèves</div>
+                  <p class="feature-item-desc">Suivi clients, programmes, planning et messagerie.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Annotation vidéo client</div>
+                  <p class="feature-item-desc">Commentaires et annotations sur les vidéos d’exercice des élèves.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v2">V2</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Vis Training coach</div>
+                  <p class="feature-item-desc">Animer une salle virtuelle pour ses élèves.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Gestion cours live</div>
+                  <p class="feature-item-desc">Créer, programmer et monétiser ses cours en direct.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+              </ul>
             </article>
-            <article class="card reveal">
-              <div class="icon" aria-hidden="true">🤖</div>
-              <h3>Alter ego IA</h3>
-              <p>Un coach virtuel qui s'adapte à votre humeur et à votre charge du jour.</p>
+
+            <article class="feature-category feature-category--money reveal">
+              <header class="feature-cat-head">
+                <h3 class="feature-cat-title">Monétisation &amp; événements</h3>
+                <p class="feature-cat-count">4 fonctions</p>
+              </header>
+              <ul class="feature-list">
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Cours live — achat séance</div>
+                  <p class="feature-item-desc">Achat d’accès à un live spécifique (prix libre).</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--paid">Payant</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Replay — accès 30 jours</div>
+                  <p class="feature-item-desc">Replay d’une séance pendant 30 jours maximum.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--paid">Payant</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Événement gratuit</div>
+                  <p class="feature-item-desc">Créer un événement ouvert à tous, sans billet.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--free">Gratuit</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+                <li class="feature-item reveal">
+                  <div class="feature-item-title">Événement payant</div>
+                  <p class="feature-item-desc">Billetterie avec commission UKAN.</p>
+                  <div class="feature-tags"><span class="ft-tag ft-tag--v1">V1</span><span class="ft-tag ft-tag--paid">Payant</span><span class="ft-tag ft-tag--elev">Élève</span><span class="ft-tag ft-tag--coach">Coach</span></div>
+                </li>
+              </ul>
             </article>
+
+            <p class="features-footnote reveal">Feuille de route indicative — les mentions <strong>V2</strong> correspondent aux fonctions prévues après le lancement (ex.&nbsp;juillet&nbsp;2026). Grille tarifaire et périmètre exact à finaliser avec l’équipe.</p>
           </div>
         </div>
       </div>
