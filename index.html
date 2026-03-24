@@ -91,29 +91,34 @@
       color: var(--text);
     }
     .logo-mark {
-      display: inline-flex;
+      display: inline-grid;
       line-height: 0;
       border-radius: 12px;
       overflow: hidden;
+      place-items: start;
+    }
+    .logo-mark .logo-img--light {
+      grid-area: 1 / 1;
+    }
+    .logo-mark .logo-img--dark {
+      grid-area: 1 / 1;
     }
     .logo-img {
       height: 44px;
       width: auto;
+      max-width: 100%;
       display: block;
       border-radius: 12px;
       object-fit: contain;
-      vertical-align: middle;
     }
-    body.light .logo-mark {
-      background: #0a0a0b;
-      border-radius: 14px;
-      padding: 3px;
-      box-shadow:
-        0 8px 28px rgba(0, 0, 0, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    .logo-img--light {
+      display: none;
     }
-    body.light .logo-mark .logo-img {
-      border-radius: 11px;
+    body.light .logo-img--dark {
+      display: none;
+    }
+    body.light .logo-img--light {
+      display: block;
     }
     .logo-wordmark {
       font-family: "Instrument Serif", Georgia, serif;
@@ -129,28 +134,34 @@
       flex-wrap: wrap;
     }
     .footer-logo-mark {
-      display: inline-flex;
+      display: inline-grid;
       line-height: 0;
       border-radius: 8px;
       overflow: hidden;
+      place-items: start;
+    }
+    .footer-logo-mark .footer-logo--light {
+      grid-area: 1 / 1;
+    }
+    .footer-logo-mark .footer-logo--dark {
+      grid-area: 1 / 1;
     }
     .footer-logo {
       height: 32px;
       width: auto;
+      max-width: 100%;
       border-radius: 8px;
       object-fit: contain;
       display: block;
     }
-    body.light .footer-logo-mark {
-      background: #0a0a0b;
-      border-radius: 12px;
-      padding: 2px;
-      box-shadow:
-        0 6px 20px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    .footer-logo--light {
+      display: none;
     }
-    body.light .footer-logo-mark .footer-logo {
-      border-radius: 10px;
+    body.light .footer-logo--dark {
+      display: none;
+    }
+    body.light .footer-logo--light {
+      display: block;
     }
     nav {
       display: flex;
@@ -637,7 +648,8 @@
     <header>
       <a class="logo" href="#" aria-label="UKAN — Accueil">
         <span class="logo-mark">
-          <img class="logo-img" src="assets/logo.png" width="48" height="48" alt="" role="presentation" decoding="async" />
+          <img class="logo-img logo-img--dark" src="assets/logo.png" width="48" height="48" alt="" role="presentation" decoding="async" />
+          <img class="logo-img logo-img--light" src="assets/logo2.png" width="48" height="48" alt="" role="presentation" decoding="async" />
         </span>
         <span class="logo-wordmark">UKAN</span>
       </a>
@@ -862,7 +874,8 @@
     <footer>
       <div class="footer-brand">
         <span class="footer-logo-mark">
-          <img class="footer-logo" src="assets/logo.png" width="36" height="36" alt="" role="presentation" decoding="async" />
+          <img class="footer-logo footer-logo--dark" src="assets/logo.png" width="36" height="36" alt="" role="presentation" decoding="async" />
+          <img class="footer-logo footer-logo--light" src="assets/logo2.png" width="36" height="36" alt="" role="presentation" decoding="async" />
         </span>
         <p>&copy; <span id="year"></span> UKAN. Tous droits réservés.</p>
       </div>
