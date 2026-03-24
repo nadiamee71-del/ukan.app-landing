@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     :root {
+      --app-max: 27rem;
       --bg: #0a0a0b;
       --bg-elevated: #141416;
       --text: #fafafa;
@@ -77,11 +78,14 @@
     .wrap {
       position: relative;
       z-index: 1;
-      max-width: 1120px;
+      max-width: var(--app-max);
+      width: 100%;
       margin: 0 auto;
       padding-left: max(1rem, env(safe-area-inset-left, 0px));
       padding-right: max(1rem, env(safe-area-inset-right, 0px));
       padding-top: env(safe-area-inset-top, 0px);
+      container-type: inline-size;
+      container-name: app;
     }
     .site-header {
       display: grid;
@@ -251,12 +255,13 @@
       border: none;
       background: transparent;
       color: var(--text-muted);
-      padding: 0.35rem 0.75rem;
+      padding: 0.4rem 0.85rem;
       border-radius: 999px;
       font-size: 0.75rem;
       font-family: inherit;
       cursor: pointer;
       transition: background 0.2s, color 0.2s;
+      min-height: 40px;
     }
     .tt-btn:hover { color: var(--text); }
     .tt-btn.active {
@@ -264,7 +269,7 @@
       color: var(--accent);
     }
     .hero {
-      padding: 4rem 0 5rem;
+      padding: 2.5rem 0 3.25rem;
       text-align: center;
     }
     .badge {
@@ -281,22 +286,22 @@
     }
     h1 {
       font-family: "Instrument Serif", Georgia, serif;
-      font-size: clamp(2.5rem, 6vw, 3.75rem);
+      font-size: clamp(1.85rem, 7vw, 2.35rem);
       font-weight: 400;
-      line-height: 1.1;
-      max-width: 18ch;
+      line-height: 1.12;
+      max-width: none;
       margin: 0 auto 1rem;
     }
     .hero p.lead {
       color: var(--text-muted);
-      font-size: 1.125rem;
-      max-width: 42ch;
+      font-size: 1.02rem;
+      max-width: none;
       margin: 0 auto 1rem;
     }
     .hero-trust {
       color: var(--text-muted);
-      font-size: 1rem;
-      max-width: 46ch;
+      font-size: 0.92rem;
+      max-width: none;
       margin: 0 auto 2rem;
       line-height: 1.55;
     }
@@ -306,10 +311,19 @@
     }
     .cta-row {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
+      flex-wrap: nowrap;
       gap: 0.75rem;
       justify-content: center;
-      align-items: center;
+      align-items: stretch;
+      width: 100%;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-row .btn {
+      width: 100%;
+      min-height: 48px;
     }
     .btn {
       display: inline-flex;
@@ -345,12 +359,12 @@
     }
     .social-proof strong { color: var(--text); }
     section {
-      padding: 3.5rem 0;
+      padding: 2.75rem 0;
       border-top: 1px solid var(--border);
     }
     h2 {
       font-family: "Instrument Serif", Georgia, serif;
-      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-size: clamp(1.4rem, 5vw, 1.85rem);
       font-weight: 400;
       margin-bottom: 0.5rem;
       text-align: center;
@@ -358,9 +372,9 @@
     .section-sub {
       text-align: center;
       color: var(--text-muted);
-      max-width: 48ch;
+      max-width: none;
       margin: 0 auto 2.5rem;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
     }
     .section-features .section-sub {
       margin-bottom: 1.15rem;
@@ -402,8 +416,8 @@
       flex-direction: column;
       gap: 1rem;
       padding-top: 1.25rem;
-      max-width: 42rem;
-      margin: 0 auto;
+      max-width: 100%;
+      margin: 0;
     }
     .feature-category {
       --cat-accent: #71717a;
@@ -515,7 +529,7 @@
       margin-top: 1.25rem;
       padding: 0 0.5rem 0.25rem;
       line-height: 1.5;
-      max-width: 36rem;
+      max-width: 100%;
       margin-left: auto;
       margin-right: auto;
     }
@@ -555,14 +569,11 @@
     }
     .stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
+      grid-template-columns: 1fr;
+      gap: 1.15rem;
       text-align: center;
-      max-width: 640px;
+      max-width: 100%;
       margin: 0 auto;
-    }
-    @media (max-width: 520px) {
-      .stats { grid-template-columns: 1fr; }
     }
     .stat-num {
       font-family: "Instrument Serif", Georgia, serif;
@@ -574,8 +585,8 @@
       background: var(--bg-elevated);
       border: 1px solid var(--border);
       border-radius: 1.25rem;
-      padding: 2.5rem 1.5rem;
-      max-width: 480px;
+      padding: 2rem 1.25rem;
+      max-width: 100%;
       margin: 0 auto;
       text-align: center;
     }
@@ -585,8 +596,8 @@
       gap: 0.75rem;
       margin-top: 1.25rem;
     }
-    @media (min-width: 480px) {
-      .waitlist form { flex-direction: row; }
+    .waitlist form .btn {
+      min-height: 48px;
     }
     .waitlist input {
       flex: 1;
@@ -596,7 +607,8 @@
       background: var(--bg);
       color: var(--text);
       font-family: inherit;
-      font-size: 0.95rem;
+      font-size: 16px;
+      min-height: 48px;
     }
     .waitlist input:focus {
       outline: none;
@@ -609,7 +621,7 @@
       color: var(--accent);
     }
     footer {
-      padding: 2.5rem 0 2rem;
+      padding: 2.5rem 0 max(2rem, env(safe-area-inset-bottom, 0px));
       border-top: 1px solid var(--border);
       text-align: center;
       color: var(--text-muted);
@@ -631,7 +643,7 @@
       overflow: hidden;
     }
     .section-pricing .section-sub {
-      max-width: 52ch;
+      max-width: none;
     }
     .badge-gold {
       color: #d4a853;
@@ -656,24 +668,28 @@
     .billing-toggle {
       display: inline-flex;
       align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 0;
       padding: 3px;
       border-radius: 999px;
       border: 1px solid var(--border);
       background: var(--bg-elevated);
       margin-top: 1.25rem;
+      max-width: 100%;
     }
     .billing-btn {
       border: none;
       background: transparent;
       color: var(--text-muted);
-      padding: 0.5rem 1.1rem;
+      padding: 0.55rem 0.9rem;
       border-radius: 999px;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 600;
       font-family: inherit;
       cursor: pointer;
       transition: background 0.2s, color 0.2s;
+      min-height: 44px;
     }
     .billing-btn:hover {
       color: var(--text);
@@ -688,21 +704,25 @@
       font-weight: 500;
     }
     .price-scroll {
-      margin: 0 -1.25rem;
-      padding: 0 1.25rem 0.25rem;
+      margin-left: calc(-1 * max(1rem, env(safe-area-inset-left, 0px)));
+      margin-right: calc(-1 * max(1rem, env(safe-area-inset-right, 0px)));
+      padding-left: max(1rem, env(safe-area-inset-left, 0px));
+      padding-right: max(1rem, env(safe-area-inset-right, 0px));
+      padding-bottom: 0.65rem;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: max(1rem, env(safe-area-inset-left, 0px));
     }
     .price-grid {
-      display: grid;
-      gap: 1rem;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 0.85rem;
+      width: max-content;
+      max-width: none;
       min-width: 0;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
-    @media (min-width: 1200px) {
-      .price-grid {
-        grid-template-columns: repeat(5, 1fr);
-      }
+      padding-right: 0.5rem;
     }
     .price-card {
       --card-accent: #71717a;
@@ -714,6 +734,10 @@
       display: flex;
       flex-direction: column;
       min-height: 100%;
+      flex: 0 0 min(19.5rem, calc(100vw - 2.75rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
+      min-width: min(19.5rem, calc(100vw - 2.75rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     .price-card:hover {
@@ -835,10 +859,13 @@
     }
     .price-summary-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 0.75rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
       text-align: center;
       font-size: 0.78rem;
+    }
+    .price-summary-item.elite-note {
+      grid-column: 1 / -1;
     }
     .price-summary-item strong {
       display: block;
@@ -864,141 +891,12 @@
       font-size: 0.7rem;
       color: var(--text-muted);
       margin-top: 1.25rem;
-      max-width: 56ch;
+      max-width: none;
       margin-left: auto;
       margin-right: auto;
       line-height: 1.5;
     }
 
-    @media (min-width: 768px) {
-      .site-header {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1.25rem 0;
-      }
-      .nav-toggle {
-        display: none;
-      }
-      .main-nav {
-        display: flex !important;
-        flex-direction: row;
-        align-items: center;
-        gap: 1rem;
-        grid-column: unset;
-        width: auto;
-        border-top: none;
-        padding-top: 0;
-        margin-top: 0;
-      }
-      .main-nav a {
-        font-size: 0.9rem;
-        padding: 0;
-        min-height: unset;
-        display: inline;
-      }
-      .main-nav .theme-toggle {
-        margin-top: 0;
-        align-self: center;
-      }
-    }
-
-    @media (max-width: 767px) {
-      .hero {
-        padding: 2.25rem 0 3rem;
-      }
-      h1 {
-        font-size: clamp(1.75rem, 8.5vw, 2.75rem);
-        max-width: 22ch;
-      }
-      h2 {
-        font-size: clamp(1.45rem, 6vw, 2.1rem);
-      }
-      .hero p.lead,
-      .hero-trust {
-        font-size: 0.95rem;
-        padding: 0 0.15rem;
-      }
-      .section-sub {
-        font-size: 0.9rem;
-        margin-bottom: 1.75rem;
-        padding: 0 0.15rem;
-      }
-      section {
-        padding: 2.5rem 0;
-      }
-      .grid {
-        grid-template-columns: 1fr;
-        gap: 0.85rem;
-      }
-      .cta-row {
-        flex-direction: column;
-        width: 100%;
-        max-width: 22rem;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      .cta-row .btn {
-        width: 100%;
-        min-height: 48px;
-      }
-      .price-scroll {
-        margin-left: max(-1rem, calc(-1 * env(safe-area-inset-left, 0px)));
-        margin-right: max(-1rem, calc(-1 * env(safe-area-inset-right, 0px)));
-        padding-left: max(1rem, env(safe-area-inset-left, 0px));
-        padding-right: max(1rem, env(safe-area-inset-right, 0px));
-        scroll-snap-type: x mandatory;
-        scroll-padding-inline: max(1rem, env(safe-area-inset-left, 0px));
-        padding-bottom: 0.75rem;
-      }
-      .price-grid {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        gap: 0.85rem;
-        width: max-content;
-        max-width: none;
-        padding-right: 1rem;
-      }
-      .price-card {
-        flex: 0 0 min(calc(100vw - 2.75rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)), 300px);
-        min-width: min(calc(100vw - 2.75rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)), 300px);
-        scroll-snap-align: start;
-        scroll-snap-stop: always;
-      }
-      .price-summary-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 0.65rem;
-      }
-      .price-summary-item.elite-note {
-        grid-column: 1 / -1;
-      }
-      .billing-toggle {
-        max-width: 100%;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      .billing-btn {
-        padding: 0.55rem 0.85rem;
-        font-size: 0.8rem;
-        min-height: 44px;
-      }
-      .tt-btn {
-        min-height: 40px;
-        padding: 0.4rem 0.85rem;
-      }
-      .waitlist form .btn {
-        min-height: 48px;
-      }
-      .waitlist input {
-        min-height: 48px;
-        font-size: 16px;
-      }
-      footer {
-        padding-bottom: max(2rem, env(safe-area-inset-bottom, 0px));
-      }
-    }
   </style>
 </head>
 <body class="dark">
@@ -1469,11 +1367,11 @@
         });
         mainNav.querySelectorAll('a[href^="#"]').forEach(function (a) {
           a.addEventListener("click", function () {
-            if (window.matchMedia("(max-width: 767px)").matches) closeNav();
+            closeNav();
           });
         });
         window.addEventListener("resize", function () {
-          if (window.matchMedia("(min-width: 768px)").matches) closeNav();
+          closeNav();
         });
       }
 
