@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#0a0a0b" media="(prefers-color-scheme: dark)" />
   <meta name="theme-color" content="#f4f4f5" media="(prefers-color-scheme: light)" />
-  <meta name="description" content="UKAN — Application fitness tout-en-un, avec uniquement des coachs certifiés. Rejoignez la liste d'attente." />
+  <meta name="description" content="UKAN — Inscription bêta : testez l’app avant la sortie (APK, App Store, Google Play). Coachs certifiés uniquement." />
   <title>UKAN — Fitness tout-en-un</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -479,21 +479,44 @@
       padding: 2rem 1.25rem;
       max-width: 100%;
       margin: 0 auto;
-      text-align: center;
+      text-align: left;
     }
     .waitlist form {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 1.1rem;
       margin-top: 1.25rem;
     }
     .waitlist form .btn {
       min-height: 48px;
+      margin-top: 0.35rem;
+      align-self: stretch;
+      text-align: center;
     }
-    .waitlist input {
-      flex: 1;
-      padding: 0.85rem 1rem;
-      border-radius: 999px;
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .form-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .form-label .req {
+      color: #f87171;
+      font-weight: 500;
+    }
+    .form-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: -0.15rem;
+    }
+    .waitlist input[type="text"],
+    .waitlist input[type="email"] {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
       border: 1px solid var(--border);
       background: var(--bg);
       color: var(--text);
@@ -505,11 +528,67 @@
       outline: none;
       border-color: var(--accent);
     }
+    .waitlist input.input-error,
+    .waitlist .form-fieldset.input-error {
+      border-color: rgba(248, 113, 113, 0.7);
+    }
+    .waitlist .form-fieldset.input-error {
+      border: 1px solid rgba(248, 113, 113, 0.5);
+      border-radius: 12px;
+      padding: 0.75rem 0.85rem;
+    }
+    .form-fieldset {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      margin: 0;
+      background: var(--bg);
+    }
+    .form-fieldset .form-legend {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      padding: 0 0.35rem;
+      margin-bottom: 0.5rem;
+    }
+    .form-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+    .form-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      line-height: 1.35;
+    }
+    .form-option input {
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+      width: 1.05rem;
+      height: 1.05rem;
+      accent-color: var(--accent);
+    }
+    .form-option span {
+      color: var(--text);
+    }
     .success-msg {
       display: none;
-      margin-top: 1rem;
+      margin-top: 1.15rem;
       font-size: 0.9rem;
       color: var(--accent);
+      text-align: center;
+      line-height: 1.45;
+    }
+    .form-backend-note {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 1rem;
+      line-height: 1.4;
     }
     footer {
       padding: 2.5rem 0 max(2rem, env(safe-area-inset-bottom, 0px));
@@ -804,7 +883,7 @@
       <p class="lead">Entraînements, nutrition, défis et cours live — conçu pour vous pousser sans vous perdre.</p>
       <p class="hero-trust"><strong>Tous les coachs sur UKAN sont certifiés</strong> : c’est une exigence pour encadrer vos séances avec un niveau professionnel reconnu — aucun profil non qualifié.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="#waitlist">Rejoindre la liste</a>
+        <a class="btn btn-primary" href="#waitlist">S'inscrire à la bêta</a>
         <a class="btn btn-ghost" href="#features">Découvrir</a>
       </div>
       <p class="social-proof"><strong>+2&nbsp;000</strong> personnes déjà inscrites sur la liste d'attente</p>
@@ -1173,15 +1252,57 @@
     </section>
 
     <section id="waitlist">
-      <h2 class="reveal">Soyez les premiers informés</h2>
-      <p class="section-sub reveal">Laissez votre e-mail — pas de spam, uniquement le lancement et les nouveautés.</p>
+      <h2 class="reveal">Tester UKAN avant la sortie officielle</h2>
+      <p class="section-sub reveal">Inscription pour les futurs adhérents : nous vous préviendrons pour la <strong>bêta</strong> (APK), puis la sortie <strong>App Store</strong> et <strong>Google Play</strong>. Une seule adresse e-mail, pas de spam.</p>
       <div class="waitlist reveal">
-        <form id="waitlist-form" onsubmit="return false;">
-          <label for="email-input" class="visually-hidden">E-mail</label>
-          <input type="email" id="email-input" name="email" placeholder="vous@exemple.com" autocomplete="email" />
-          <button type="button" class="btn btn-primary" id="waitlist-btn">S'inscrire</button>
+        <!-- Pour recevoir les réponses par e-mail : créez un formulaire sur https://formspree.io ou https://getform.io et mettez l’URL en action + method="POST" -->
+        <form id="waitlist-form" action="#" method="post" novalidate>
+          <div class="form-field">
+            <label class="form-label" for="wl-prenom">Prénom <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="wl-prenom" name="prenom" autocomplete="given-name" placeholder="Camille" required />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="wl-nom">Nom <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="wl-nom" name="nom" autocomplete="family-name" placeholder="Martin" required />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="wl-email">E-mail <span class="req" aria-hidden="true">*</span></label>
+            <input type="email" id="wl-email" name="email" autocomplete="email" inputmode="email" placeholder="vous@exemple.com" required />
+          </div>
+
+          <fieldset class="form-fieldset" id="fieldset-role">
+            <legend class="form-legend">Vous êtes plutôt… <span class="req" aria-hidden="true">*</span></legend>
+            <p class="form-hint">Un seul choix — pour nous aider à cibler l’invitation (bêta sportifs / coachs).</p>
+            <div class="form-options">
+              <label class="form-option"><input type="radio" name="role" value="sportif" required /><span>Sportif / futur adhérent — je veux tester l’app</span></label>
+              <label class="form-option"><input type="radio" name="role" value="coach" /><span>Coach certifié — je veux proposer mes séances sur UKAN</span></label>
+              <label class="form-option"><input type="radio" name="role" value="les-deux" /><span>Les deux (coach et pratiquant)</span></label>
+              <label class="form-option"><input type="radio" name="role" value="autre" /><span>Autre / curieux.se — me tenir informé.e</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-fieldset" id="fieldset-specialty">
+            <legend class="form-legend">Spécialités qui vous intéressent <span class="req" aria-hidden="true">*</span></legend>
+            <p class="form-hint">Cochez tout ce qui correspond à votre pratique ou à votre offre.</p>
+            <div class="form-options">
+              <label class="form-option"><input type="checkbox" name="specialty" value="fitness-general" /><span>Fitness général</span></label>
+              <label class="form-option"><input type="checkbox" name="specialty" value="musculation" /><span>Musculation / renforcement</span></label>
+              <label class="form-option"><input type="checkbox" name="specialty" value="yoga" /><span>Yoga</span></label>
+              <label class="form-option"><input type="checkbox" name="specialty" value="pilates" /><span>Pilates</span></label>
+              <label class="form-option"><input type="checkbox" name="specialty" value="hiit-cross" /><span>HIIT / Cross-training</span></label>
+              <label class="form-option"><input type="checkbox" name="specialty" value="running" /><span>Running / course</span></label>
+              <label class="form-option"><input type="checkbox" name="specialty" value="natation" /><span>Natation</span></label>
+              <label class="form-option"><input type="checkbox" name="specialty" value="arts-martiaux" /><span>Arts martiaux / combat</span></label>
+              <label class="form-option"><input type="checkbox" name="specialty" value="danse" /><span>Danse</span></label>
+              <label class="form-option"><input type="checkbox" name="specialty" value="nutrition" /><span>Nutrition / suivi alimentaire</span></label>
+              <label class="form-option"><input type="checkbox" name="specialty" value="autre" /><span>Autre discipline</span></label>
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn btn-primary" id="waitlist-btn">Envoyer mon inscription</button>
         </form>
-        <p id="success-msg" class="success-msg" role="status">Merci ! Vous êtes sur la liste.</p>
+        <p id="success-msg" class="success-msg" role="status">Merci ! Votre inscription est validée sur cette page. Branchez le formulaire à Formspree, Getform ou votre API pour recevoir prénom, nom, e-mail, rôle et spécialités sur votre boîte mail.</p>
+        <p class="form-backend-note">Sans service branché, les réponses ne partent pas par e-mail : dans le fichier HTML, mettez l’URL de votre formulaire (Formspree, Getform…) dans l’attribut <code>action</code> du <code>form</code>, avec <code>method="post"</code>.</p>
       </div>
     </section>
 
@@ -1247,26 +1368,58 @@
         obs.observe(el);
       });
 
-      function submitWaitlist() {
-        var input = document.getElementById("email-input");
-        var v = (input && input.value) || "";
-        if (!v.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())) {
-          input.style.borderColor = "rgba(248, 113, 113, 0.6)";
-          return;
-        }
-        input.style.borderColor = "";
-        document.getElementById("success-msg").style.display = "block";
-        input.value = "";
+      function clearWaitlistErrors() {
+        document.querySelectorAll("#waitlist-form input.input-error").forEach(function (el) {
+          el.classList.remove("input-error");
+        });
+        var fr = document.getElementById("fieldset-role");
+        var fs = document.getElementById("fieldset-specialty");
+        if (fr) fr.classList.remove("input-error");
+        if (fs) fs.classList.remove("input-error");
       }
 
-      var waitlistBtn = document.getElementById("waitlist-btn");
-      if (waitlistBtn) waitlistBtn.addEventListener("click", submitWaitlist);
-      var emailInput = document.getElementById("email-input");
-      if (emailInput) {
-        emailInput.addEventListener("keydown", function (e) {
-          if (e.key === "Enter") submitWaitlist();
-        });
+      function submitWaitlist(ev) {
+        if (ev) ev.preventDefault();
+        var form = document.getElementById("waitlist-form");
+        if (!form) return;
+        clearWaitlistErrors();
+        var prenom = document.getElementById("wl-prenom");
+        var nom = document.getElementById("wl-nom");
+        var email = document.getElementById("wl-email");
+        var ok = true;
+        if (prenom && !prenom.value.trim()) {
+          prenom.classList.add("input-error");
+          ok = false;
+        }
+        if (nom && !nom.value.trim()) {
+          nom.classList.add("input-error");
+          ok = false;
+        }
+        var em = email && email.value ? email.value.trim() : "";
+        if (!em || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
+          if (email) email.classList.add("input-error");
+          ok = false;
+        }
+        var role = form.querySelector('input[name="role"]:checked');
+        var fieldRole = document.getElementById("fieldset-role");
+        if (!role && fieldRole) {
+          fieldRole.classList.add("input-error");
+          ok = false;
+        }
+        var specs = form.querySelectorAll('input[name="specialty"]:checked');
+        var fieldSpec = document.getElementById("fieldset-specialty");
+        if (specs.length === 0 && fieldSpec) {
+          fieldSpec.classList.add("input-error");
+          ok = false;
+        }
+        if (!ok) return;
+        var msg = document.getElementById("success-msg");
+        if (msg) msg.style.display = "block";
+        form.reset();
       }
+
+      var waitlistForm = document.getElementById("waitlist-form");
+      if (waitlistForm) waitlistForm.addEventListener("submit", submitWaitlist);
 
       var y = document.getElementById("year");
       if (y) y.textContent = new Date().getFullYear();
