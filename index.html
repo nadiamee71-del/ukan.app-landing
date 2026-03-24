@@ -90,15 +90,30 @@
       text-decoration: none;
       color: var(--text);
     }
+    .logo-mark {
+      display: inline-flex;
+      line-height: 0;
+      border-radius: 12px;
+      overflow: hidden;
+    }
     .logo-img {
       height: 44px;
       width: auto;
       display: block;
       border-radius: 12px;
       object-fit: contain;
+      vertical-align: middle;
     }
-    body.light .logo-img {
-      box-shadow: 0 0 0 1px var(--border);
+    body.light .logo-mark {
+      background: #0a0a0b;
+      border-radius: 14px;
+      padding: 3px;
+      box-shadow:
+        0 8px 28px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+    body.light .logo-mark .logo-img {
+      border-radius: 11px;
     }
     .logo-wordmark {
       font-family: "Instrument Serif", Georgia, serif;
@@ -113,14 +128,29 @@
       gap: 0.6rem;
       flex-wrap: wrap;
     }
+    .footer-logo-mark {
+      display: inline-flex;
+      line-height: 0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
     .footer-logo {
       height: 32px;
       width: auto;
       border-radius: 8px;
       object-fit: contain;
+      display: block;
     }
-    body.light .footer-logo {
-      box-shadow: 0 0 0 1px var(--border);
+    body.light .footer-logo-mark {
+      background: #0a0a0b;
+      border-radius: 12px;
+      padding: 2px;
+      box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+    body.light .footer-logo-mark .footer-logo {
+      border-radius: 10px;
     }
     nav {
       display: flex;
@@ -606,7 +636,9 @@
   <div class="wrap">
     <header>
       <a class="logo" href="#" aria-label="UKAN — Accueil">
-        <img class="logo-img" src="assets/logo.png" width="48" height="48" alt="" role="presentation" decoding="async" />
+        <span class="logo-mark">
+          <img class="logo-img" src="assets/logo.png" width="48" height="48" alt="" role="presentation" decoding="async" />
+        </span>
         <span class="logo-wordmark">UKAN</span>
       </a>
       <nav>
@@ -829,7 +861,9 @@
 
     <footer>
       <div class="footer-brand">
-        <img class="footer-logo" src="assets/logo.png" width="36" height="36" alt="" role="presentation" decoding="async" />
+        <span class="footer-logo-mark">
+          <img class="footer-logo" src="assets/logo.png" width="36" height="36" alt="" role="presentation" decoding="async" />
+        </span>
         <p>&copy; <span id="year"></span> UKAN. Tous droits réservés.</p>
       </div>
     </footer>
