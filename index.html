@@ -362,6 +362,52 @@
       margin: 0 auto 2.5rem;
       font-size: 0.95rem;
     }
+    .section-features .section-sub {
+      margin-bottom: 1.15rem;
+    }
+    .features-toggle-wrap {
+      text-align: center;
+      margin-bottom: 0;
+    }
+    .btn-features-expand {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 48px;
+    }
+    .features-chevron {
+      display: inline-block;
+      font-size: 0.65rem;
+      line-height: 1;
+      transition: transform 0.3s ease;
+    }
+    .btn-features-expand.is-open .features-chevron {
+      transform: rotate(180deg);
+    }
+    .features-panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.4s ease-out;
+    }
+    .features-panel.is-open {
+      grid-template-rows: 1fr;
+    }
+    .features-panel-inner {
+      overflow: hidden;
+      min-height: 0;
+    }
+    .features-panel .grid {
+      padding-top: 1.25rem;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .features-panel {
+        transition: none;
+      }
+      .features-chevron {
+        transition: none;
+      }
+    }
     .grid {
       display: grid;
       gap: 1rem;
@@ -876,40 +922,50 @@
       <p class="social-proof"><strong>+2&nbsp;000</strong> personnes déjà inscrites sur la liste d'attente</p>
     </section>
 
-    <section id="features">
+    <section id="features" class="section-features">
       <h2 class="reveal">Ce qui vous attend</h2>
       <p class="section-sub reveal">Bibliothèque d'exercices, scan alimentaire IA, défis, cours collectifs et plus encore — avec des coachs exclusivement certifiés.</p>
-      <div class="grid">
-        <article class="card reveal">
-          <div class="icon" aria-hidden="true">📚</div>
-          <h3>Bibliothèque d'exercices</h3>
-          <p>Programmes structurés et fiches claires pour progresser à votre rythme.</p>
-        </article>
-        <article class="card reveal">
-          <div class="icon" aria-hidden="true">📷</div>
-          <h3>FoodScan IA</h3>
-          <p>Estimez vos repas en un cliché pour rester aligné avec vos objectifs.</p>
-        </article>
-        <article class="card reveal">
-          <div class="icon" aria-hidden="true">🔥</div>
-          <h3>Hard Challenge</h3>
-          <p>Défis courts et intenses pour casser la routine et mesurer vos progrès.</p>
-        </article>
-        <article class="card reveal">
-          <div class="icon" aria-hidden="true">🎥</div>
-          <h3>Cours collectifs live</h3>
-          <p>Sessions en direct avec coach pour garder la motivation du groupe.</p>
-        </article>
-        <article class="card reveal">
-          <div class="icon" aria-hidden="true">🎮</div>
-          <h3>Sport & gaming</h3>
-          <p>Gamification légère : streaks, badges et objectifs qui donnent envie.</p>
-        </article>
-        <article class="card reveal">
-          <div class="icon" aria-hidden="true">🤖</div>
-          <h3>Alter ego IA</h3>
-          <p>Un coach virtuel qui s'adapte à votre humeur et à votre charge du jour.</p>
-        </article>
+      <div class="features-toggle-wrap reveal">
+        <button type="button" class="btn btn-ghost btn-features-expand" id="features-toggle" aria-expanded="false" aria-controls="features-panel">
+          <span id="features-toggle-text">Voir toutes les fonctionnalités</span>
+          <span class="features-chevron" aria-hidden="true">▼</span>
+        </button>
+      </div>
+      <div id="features-panel" class="features-panel" role="region" aria-label="Toutes les fonctionnalités UKAN" aria-hidden="true">
+        <div class="features-panel-inner">
+          <div class="grid">
+            <article class="card reveal">
+              <div class="icon" aria-hidden="true">📚</div>
+              <h3>Bibliothèque d'exercices</h3>
+              <p>Programmes structurés et fiches claires pour progresser à votre rythme.</p>
+            </article>
+            <article class="card reveal">
+              <div class="icon" aria-hidden="true">📷</div>
+              <h3>FoodScan IA</h3>
+              <p>Estimez vos repas en un cliché pour rester aligné avec vos objectifs.</p>
+            </article>
+            <article class="card reveal">
+              <div class="icon" aria-hidden="true">🔥</div>
+              <h3>Hard Challenge</h3>
+              <p>Défis courts et intenses pour casser la routine et mesurer vos progrès.</p>
+            </article>
+            <article class="card reveal">
+              <div class="icon" aria-hidden="true">🎥</div>
+              <h3>Cours collectifs live</h3>
+              <p>Sessions en direct avec coach pour garder la motivation du groupe.</p>
+            </article>
+            <article class="card reveal">
+              <div class="icon" aria-hidden="true">🎮</div>
+              <h3>Sport & gaming</h3>
+              <p>Gamification légère : streaks, badges et objectifs qui donnent envie.</p>
+            </article>
+            <article class="card reveal">
+              <div class="icon" aria-hidden="true">🤖</div>
+              <h3>Alter ego IA</h3>
+              <p>Un coach virtuel qui s'adapte à votre humeur et à votre charge du jour.</p>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1119,6 +1175,29 @@
         });
         window.addEventListener("resize", function () {
           if (window.matchMedia("(min-width: 768px)").matches) closeNav();
+        });
+      }
+
+      var featToggle = document.getElementById("features-toggle");
+      var featPanel = document.getElementById("features-panel");
+      var featToggleText = document.getElementById("features-toggle-text");
+      if (featToggle && featPanel && featToggleText) {
+        featToggle.addEventListener("click", function () {
+          var open = featPanel.classList.toggle("is-open");
+          featToggle.classList.toggle("is-open", open);
+          featToggle.setAttribute("aria-expanded", open ? "true" : "false");
+          featPanel.setAttribute("aria-hidden", open ? "false" : "true");
+          featToggleText.textContent = open
+            ? "Masquer les fonctionnalités"
+            : "Voir toutes les fonctionnalités";
+          if (open) {
+            featPanel.querySelectorAll(".reveal").forEach(function (el) {
+              el.classList.add("visible");
+            });
+            requestAnimationFrame(function () {
+              featPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            });
+          }
         });
       }
 
