@@ -312,6 +312,250 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* Tarifs coachs */
+    .section-pricing {
+      overflow: hidden;
+    }
+    .section-pricing .section-sub {
+      max-width: 52ch;
+    }
+    .badge-gold {
+      color: #d4a853;
+      border-color: rgba(212, 168, 83, 0.4);
+      background: rgba(212, 168, 83, 0.1);
+    }
+    body.light .badge-gold {
+      color: #a16207;
+      border-color: rgba(161, 98, 7, 0.35);
+      background: rgba(234, 179, 8, 0.12);
+    }
+    .pricing-head {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+    .pricing-head h2 span {
+      color: #eab308;
+    }
+    body.light .pricing-head h2 span {
+      color: #ca8a04;
+    }
+    .billing-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      padding: 3px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      margin-top: 1.25rem;
+    }
+    .billing-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      padding: 0.5rem 1.1rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .billing-btn:hover {
+      color: var(--text);
+    }
+    .billing-btn.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .billing-btn .billing-save {
+      font-size: 0.7rem;
+      opacity: 0.85;
+      font-weight: 500;
+    }
+    .price-scroll {
+      margin: 0 -1.25rem;
+      padding: 0 1.25rem 0.25rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .price-grid {
+      display: grid;
+      gap: 1rem;
+      min-width: 0;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    @media (min-width: 1200px) {
+      .price-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+    .price-card {
+      --card-accent: #71717a;
+      position: relative;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.35rem 1.15rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .price-card:hover {
+      border-color: color-mix(in srgb, var(--card-accent) 45%, var(--border));
+    }
+    .price-card--starter { --card-accent: #3b82f6; }
+    .price-card--pro {
+      --card-accent: #eab308;
+      border-color: rgba(234, 179, 8, 0.45);
+      box-shadow: 0 0 0 1px rgba(234, 179, 8, 0.2), 0 12px 40px rgba(234, 179, 8, 0.12);
+    }
+    .price-card--growth { --card-accent: #a855f7; }
+    .price-card--scale { --card-accent: #22c55e; }
+    .price-card--elite { --card-accent: #ef4444; }
+    .price-card--pro::before {
+      content: "Recommandé";
+      position: absolute;
+      top: 0.65rem;
+      right: 0.65rem;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #171717;
+      background: linear-gradient(135deg, #fde047, #eab308);
+      padding: 0.2rem 0.45rem;
+      border-radius: 4px;
+    }
+    .price-tier {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--card-accent);
+      margin-bottom: 0.35rem;
+    }
+    .price-amount-wrap {
+      margin-bottom: 0.35rem;
+    }
+    .price-amount {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--text);
+    }
+    .price-period {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .price-per-student {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .price-per-student strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .price-features {
+      list-style: none;
+      flex: 1;
+      margin-bottom: 1.1rem;
+    }
+    .price-features li {
+      position: relative;
+      padding-left: 1rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 0.45rem;
+      line-height: 1.45;
+    }
+    .price-features li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.45em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--card-accent);
+    }
+    .price-card .btn {
+      width: 100%;
+      margin-top: auto;
+      font-size: 0.85rem;
+      padding: 0.7rem 1rem;
+    }
+    .price-card .btn-plan-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid color-mix(in srgb, var(--card-accent) 50%, var(--border));
+    }
+    .price-card .btn-plan-outline:hover {
+      border-color: var(--card-accent);
+      background: color-mix(in srgb, var(--card-accent) 12%, transparent);
+    }
+    .price-card--pro .btn-plan-solid {
+      background: linear-gradient(135deg, #fde047, #eab308);
+      color: #171717;
+      border: none;
+    }
+    .price-card--pro .btn-plan-solid:hover {
+      box-shadow: 0 8px 24px rgba(234, 179, 8, 0.35);
+    }
+    .price-summary {
+      margin-top: 2rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.25rem 1.25rem 1rem;
+    }
+    .price-summary h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .price-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.75rem;
+      text-align: center;
+      font-size: 0.78rem;
+    }
+    .price-summary-item strong {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+    .price-summary-item .sum-line {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .price-summary-item .sum-arrow {
+      color: var(--text-muted);
+      margin: 0 0.15rem;
+    }
+    .price-summary-item.elite-note .sum-line {
+      font-size: 0.8rem;
+    }
+    .pricing-legal {
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 1.25rem;
+      max-width: 56ch;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
   </style>
 </head>
 <body class="dark">
@@ -322,6 +566,7 @@
       <a class="logo" href="#">UKAN</a>
       <nav>
         <a href="#features">Fonctionnalités</a>
+        <a href="#pricing">Tarifs coachs</a>
         <a href="#waitlist">Liste d'attente</a>
         <div class="theme-toggle" role="group" aria-label="Thème">
           <button type="button" class="tt-btn active" data-theme="dark" aria-pressed="true">Sombre</button>
@@ -395,6 +640,132 @@
           <div class="stat-label">Pensé en France</div>
         </div>
       </div>
+    </section>
+
+    <section id="pricing" class="section-pricing">
+      <div class="pricing-head reveal">
+        <span class="badge badge-gold">Tarifs coachs UKAN</span>
+        <h2>Choisissez votre formule. <span>Développez votre activité.</span></h2>
+        <p class="section-sub" style="margin-bottom: 0;">Plus votre structure grandit, plus le coût par élève diminue — des tarifs pensés pour les coachs.</p>
+        <div class="billing-toggle" role="group" aria-label="Facturation">
+          <button type="button" class="billing-btn" id="bill-monthly" data-billing="monthly">Mensuel</button>
+          <button type="button" class="billing-btn active" id="bill-annual" data-billing="annual">Annuel <span class="billing-save">−20&nbsp;%</span></button>
+        </div>
+      </div>
+
+      <div class="price-scroll reveal">
+        <div class="price-grid">
+          <article class="price-card price-card--starter" data-monthly="15" data-students="5" data-per-student="3">
+            <div class="price-tier">Starter</div>
+            <div class="price-amount-wrap">
+              <span class="price-amount" data-price>12</span><span class="price-period">€/mois</span>
+            </div>
+            <p class="price-per-student">≈ <strong class="per-student-val">2,40</strong>€ / élève / mois</p>
+            <ul class="price-features">
+              <li>Jusqu'à 5 élèves</li>
+              <li>Suivi des séances</li>
+              <li>Messagerie in-app</li>
+              <li>Tableau de bord coach</li>
+              <li>Rapport mensuel</li>
+            </ul>
+            <a class="btn btn-plan-outline" href="#waitlist">Choisir ce plan</a>
+          </article>
+
+          <article class="price-card price-card--pro" data-monthly="39" data-students="20" data-per-student="1.95">
+            <div class="price-tier">Pro</div>
+            <div class="price-amount-wrap">
+              <span class="price-amount" data-price>31</span><span class="price-period">€/mois</span>
+            </div>
+            <p class="price-per-student">≈ <strong class="per-student-val">1,56</strong>€ / élève / mois</p>
+            <ul class="price-features">
+              <li>Jusqu'à 20 élèves</li>
+              <li>Tout Starter</li>
+              <li>Plans d'entraînement</li>
+              <li>Statistiques avancées</li>
+              <li>Hard Challenges</li>
+              <li>Support prioritaire</li>
+            </ul>
+            <a class="btn btn-plan-solid" href="#waitlist">Choisir ce plan</a>
+          </article>
+
+          <article class="price-card price-card--growth" data-monthly="71" data-students="50" data-per-student="1.42">
+            <div class="price-tier">Growth</div>
+            <div class="price-amount-wrap">
+              <span class="price-amount" data-price>57</span><span class="price-period">€/mois</span>
+            </div>
+            <p class="price-per-student">≈ <strong class="per-student-val">1,14</strong>€ / élève / mois</p>
+            <ul class="price-features">
+              <li>Jusqu'à 50 élèves</li>
+              <li>Tout Pro</li>
+              <li>Cours collectifs live</li>
+              <li>FoodScan IA</li>
+              <li>Annotation vidéo</li>
+              <li>Onboarding dédié</li>
+            </ul>
+            <a class="btn btn-plan-outline" href="#waitlist">Choisir ce plan</a>
+          </article>
+
+          <article class="price-card price-card--scale" data-monthly="119" data-students="100" data-per-student="1.19">
+            <div class="price-tier">Scale</div>
+            <div class="price-amount-wrap">
+              <span class="price-amount" data-price>95</span><span class="price-period">€/mois</span>
+            </div>
+            <p class="price-per-student">≈ <strong class="per-student-val">0,95</strong>€ / élève / mois</p>
+            <ul class="price-features">
+              <li>Jusqu'à 100 élèves</li>
+              <li>Tout Growth</li>
+              <li>Alter ego IA</li>
+              <li>Rapports personnalisés</li>
+              <li>Accès API</li>
+              <li>Account manager</li>
+            </ul>
+            <a class="btn btn-plan-outline" href="#waitlist">Choisir ce plan</a>
+          </article>
+
+          <article class="price-card price-card--elite" data-monthly="199" data-students="0" data-per-student="0">
+            <div class="price-tier">Elite</div>
+            <div class="price-amount-wrap">
+              <span class="price-amount" data-price>159</span><span class="price-period">€/mois</span>
+            </div>
+            <p class="price-per-student">Élèves <strong>illimités</strong> — valeur sur mesure</p>
+            <ul class="price-features">
+              <li>Tout Scale</li>
+              <li>Marque blanche</li>
+              <li>Intégrations sur mesure</li>
+              <li>SLA garanti</li>
+              <li>Coach success manager dédié</li>
+            </ul>
+            <a class="btn btn-plan-outline" href="mailto:contact@ukan.app">Nous contacter</a>
+          </article>
+        </div>
+      </div>
+
+      <div class="price-summary reveal">
+        <h3>Coût par élève selon le plan</h3>
+        <div class="price-summary-grid">
+          <div class="price-summary-item">
+            <strong>Starter</strong>
+            <span class="sum-line"><span class="sum-price" data-sum="starter">15</span>€<span class="sum-arrow">→</span><span class="sum-per" data-sum-ps="starter">3,00</span>€/élève</span>
+          </div>
+          <div class="price-summary-item">
+            <strong>Pro</strong>
+            <span class="sum-line"><span class="sum-price" data-sum="pro">39</span>€<span class="sum-arrow">→</span><span class="sum-per" data-sum-ps="pro">1,95</span>€/élève</span>
+          </div>
+          <div class="price-summary-item">
+            <strong>Growth</strong>
+            <span class="sum-line"><span class="sum-price" data-sum="growth">71</span>€<span class="sum-arrow">→</span><span class="sum-per" data-sum-ps="growth">1,42</span>€/élève</span>
+          </div>
+          <div class="price-summary-item">
+            <strong>Scale</strong>
+            <span class="sum-line"><span class="sum-price" data-sum="scale">119</span>€<span class="sum-arrow">→</span><span class="sum-per" data-sum-ps="scale">1,19</span>€/élève</span>
+          </div>
+          <div class="price-summary-item elite-note">
+            <strong>Elite</strong>
+            <span class="sum-line"><span class="elite-price">159</span>€ — illimité &amp; sur mesure</span>
+          </div>
+        </div>
+      </div>
+      <p class="pricing-legal reveal">Prix HT — UKAN SAS — Facturation mensuelle ou annuelle — Résiliation à tout moment</p>
     </section>
 
     <section id="waitlist">
@@ -489,6 +860,61 @@
 
       var y = document.getElementById("year");
       if (y) y.textContent = new Date().getFullYear();
+
+      function formatFR2(n) {
+        return n.toFixed(2).replace(".", ",");
+      }
+
+      function updatePricing(billing) {
+        var annual = billing === "annual";
+        var factor = annual ? 0.8 : 1;
+
+        document.querySelectorAll(".billing-btn").forEach(function (b) {
+          var on = b.getAttribute("data-billing") === billing;
+          b.classList.toggle("active", on);
+          b.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+
+        document.querySelectorAll(".price-card").forEach(function (card) {
+          var monthly = parseFloat(card.getAttribute("data-monthly"), 10);
+          var students = parseInt(card.getAttribute("data-students"), 10);
+          var display = monthly * factor;
+          var rounded = Math.round(display);
+          var priceEl = card.querySelector("[data-price]");
+          if (priceEl) priceEl.textContent = String(rounded);
+
+          var perStudentEl = card.querySelector(".per-student-val");
+          if (perStudentEl && students > 0) {
+            perStudentEl.textContent = formatFR2((monthly * factor) / students);
+          }
+        });
+
+        var map = [
+          { key: "starter", m: 15, s: 5 },
+          { key: "pro", m: 39, s: 20 },
+          { key: "growth", m: 71, s: 50 },
+          { key: "scale", m: 119, s: 100 }
+        ];
+        map.forEach(function (row) {
+          var p = Math.round(row.m * factor);
+          var ps = (row.m * factor) / row.s;
+          var sp = document.querySelector('[data-sum="' + row.key + '"]');
+          var spp = document.querySelector('[data-sum-ps="' + row.key + '"]');
+          if (sp) sp.textContent = String(p);
+          if (spp) spp.textContent = formatFR2(ps);
+        });
+
+        var eliteSum = document.querySelector(".elite-price");
+        if (eliteSum) eliteSum.textContent = String(Math.round(199 * factor));
+      }
+
+      document.querySelectorAll(".billing-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          updatePricing(btn.getAttribute("data-billing"));
+        });
+      });
+
+      updatePricing("annual");
     })();
   </script>
 </body>
