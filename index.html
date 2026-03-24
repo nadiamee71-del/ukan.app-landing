@@ -84,12 +84,43 @@
       border-bottom: 1px solid var(--border);
     }
     .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .logo-img {
+      height: 44px;
+      width: auto;
+      display: block;
+      border-radius: 12px;
+      object-fit: contain;
+    }
+    body.light .logo-img {
+      box-shadow: 0 0 0 1px var(--border);
+    }
+    .logo-wordmark {
       font-family: "Instrument Serif", Georgia, serif;
       font-size: 1.5rem;
       font-weight: 400;
       letter-spacing: 0.02em;
-      color: var(--text);
-      text-decoration: none;
+    }
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .footer-logo {
+      height: 32px;
+      width: auto;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+    body.light .footer-logo {
+      box-shadow: 0 0 0 1px var(--border);
     }
     nav {
       display: flex;
@@ -563,7 +594,10 @@
 
   <div class="wrap">
     <header>
-      <a class="logo" href="#">UKAN</a>
+      <a class="logo" href="#" aria-label="UKAN — Accueil">
+        <img class="logo-img" src="assets/logo.png" width="48" height="48" alt="" role="presentation" decoding="async" />
+        <span class="logo-wordmark">UKAN</span>
+      </a>
       <nav>
         <a href="#features">Fonctionnalités</a>
         <a href="#pricing">Tarifs coachs</a>
@@ -782,7 +816,10 @@
     </section>
 
     <footer>
-      <p>&copy; <span id="year"></span> UKAN. Tous droits réservés.</p>
+      <div class="footer-brand">
+        <img class="footer-logo" src="assets/logo.png" width="36" height="36" alt="" role="presentation" decoding="async" />
+        <p>&copy; <span id="year"></span> UKAN. Tous droits réservés.</p>
+      </div>
     </footer>
   </div>
 
