@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import logoDark from "./assets/logo.png";
 import logoLight from "./assets/logo2.png";
 import "./styles.css";
@@ -74,7 +74,7 @@ const SHOWCASE_COACH = [
 ];
 
 const SHOWCASE_INTERVAL_MS = 4200;
-const PRICING_CAROUSEL_INTERVAL_MS = 4500;
+const PRICING_STUDENT_MAX = 120;
 
 const ROLE_COPY = {
   sportif: {
@@ -183,12 +183,30 @@ function pricingDisplayEuros(monthly, billing) {
   return `${v}€`;
 }
 
-function pricingPerStudent(plan, billing) {
-  if (!plan.studentCount) return null;
+function pricingPerStudent(plan, billing, studentsFollowed) {
+  if (!plan.studentCount || !studentsFollowed) return null;
   const m = billing === "annual" ? plan.monthly * 0.8 : plan.monthly;
-  const per = m / plan.studentCount;
+  const per = m / studentsFollowed;
   return per.toFixed(2).replace(".", ",");
 }
+
+/** Palier actif selon le nombre d’élèves suivis (bornes alignées sur PRICING_PLANS) */
+function getPlanForStudentCount(n) {
+  if (n <= 5) return PRICING_PLANS[0];
+  if (n <= 20) return PRICING_PLANS[1];
+  if (n <= 50) return PRICING_PLANS[2];
+  if (n <= 100) return PRICING_PLANS[3];
+  return PRICING_PLANS[4];
+}
+
+/** Largeurs relatives des segments sur la barre (1–120 élèves) */
+const PRICING_BAR_SEGMENTS = [
+  { id: "starter", flex: 5 },
+  { id: "pro", flex: 15 },
+  { id: "growth", flex: 30 },
+  { id: "scale", flex: 50 },
+  { id: "elite", flex: 20 },
+];
 
 export default function App() {
   const [theme, setTheme] = useState("dark");
@@ -204,10 +222,7 @@ export default function App() {
   const [showcasePaused, setShowcasePaused] = useState(false);
 
   const [billingCycle, setBillingCycle] = useState("monthly");
-  const [pricingCarouselIndex, setPricingCarouselIndex] = useState(0);
-  const [pricingCarousel, setPricingCarousel] = useState({ step: 0, maxIdx: 0 });
-  const [pricingCarouselPaused, setPricingCarouselPaused] = useState(false);
-  const pricingViewportRef = useRef(null);
+  const [studentCount, setStudentCount] = useState(12);
 
   const showcaseSlides =
     showcasePersona === "sportif" ? SHOWCASE_SPORTIF : SHOWCASE_COACH;
@@ -243,46 +258,16 @@ export default function App() {
     setGoal("Tout");
   }, [role]);
 
-  useLayoutEffect(() => {
-    const el = pricingViewportRef.current;
-    if (!el) return undefined;
-    const gap = 16;
-    const measure = () => {
-      const slide = el.querySelector(".lp-pricing-slide");
-      if (!slide) return;
-      const slideW = slide.offsetWidth;
-      const vpW = el.clientWidth;
-      if (slideW <= 0 || vpW <= 0) return;
-      const perView = Math.max(1, Math.floor((vpW + gap) / (slideW + gap)));
-      const maxIdx = Math.max(0, PRICING_PLANS.length - perView);
-      setPricingCarousel({ step: slideW + gap, maxIdx });
-    };
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
+  const activePricingPlan = useMemo(
+    () => getPlanForStudentCount(studentCount),
+    [studentCount]
+  );
 
-  useEffect(() => {
-    setPricingCarouselIndex((i) => Math.min(i, pricingCarousel.maxIdx));
-  }, [pricingCarousel.maxIdx]);
-
-  useEffect(() => {
-    if (pricingCarouselPaused) return undefined;
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      return undefined;
-    }
-    const { maxIdx } = pricingCarousel;
-    const pages = maxIdx + 1;
-    if (pages <= 1) return undefined;
-    const id = window.setInterval(() => {
-      setPricingCarouselIndex((i) => (i + 1) % pages);
-    }, PRICING_CAROUSEL_INTERVAL_MS);
-    return () => window.clearInterval(id);
-  }, [pricingCarousel.maxIdx, pricingCarouselPaused]);
+  const pricingPerDisplay = pricingPerStudent(
+    activePricingPlan,
+    billingCycle,
+    studentCount
+  );
 
   const goals = role === "sportif" ? SPORTIF_GOALS : COACH_GOALS;
   const currentCopy = ROLE_COPY[role];
@@ -296,14 +281,6 @@ export default function App() {
   }, [role, goal]);
 
   const logoSrc = theme === "dark" ? logoDark : logoLight;
-
-  const pricingGo = (dir) => {
-    setPricingCarouselIndex((i) => {
-      const { maxIdx } = pricingCarousel;
-      if (dir === "next") return Math.min(i + 1, maxIdx);
-      return Math.max(i - 1, 0);
-    });
-  };
 
   const toggleSpecialty = (label) => {
     setSpecialties((prev) => ({ ...prev, [label]: !prev[label] }));
@@ -556,14 +533,10 @@ export default function App() {
         <section className="lp-section lp-section--pricing" id="tarifs">
           <div className="lp-wrap">
             <div className="lp-pricing-header">
-              <h2 className="lp-h2 lp-h2--pricing-split">
-                <span className="lp-h2__line">Choisissez votre formule.</span>
-                <span className="lp-h2__line lp-h2__line--gold">Développez votre activité.</span>
+              <h2 className="lp-h2 lp-h2--pricing-main">
+                Un abonnement qui évolue avec votre succès.
               </h2>
-              <p className="lp-sub lp-sub--pricing">
-                Plus votre structure grandit, plus le coût par élève diminue — des tarifs pensés pour
-                les coachs.
-              </p>
+              <p className="lp-pricing-tagline">Pas de forfait figé. Juste ce qu’il vous faut.</p>
               <div
                 className="lp-pricing-billing"
                 role="group"
@@ -592,96 +565,82 @@ export default function App() {
               </p>
             </div>
 
-            <div
-              className="lp-pricing-carousel"
-              role="region"
-              aria-roledescription="carrousel"
-              aria-label="Formules et tarifs coach UKAN"
-              onMouseEnter={() => setPricingCarouselPaused(true)}
-              onMouseLeave={() => setPricingCarouselPaused(false)}
-            >
-              <div className="lp-pricing-carousel__chrome">
-                <button
-                  type="button"
-                  className="lp-pricing-carousel__arrow"
-                  aria-label="Formules précédentes"
-                  onClick={() => pricingGo("prev")}
-                  disabled={pricingCarouselIndex <= 0}
-                >
-                  ‹
-                </button>
-                <div
-                  className="lp-pricing-carousel__viewport"
-                  ref={pricingViewportRef}
-                >
-                  <div
-                    className="lp-pricing-carousel__track"
-                    style={{
-                      transform: `translate3d(-${pricingCarouselIndex * pricingCarousel.step}px, 0, 0)`,
-                    }}
-                  >
-                    {PRICING_PLANS.map((plan) => {
-                      const per = pricingPerStudent(plan, billingCycle);
-                      const priceStr = pricingDisplayEuros(plan.monthly, billingCycle);
-                      const ctaLabel = plan.contactOnly ? "Nous contacter" : "Choisir ce plan";
-                      const ctaClass =
-                        plan.featured && !plan.contactOnly
-                          ? "lp-pricing-card__cta lp-pricing-card__cta--primary"
-                          : "lp-pricing-card__cta lp-pricing-card__cta--outline";
-                      return (
-                        <article
-                          key={plan.id}
-                          className={`lp-pricing-slide lp-pricing-card lp-pricing-card--${plan.accent} ${plan.featured ? "lp-pricing-card--featured" : ""}`}
-                        >
-                          {plan.recommended && (
-                            <span className="lp-pricing-card__badge">Recommandé</span>
-                          )}
-                          <h3 className="lp-pricing-card__name">{plan.name}</h3>
-                          <p className="lp-pricing-card__price">
-                            {priceStr}
-                            <span className="lp-pricing-card__period">/mois</span>
-                          </p>
-                          {per && (
-                            <p className="lp-pricing-card__per">≈ {per}€ / élève / mois</p>
-                          )}
-                          {plan.eliteSubline && (
-                            <p className="lp-pricing-card__elite">{plan.eliteSubline}</p>
-                          )}
-                          <ul className="lp-pricing-card__features">
-                            {plan.features.map((f) => (
-                              <li key={f}>{f}</li>
-                            ))}
-                          </ul>
-                          <a href="#inscription" className={ctaClass}>
-                            {ctaLabel}
-                          </a>
-                        </article>
-                      );
-                    })}
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  className="lp-pricing-carousel__arrow"
-                  aria-label="Formules suivantes"
-                  onClick={() => pricingGo("next")}
-                  disabled={pricingCarouselIndex >= pricingCarousel.maxIdx}
-                >
-                  ›
-                </button>
+            <div className="lp-pricing-bar" aria-labelledby="pricing-bar-label">
+              <p className="lp-pricing-bar__label" id="pricing-bar-label">
+                Nombre d’élèves suivis
+              </p>
+              <div className="lp-pricing-bar__value-row">
+                <output className="lp-pricing-bar__value" htmlFor="pricing-students-range">
+                  {studentCount}
+                  {studentCount >= PRICING_STUDENT_MAX ? "+" : ""}
+                </output>
+                <span className="lp-pricing-bar__hint">élève{studentCount > 1 ? "s" : ""}</span>
               </div>
-              <div className="lp-pricing-carousel__dots" role="group" aria-label="Pages du carrousel">
-                {Array.from({ length: pricingCarousel.maxIdx + 1 }, (_, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    aria-current={i === pricingCarouselIndex ? "true" : undefined}
-                    className={`lp-pricing-carousel__dot ${i === pricingCarouselIndex ? "lp-pricing-carousel__dot--active" : ""}`}
-                    onClick={() => setPricingCarouselIndex(i)}
-                    aria-label={`Afficher le groupe ${i + 1}`}
-                  />
+
+              <input
+                id="pricing-students-range"
+                className="lp-pricing-range"
+                type="range"
+                min={1}
+                max={PRICING_STUDENT_MAX}
+                value={studentCount}
+                onChange={(e) => setStudentCount(Number(e.target.value))}
+                aria-valuemin={1}
+                aria-valuemax={PRICING_STUDENT_MAX}
+                aria-valuenow={studentCount}
+                aria-valuetext={`${studentCount} élèves — formule ${activePricingPlan.name}`}
+              />
+
+              <div className="lp-pricing-bar__segments" aria-hidden="true">
+                {PRICING_BAR_SEGMENTS.map((seg) => (
+                  <div
+                    key={seg.id}
+                    className={`lp-pricing-bar__segment ${activePricingPlan.id === seg.id ? "is-active" : ""}`}
+                    style={{ flex: seg.flex }}
+                  >
+                    <span className="lp-pricing-bar__segment-name">
+                      {PRICING_PLANS.find((p) => p.id === seg.id)?.name ?? seg.id}
+                    </span>
+                  </div>
                 ))}
               </div>
+
+              <article
+                className={`lp-pricing-dynamic lp-pricing-card lp-pricing-card--${activePricingPlan.accent} ${activePricingPlan.featured ? "lp-pricing-card--featured" : ""}`}
+              >
+                {activePricingPlan.recommended && (
+                  <span className="lp-pricing-card__badge">Recommandé</span>
+                )}
+                <h3 className="lp-pricing-card__name">{activePricingPlan.name}</h3>
+                <p className="lp-pricing-card__price">
+                  {pricingDisplayEuros(activePricingPlan.monthly, billingCycle)}
+                  <span className="lp-pricing-card__period">/mois</span>
+                </p>
+                {pricingPerDisplay && (
+                  <p className="lp-pricing-card__per">
+                    ≈ {pricingPerDisplay}€ / élève / mois (à {studentCount} élève
+                    {studentCount > 1 ? "s" : ""})
+                  </p>
+                )}
+                {activePricingPlan.eliteSubline && (
+                  <p className="lp-pricing-card__elite">{activePricingPlan.eliteSubline}</p>
+                )}
+                <ul className="lp-pricing-card__features">
+                  {activePricingPlan.features.map((f) => (
+                    <li key={f}>{f}</li>
+                  ))}
+                </ul>
+                <a
+                  href="#inscription"
+                  className={
+                    activePricingPlan.featured && !activePricingPlan.contactOnly
+                      ? "lp-pricing-card__cta lp-pricing-card__cta--primary"
+                      : "lp-pricing-card__cta lp-pricing-card__cta--outline"
+                  }
+                >
+                  {activePricingPlan.contactOnly ? "Nous contacter" : "Choisir ce plan"}
+                </a>
+              </article>
             </div>
           </div>
         </section>
