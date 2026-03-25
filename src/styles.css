@@ -25,7 +25,7 @@
   --font-head: "Sora", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
   --radius: 20px;
-  --pad: clamp(1.25rem, 5vw, 1.875rem);
+  --pad: clamp(1.5rem, 6.25vw, 2.125rem);
   --max: 1080px;
   --max-narrow: 520px;
   /* Ancres : dégagement sous le header sticky au clic */
@@ -113,7 +113,8 @@ select {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1rem 1.25rem;
+  row-gap: 0.75rem;
   min-height: 72px;
 }
 
@@ -155,22 +156,19 @@ select {
 
 .lp-nav {
   display: flex;
-  flex-wrap: nowrap;
-  gap: 1rem;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding: 0.25rem 0;
-}
-
-.lp-nav::-webkit-scrollbar {
-  display: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.45rem 0.85rem;
+  overflow: visible;
+  padding: 0.3rem 0;
 }
 
 .lp-nav a {
   position: relative;
-  flex-shrink: 0;
+  flex: 0 1 auto;
   padding: 0.2rem 0 0.35rem;
+  white-space: nowrap;
   font-size: 0.625rem;
   font-weight: 600;
   letter-spacing: 0.07em;
