@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import logoDark from "./assets/logo.png";
 import logoLight from "./assets/logo2.png";
 import "./styles.css";
@@ -26,95 +26,107 @@ const FEATURES = [
     role: "sportif",
     goals: ["Tout", "Progresser"],
     title: "Séances guidées",
-    text: "Retrouve des entraînements structurés pour avancer sans te disperser.",
+    text: "Entraînements structurés pour avancer sans te disperser.",
   },
   {
     role: "sportif",
     goals: ["Tout", "Trouver un coach"],
     title: "Trouver un coach",
-    text: "Découvre des coachs certifiés et choisis l’accompagnement qui te correspond.",
+    text: "Coachs certifiés, accompagnement à ta mesure.",
   },
   {
     role: "sportif",
     goals: ["Tout", "Rester motivé"],
     title: "Défis & progression",
-    text: "Garde le rythme grâce aux objectifs, aux défis et au suivi de ton évolution.",
+    text: "Objectifs, défis et suivi de ton évolution.",
   },
   {
     role: "sportif",
     goals: ["Tout", "Mieux manger"],
-    title: "Nutrition simplifiée",
-    text: "Accède à des outils pour mieux gérer tes apports, tes habitudes et ta régularité.",
+    title: "Nutrition",
+    text: "Apports et habitudes, plus simplement.",
   },
   {
     role: "sportif",
     goals: ["Tout", "Partager"],
-    title: "Communauté active",
-    text: "Publie, échange, découvre d’autres profils et avance dans un vrai univers sportif.",
+    title: "Communauté",
+    text: "Échange et motivation collective.",
   },
   {
     role: "sportif",
     goals: ["Tout", "Rester motivé"],
-    title: "Transformation visible",
-    text: "Suis ton avant / après, garde une trace de tes efforts et reste engagé sur la durée.",
+    title: "Transformation",
+    text: "Avant / après et engagement sur la durée.",
   },
   {
     role: "coach",
     goals: ["Tout", "Trouver des clients"],
-    title: "Visibilité coach",
-    text: "Développe ta présence et fais découvrir ton profil à de nouveaux sportifs.",
+    title: "Visibilité",
+    text: "Fais découvrir ton profil à de nouveaux sportifs.",
   },
   {
     role: "coach",
     goals: ["Tout", "Gérer mes élèves"],
-    title: "Gestion des élèves",
-    text: "Centralise l’accompagnement, la communication et le suivi dans un seul espace.",
+    title: "Élèves",
+    text: "Accompagnement et suivi au même endroit.",
   },
   {
     role: "coach",
     goals: ["Tout", "Monétiser"],
     title: "Monétisation",
-    text: "Construis une offre plus claire avec lives, contenus et accès premium.",
+    text: "Lives, contenus, offres plus claires.",
   },
   {
     role: "coach",
     goals: ["Tout", "Animer"],
-    title: "Lives & communauté",
-    text: "Anime ton audience, lance des formats en direct et crée une vraie dynamique.",
+    title: "Lives",
+    text: "Anime ta communauté en direct.",
   },
   {
     role: "coach",
     goals: ["Tout", "Suivre la progression"],
-    title: "Suivi intelligent",
-    text: "Observe les progrès de tes élèves et rends ton accompagnement plus clair et plus pro.",
+    title: "Suivi",
+    text: "Progrès des élèves, vision plus pro.",
   },
   {
     role: "coach",
     goals: ["Tout", "Gérer mes élèves"],
-    title: "Outils coach réunis",
-    text: "Moins d’outils dispersés, plus d’efficacité dans ton activité au quotidien.",
+    title: "Outils",
+    text: "Moins d’outils dispersés au quotidien.",
   },
 ];
 
 const ROLE_COPY = {
   sportif: {
-    kicker: "Sportifs",
-    title: "Avancer sans se disperser.",
-    text: "Une trajectoire claire : entraînement, nutrition, communauté et coachs — au même endroit.",
-    points: ["Trouver un coach", "Tenir dans la durée", "Rester motivé"],
+    kicker: "Pour toi",
+    title: "Sportif",
+    text: "Entraînement, nutrition, communauté et coachs — sans sauter d’une app à l’autre.",
+    points: ["Coach", "Progression", "Motivation"],
   },
   coach: {
-    kicker: "Coachs",
-    title: "Grandir avec méthode.",
-    text: "Visibilité, élèves, monétisation : une présence professionnelle qui vous ressemble.",
-    points: ["Être visible", "Structurer l’offre", "Fidéliser"],
+    kicker: "Pour toi",
+    title: "Coach",
+    text: "Visibilité, élèves et monétisation dans un flux unique.",
+    points: ["Clients", "Suivi", "Croissance"],
   },
 };
+
+const SCREENS = [
+  { id: "accueil", label: "Accueil" },
+  { id: "pourquoi", label: "Pourquoi" },
+  { id: "parcours", label: "Parcours" },
+  { id: "diff", label: "UKAN" },
+  { id: "beta", label: "Bêta" },
+];
 
 export default function App() {
   const [theme, setTheme] = useState("dark");
   const [role, setRole] = useState("sportif");
   const [goal, setGoal] = useState("Tout");
+  const [activeScreen, setActiveScreen] = useState(0);
+
+  const scrollRef = useRef(null);
+  const screenRefs = useRef([]);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -132,229 +144,271 @@ export default function App() {
       const sameRole = item.role === role;
       const matchesGoal = goal === "Tout" || item.goals.includes(goal);
       return sameRole && matchesGoal;
-    }).slice(0, 3);
+    }).slice(0, 4);
   }, [role, goal]);
 
   const logoSrc = theme === "dark" ? logoDark : logoLight;
 
+  useLayoutEffect(() => {
+    const root = scrollRef.current;
+    if (!root) return;
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const idx = parseInt(entry.target.getAttribute("data-screen-index") || "", 10);
+          if (!Number.isNaN(idx)) setActiveScreen(idx);
+        });
+      },
+      { root, threshold: 0.5, rootMargin: "-12% 0px -12% 0px" }
+    );
+
+    screenRefs.current.forEach((el) => el && obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+
+  const goToScreen = useCallback((index) => {
+    const el = screenRefs.current[index];
+    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
+
   return (
-    <div className="landing-shell">
-      <header className="site-header">
-        <div className="frame header-inner">
-          <a href="#top" className="brand">
-            <img src={logoSrc} alt="UKAN" className="brand-logo" />
-            <span className="brand-word">UKAN</span>
-          </a>
-
-          <nav className="main-nav" aria-label="Navigation">
-            <a href="#experience">Vision</a>
-            <a href="#features">Vous</a>
-            <a href="#beta">Bêta</a>
-          </nav>
-
-          <div className="header-meta">
+    <div className="app-landing">
+      <div className="app-device">
+        <header className="app-topbar">
+          <div className="app-topbar__row">
+            <div className="app-brand">
+              <img src={logoSrc} alt="UKAN" className="app-brand__logo" width={36} height={36} />
+              <span className="app-brand__name">UKAN</span>
+            </div>
             <button
               type="button"
-              className="theme-text"
-              onClick={() => setTheme((prev) => (prev === "dark" ? "light" : "dark"))}
-              aria-label={`Passer en thème ${theme === "dark" ? "clair" : "sombre"}`}
+              className="app-icon-btn"
+              onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
+              aria-label={theme === "dark" ? "Thème clair" : "Thème sombre"}
             >
-              {theme === "dark" ? "Clair" : "Sombre"}
+              {theme === "dark" ? "☀" : "☾"}
             </button>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <main id="top">
-        <section className="hero">
-          <div className="frame hero-layout">
-            <div className="hero-copy">
-              <p className="kicker">Lancement — bêta privée</p>
-              <h1 className="hero-title">
-                Le mouvement
+        <div className="app-scroll" ref={scrollRef} id="app-scroll">
+          <section
+            className="app-screen app-screen--welcome"
+            id="accueil"
+            data-screen-index={0}
+            ref={(el) => {
+              screenRefs.current[0] = el;
+            }}
+          >
+            <div className="app-screen__inner">
+              <p className="app-pill">Bêta privée</p>
+              <h1 className="app-hero-title">
+                Tout ton sport,
                 <br />
-                <span className="hero-title-accent">recommence ici.</span>
+                <span className="app-hero-accent">une seule app.</span>
               </h1>
-              <p className="hero-dek">
-                UKAN rassemble sport, nutrition et coaching dans une expérience unique.
-                Rejoignez les premiers avant l’ouverture publique.
+              <p className="app-hero-sub">
+                Entraînement, nutrition, communauté et coaching — comme dans une app native,
+                avant tout le monde.
               </p>
-              <div className="hero-cta">
-                <a href="#beta" className="cta cta--solid">
-                  Rejoindre la bêta
-                </a>
-                <a href="#features" className="cta cta--line">
-                  Votre intention
-                </a>
+              <div className="app-hero-visual" aria-hidden="true">
+                <div className="app-hero-blob" />
               </div>
+              <button type="button" className="app-btn app-btn--primary" onClick={() => goToScreen(4)}>
+                Rejoindre la bêta
+              </button>
+              <button type="button" className="app-btn app-btn--ghost" onClick={() => goToScreen(2)}>
+                Personnaliser mon parcours
+              </button>
             </div>
+          </section>
 
-            <div className="hero-art" aria-hidden="true">
-              <div className="hero-art__orb hero-art__orb--a" />
-              <div className="hero-art__orb hero-art__orb--b" />
-              <div className="hero-art__orb hero-art__orb--c" />
-              <div className="hero-art__arc" />
-              <div className="hero-art__beam" />
-              <p className="hero-art__caption">UKAN</p>
+          <section
+            className="app-screen"
+            id="pourquoi"
+            data-screen-index={1}
+            ref={(el) => {
+              screenRefs.current[1] = el;
+            }}
+          >
+            <div className="app-screen__inner app-screen__inner--list">
+              <h2 className="app-screen-title">Pourquoi UKAN</h2>
+              <p className="app-screen-lead">Trois raisons de t’installer — quand on ouvre.</p>
+              <ul className="app-list-group">
+                <li className="app-list-row">
+                  <span className="app-list-row__icon app-list-row__icon--green" />
+                  <div className="app-list-row__text">
+                    <span className="app-list-row__title">Zéro dispersion</span>
+                    <span className="app-list-row__sub">Un flux, pas six apps différentes.</span>
+                  </div>
+                </li>
+                <li className="app-list-row">
+                  <span className="app-list-row__icon app-list-row__icon--gold" />
+                  <div className="app-list-row__text">
+                    <span className="app-list-row__title">Sportifs & coachs</span>
+                    <span className="app-list-row__sub">Le même écosystème, deux chemins.</span>
+                  </div>
+                </li>
+                <li className="app-list-row">
+                  <span className="app-list-row__icon app-list-row__icon--soft" />
+                  <div className="app-list-row__text">
+                    <span className="app-list-row__title">Sur la durée</span>
+                    <span className="app-list-row__sub">Pensé pour tenir, pas pour l’effet d’un jour.</span>
+                  </div>
+                </li>
+              </ul>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section id="experience" className="strip strip--benefits">
-          <div className="frame">
-            <header className="block-head block-head--wide">
-              <p className="kicker">Pourquoi</p>
-              <h2 className="headline-lg">Moins de bruit. Plus d’élan.</h2>
-              <p className="lead">
-                Une marque pensée pour celles et ceux qui veulent tenir — côté salle comme côté métier.
-              </p>
-            </header>
+          <section
+            className="app-screen"
+            id="parcours"
+            data-screen-index={2}
+            ref={(el) => {
+              screenRefs.current[2] = el;
+            }}
+          >
+            <div className="app-screen__inner app-screen__inner--list">
+              <h2 className="app-screen-title">Ton parcours</h2>
+              <p className="app-screen-lead">Qui es-tu ? Qu’est-ce que tu veux ?</p>
 
-            <div className="benefit-row">
-              <article className="benefit">
-                <span className="benefit-glyph" aria-hidden="true" />
-                <h3 className="benefit-title">Clarté</h3>
-                <p className="benefit-copy">
-                  Une ligne directe entre vos objectifs et vos actions — sans enchaîner les apps.
-                </p>
-              </article>
-              <article className="benefit">
-                <span className="benefit-glyph benefit-glyph--gold" aria-hidden="true" />
-                <h3 className="benefit-title">Connexion</h3>
-                <p className="benefit-copy">
-                  Sportifs et coachs partagent le même élan : progression, confiance, communauté.
-                </p>
-              </article>
-              <article className="benefit">
-                <span className="benefit-glyph benefit-glyph--soft" aria-hidden="true" />
-                <h3 className="benefit-title">Durée</h3>
-                <p className="benefit-copy">
-                  Conçu pour la régularité — pas le coup d’éclat puis l’abandon.
-                </p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section id="features" className="strip strip--features">
-          <div className="frame">
-            <header className="block-head">
-              <p className="kicker">À votre image</p>
-              <h2 className="headline-lg">Qui êtes-vous — et qu’est-ce qui vous anime ?</h2>
-            </header>
-
-            <div className="pickers">
-              <div className="picker-line" role="group" aria-label="Profil">
+              <div className="app-segment" role="group" aria-label="Profil">
                 <button
                   type="button"
-                  className={`picker-link ${role === "sportif" ? "is-on" : ""}`}
+                  className={role === "sportif" ? "is-selected" : ""}
                   onClick={() => setRole("sportif")}
                 >
-                  Je suis sportif
+                  Sportif
                 </button>
-                <span className="picker-sep" aria-hidden="true">
-                  /
-                </span>
                 <button
                   type="button"
-                  className={`picker-link ${role === "coach" ? "is-on" : ""}`}
+                  className={role === "coach" ? "is-selected" : ""}
                   onClick={() => setRole("coach")}
                 >
-                  Je suis coach
+                  Coach
                 </button>
               </div>
 
-              <div className="goal-row" role="group" aria-label="Ce que vous cherchez">
-                {goals.map((item) => (
-                  <button
-                    key={item}
-                    type="button"
-                    className={`goal-dot ${goal === item ? "is-on" : ""}`}
-                    onClick={() => setGoal(item)}
-                  >
-                    {item}
-                  </button>
-                ))}
+              <div className="app-chips-scroll" role="group" aria-label="Objectif">
+                <div className="app-chips">
+                  {goals.map((item) => (
+                    <button
+                      key={item}
+                      type="button"
+                      className={`app-chip ${goal === item ? "is-on" : ""}`}
+                      onClick={() => setGoal(item)}
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            <div className="editorial-block">
-              <p className="editorial-kicker">{currentCopy.kicker}</p>
-              <h3 className="editorial-title">{currentCopy.title}</h3>
-              <p className="editorial-lead">{currentCopy.text}</p>
-              <ul className="editorial-tags">
-                {currentCopy.points.map((p) => (
-                  <li key={p}>{p}</li>
+              <div className="app-sheet">
+                <p className="app-sheet__kicker">{currentCopy.kicker}</p>
+                <p className="app-sheet__title">{currentCopy.title}</p>
+                <p className="app-sheet__body">{currentCopy.text}</p>
+                <div className="app-sheet__tags">
+                  {currentCopy.points.map((p) => (
+                    <span key={p} className="app-sheet__tag">
+                      {p}
+                    </span>
+                  ))}
+                </div>
+                <p className="app-sheet__hint">
+                  Objectif : <strong>{goal === "Tout" ? "Vue large" : goal}</strong>
+                </p>
+              </div>
+
+              <ul className="app-list-group app-list-group--flush">
+                {visibleFeatures.map((feature) => (
+                  <li className="app-list-row app-list-row--compact" key={`${feature.role}-${feature.title}`}>
+                    <div className="app-list-row__text">
+                      <span className="app-list-row__title">{feature.title}</span>
+                      <span className="app-list-row__sub">{feature.text}</span>
+                    </div>
+                  </li>
                 ))}
               </ul>
-              <p className="editorial-focus">
-                <span className="editorial-focus-label">Intention</span>
-                {goal === "Tout" ? "Vue large" : goal}
-              </p>
             </div>
+          </section>
 
-            {visibleFeatures.length > 0 && (
-              <div className="feature-fragments">
-                {visibleFeatures.map((feature) => (
-                  <div className="fragment" key={`${feature.role}-${feature.title}`}>
-                    <span className="fragment-name">{feature.title}</span>
-                    <span className="fragment-line">{feature.text}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
-
-        <section className="strip strip--diff" id="difference">
-          <div className="frame diff-frame">
-            <p className="diff-kicker">Hors case</p>
-            <h2 className="diff-title">Ni bruit. Ni superflu.</h2>
-            <p className="diff-one">
-              UKAN relie corps, communauté et ambition — pour jouer longtemps.
-            </p>
-            <ul className="diff-words">
-              <li>Un seul élan</li>
-              <li>Un même terrain</li>
-              <li>Une marque qui dure</li>
-            </ul>
-          </div>
-        </section>
-
-        <section id="beta" className="strip strip--beta">
-          <div className="frame beta-frame">
-            <div className="beta-copy">
-              <p className="kicker">Accès anticipé</p>
-              <h2 className="headline-lg">Inscrivez-vous.</h2>
-              <p className="lead">
-                Soyez informés en premier. Pas de promesses creuses — uniquement le lancement et la bêta.
+          <section
+            className="app-screen app-screen--accent"
+            id="diff"
+            data-screen-index={3}
+            ref={(el) => {
+              screenRefs.current[3] = el;
+            }}
+          >
+            <div className="app-screen__inner app-screen__inner--center">
+              <h2 className="app-screen-title app-screen-title--center">Pas une app en plus.</h2>
+              <p className="app-screen-lead app-screen-lead--center">
+                UKAN relie ton corps, ta communauté et ton ambition — dans un seul geste.
               </p>
+              <ul className="app-bullets">
+                <li>Un flux</li>
+                <li>Un lieu</li>
+                <li>Un élan</li>
+              </ul>
             </div>
+          </section>
 
-            <form className="beta-minimal" onSubmit={(e) => e.preventDefault()}>
-              <label className="field-min">
-                <span className="sr-only">Rôle</span>
-                <select defaultValue="sportif">
-                  <option value="sportif">Sportif</option>
-                  <option value="coach">Coach</option>
-                </select>
-              </label>
-              <label className="field-min">
-                <span className="sr-only">Prénom</span>
-                <input type="text" name="first" placeholder="Prénom" autoComplete="given-name" />
-              </label>
-              <label className="field-min field-min--grow">
-                <span className="sr-only">Email</span>
-                <input type="email" name="email" placeholder="Email" autoComplete="email" />
-              </label>
-              <button type="submit" className="cta cta--solid cta--send">
-                Envoyer
-              </button>
-            </form>
-            <p className="beta-foot">Pas de spam. Désinscription en un clic.</p>
-          </div>
-        </section>
-      </main>
+          <section
+            className="app-screen app-screen--beta"
+            id="beta"
+            data-screen-index={4}
+            ref={(el) => {
+              screenRefs.current[4] = el;
+            }}
+          >
+            <div className="app-screen__inner">
+              <h2 className="app-screen-title">Liste d’attente</h2>
+              <p className="app-screen-lead">Sois prévenu·e en premier. Rien d’autre.</p>
+
+              <form className="app-form" onSubmit={(e) => e.preventDefault()}>
+                <div className="app-form__group">
+                  <label className="app-field">
+                    <span className="app-field__label">Rôle</span>
+                    <select className="app-field__input" defaultValue="sportif">
+                      <option value="sportif">Sportif</option>
+                      <option value="coach">Coach</option>
+                    </select>
+                  </label>
+                  <label className="app-field">
+                    <span className="app-field__label">Prénom</span>
+                    <input className="app-field__input" type="text" placeholder="Ton prénom" />
+                  </label>
+                  <label className="app-field">
+                    <span className="app-field__label">Email</span>
+                    <input className="app-field__input" type="email" placeholder="email@…" />
+                  </label>
+                </div>
+                <button type="submit" className="app-btn app-btn--primary app-btn--block">
+                  Rejoindre
+                </button>
+              </form>
+              <p className="app-legal">Pas de spam. Un clic pour te désinscrire.</p>
+            </div>
+          </section>
+        </div>
+
+        <nav className="app-tabbar" aria-label="Navigation principale">
+          {SCREENS.map((s, i) => (
+            <button
+              key={s.id}
+              type="button"
+              className={`app-tab ${activeScreen === i ? "is-active" : ""}`}
+              onClick={() => goToScreen(i)}
+            >
+              <span className="app-tab__dot" />
+              <span className="app-tab__label">{s.label}</span>
+            </button>
+          ))}
+        </nav>
+      </div>
     </div>
   );
 }
