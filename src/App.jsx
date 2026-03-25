@@ -68,10 +68,7 @@ const SHOWCASE_SPORTIF = [
   { title: "Séances guidées", text: "Entraînements structurés, vidéos et progressions claires." },
   { title: "Coachs certifiés", text: "Profils vérifiés — la promesse UKAN : des coachs diplômés, pas du bricolage." },
   { title: "Défis & objectifs", text: "Défis collectifs, rappels et fil d’énergie pour ne pas lâcher." },
-  { title: "Nutrition", text: "Suivi des apports et habitudes, sans tableur ni prise de tête." },
-  { title: "Communauté", text: "Publications, entraide et profils — un vrai réseau sportif." },
   { title: "Avant / après", text: "Visualise ton évolution et célèbre chaque étape." },
-  { title: "Bibliothèque d’exercices", text: "Mouvements expliqués pour t’entraîner partout." },
   { title: "Matching coach", text: "Trouve l’accompagnement qui colle à ton niveau et ton style." },
 ];
 
