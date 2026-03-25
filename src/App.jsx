@@ -415,9 +415,7 @@ export default function App() {
           <div className="lp-wrap">
             <p className="lp-eyebrow lp-eyebrow--gold">Lancement — rejoignez l’avant-première</p>
             <h1 className="lp-hero__title">
-              La plateforme qui unit <span className="lp-txt-green">sport</span>,{" "}
-              <span className="lp-txt-gold">nutrition</span> et{" "}
-              <span className="lp-txt-green">coaching certifié</span>.
+              Reprends le contrôle de ton corps, tu n’es plus seul.
             </h1>
             <p className="lp-hero__lead">
               UKAN arrive pour ceux qui en ont assez des apps jetables : une expérience premium,

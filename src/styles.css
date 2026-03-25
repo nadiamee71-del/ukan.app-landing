@@ -484,7 +484,7 @@ select {
 .lp-showcase {
   --showcase-dur: 4200ms;
   /* Durée d’un cycle complet du ticker des onglets (plus bas = plus rapide) */
-  --showcase-ticker-dur: 24s;
+  --showcase-ticker-dur: 18s;
   margin-top: 0.5rem;
 }
 
