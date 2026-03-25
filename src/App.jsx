@@ -58,7 +58,6 @@ const FEATURES = [
     title: "Transformation visible",
     text: "Suis ton avant / après, garde une trace de tes efforts et reste engagé sur la durée.",
   },
-
   {
     role: "coach",
     goals: ["Tout", "Trouver des clients"],
@@ -99,26 +98,16 @@ const FEATURES = [
 
 const ROLE_COPY = {
   sportif: {
-    badge: "Pour les sportifs",
-    title: "Une app pour progresser, tenir dans la durée et rester motivé.",
-    text: "UKAN réunit entraînement, nutrition, communauté et progression dans une seule expérience plus claire et plus engageante.",
-    points: [
-      "Trouver un coach",
-      "Suivre sa progression",
-      "Mieux gérer sa nutrition",
-      "Rester motivé sur la durée",
-    ],
+    kicker: "Sportifs",
+    title: "Avancer sans se disperser.",
+    text: "Une trajectoire claire : entraînement, nutrition, communauté et coachs — au même endroit.",
+    points: ["Trouver un coach", "Tenir dans la durée", "Rester motivé"],
   },
   coach: {
-    badge: "Pour les coachs",
-    title: "Une plateforme pour accompagner, structurer et faire grandir votre activité.",
-    text: "UKAN aide les coachs à gagner en clarté, en visibilité et en impact avec une vraie expérience pensée pour leur métier.",
-    points: [
-      "Gérer ses élèves",
-      "Développer sa visibilité",
-      "Monétiser ses formats",
-      "Créer une relation durable",
-    ],
+    kicker: "Coachs",
+    title: "Grandir avec méthode.",
+    text: "Visibilité, élèves, monétisation : une présence professionnelle qui vous ressemble.",
+    points: ["Être visible", "Structurer l’offre", "Fidéliser"],
   },
 };
 
@@ -143,7 +132,7 @@ export default function App() {
       const sameRole = item.role === role;
       const matchesGoal = goal === "Tout" || item.goals.includes(goal);
       return sameRole && matchesGoal;
-    }).slice(0, 6);
+    }).slice(0, 3);
   }, [role, goal]);
 
   const logoSrc = theme === "dark" ? logoDark : logoLight;
@@ -151,197 +140,136 @@ export default function App() {
   return (
     <div className="landing-shell">
       <header className="site-header">
-        <div className="container header-inner">
+        <div className="frame header-inner">
           <a href="#top" className="brand">
             <img src={logoSrc} alt="UKAN" className="brand-logo" />
-            <div className="brand-text">
-              <span className="brand-name">UKAN</span>
-              <span className="brand-tag">bêta privée</span>
-            </div>
+            <span className="brand-word">UKAN</span>
           </a>
 
-          <nav className="main-nav">
-            <a href="#experience">Expérience</a>
-            <a href="#features">Fonctionnalités</a>
-            <a href="#beta">Accès bêta</a>
+          <nav className="main-nav" aria-label="Navigation">
+            <a href="#experience">Vision</a>
+            <a href="#features">Vous</a>
+            <a href="#beta">Bêta</a>
           </nav>
 
-          <button
-            type="button"
-            className="theme-switch"
-            onClick={() => setTheme((prev) => (prev === "dark" ? "light" : "dark"))}
-            aria-label="Changer de thème"
-          >
-            <span className={theme === "dark" ? "is-active" : ""}>Sombre</span>
-            <span className={theme === "light" ? "is-active" : ""}>Clair</span>
-          </button>
+          <div className="header-meta">
+            <button
+              type="button"
+              className="theme-text"
+              onClick={() => setTheme((prev) => (prev === "dark" ? "light" : "dark"))}
+              aria-label={`Passer en thème ${theme === "dark" ? "clair" : "sombre"}`}
+            >
+              {theme === "dark" ? "Clair" : "Sombre"}
+            </button>
+          </div>
         </div>
       </header>
 
       <main id="top">
-        <section className="hero-section">
-          <div className="container hero-grid">
+        <section className="hero">
+          <div className="frame hero-layout">
             <div className="hero-copy">
-              <span className="eyebrow">LANCEMENT BIENTÔT</span>
-
-              <h1>
-                Une seule app pour
-                <span className="text-accent"> s’entraîner</span>,
-                <span className="text-gold"> progresser</span>
+              <p className="kicker">Lancement — bêta privée</p>
+              <h1 className="hero-title">
+                Le mouvement
                 <br />
-                et connecter coachs & sportifs.
+                <span className="hero-title-accent">recommence ici.</span>
               </h1>
-
-              <p className="hero-lead">
-                UKAN réunit entraînement, nutrition, motivation, communauté et outils
-                coach dans une expérience premium, plus claire et plus vivante.
+              <p className="hero-dek">
+                UKAN rassemble sport, nutrition et coaching dans une expérience unique.
+                Rejoignez les premiers avant l’ouverture publique.
               </p>
-
-              <div className="hero-actions">
-                <a href="#beta" className="btn btn-primary">
+              <div className="hero-cta">
+                <a href="#beta" className="cta cta--solid">
                   Rejoindre la bêta
                 </a>
-                <a href="#features" className="btn btn-secondary">
-                  Voir ce qui vous attend
+                <a href="#features" className="cta cta--line">
+                  Votre intention
                 </a>
               </div>
-
-              <div className="hero-proof">
-                <div className="proof-item">
-                  <strong>Sportifs</strong>
-                  <span>pour progresser sans se disperser</span>
-                </div>
-                <div className="proof-item">
-                  <strong>Coachs</strong>
-                  <span>pour développer une vraie activité</span>
-                </div>
-              </div>
             </div>
 
-            <div className="hero-visual">
-              <div className="phone-stack">
-                <div className="phone-card phone-card-main">
-                  <div className="phone-topline">
-                    <span className="mini-dot" />
-                    <span>UKAN Preview</span>
-                  </div>
-
-                  <div className="phone-panel phone-panel-highlight">
-                    <span className="panel-kicker">Objectif de la semaine</span>
-                    <h3>Rester régulier sans perdre l’élan</h3>
-                    <p>
-                      Défis, progression, séances, nutrition et communauté dans une seule
-                      expérience.
-                    </p>
-                  </div>
-
-                  <div className="phone-mini-grid">
-                    <div className="mini-card">
-                      <span>Défis</span>
-                      <strong>Hard Challenge</strong>
-                    </div>
-                    <div className="mini-card">
-                      <span>Nutrition</span>
-                      <strong>Suivi simplifié</strong>
-                    </div>
-                    <div className="mini-card">
-                      <span>Coachs</span>
-                      <strong>Profils certifiés</strong>
-                    </div>
-                    <div className="mini-card">
-                      <span>Social</span>
-                      <strong>Communauté active</strong>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="phone-card phone-card-side">
-                  <span className="side-kicker">Pensé pour durer</span>
-                  <strong>Moins d’apps dispersées.</strong>
-                  <p>Plus de cohérence, plus de suivi, plus d’engagement.</p>
-                </div>
-              </div>
+            <div className="hero-art" aria-hidden="true">
+              <div className="hero-art__orb hero-art__orb--a" />
+              <div className="hero-art__orb hero-art__orb--b" />
+              <div className="hero-art__orb hero-art__orb--c" />
+              <div className="hero-art__arc" />
+              <div className="hero-art__beam" />
+              <p className="hero-art__caption">UKAN</p>
             </div>
           </div>
         </section>
 
-        <section id="experience" className="experience-section">
-          <div className="container">
-            <div className="section-head centered">
-              <span className="eyebrow">UNE EXPÉRIENCE PLUS CLAIRE</span>
-              <h2>Ce que UKAN change vraiment</h2>
-              <p>
-                Au lieu de passer d’une app à l’autre, tout se retrouve dans un seul
-                écosystème pensé pour tenir dans le temps.
+        <section id="experience" className="strip strip--benefits">
+          <div className="frame">
+            <header className="block-head block-head--wide">
+              <p className="kicker">Pourquoi</p>
+              <h2 className="headline-lg">Moins de bruit. Plus d’élan.</h2>
+              <p className="lead">
+                Une marque pensée pour celles et ceux qui veulent tenir — côté salle comme côté métier.
               </p>
-            </div>
+            </header>
 
-            <div className="experience-grid">
-              <article className="experience-card">
-                <span className="card-kicker">01</span>
-                <h3>Pour les sportifs</h3>
-                <p>
-                  Progression, motivation, nutrition et coachs certifiés dans une seule
-                  expérience plus simple à suivre.
+            <div className="benefit-row">
+              <article className="benefit">
+                <span className="benefit-glyph" aria-hidden="true" />
+                <h3 className="benefit-title">Clarté</h3>
+                <p className="benefit-copy">
+                  Une ligne directe entre vos objectifs et vos actions — sans enchaîner les apps.
                 </p>
               </article>
-
-              <article className="experience-card">
-                <span className="card-kicker">02</span>
-                <h3>Pour les coachs</h3>
-                <p>
-                  Un espace plus clair pour structurer son activité, gagner en
-                  visibilité et mieux accompagner ses élèves.
+              <article className="benefit">
+                <span className="benefit-glyph benefit-glyph--gold" aria-hidden="true" />
+                <h3 className="benefit-title">Connexion</h3>
+                <p className="benefit-copy">
+                  Sportifs et coachs partagent le même élan : progression, confiance, communauté.
                 </p>
               </article>
-
-              <article className="experience-card">
-                <span className="card-kicker">03</span>
-                <h3>Pour durer</h3>
-                <p>
-                  Défis, communauté, contenus, suivi et outils intelligents pour garder
-                  un vrai engagement dans le temps.
+              <article className="benefit">
+                <span className="benefit-glyph benefit-glyph--soft" aria-hidden="true" />
+                <h3 className="benefit-title">Durée</h3>
+                <p className="benefit-copy">
+                  Conçu pour la régularité — pas le coup d’éclat puis l’abandon.
                 </p>
               </article>
             </div>
           </div>
         </section>
 
-        <section id="features" className="features-section">
-          <div className="container">
-            <div className="section-head">
-              <span className="eyebrow">FONCTIONNALITÉS QUI S’ADAPTENT</span>
-              <h2>Choisissez votre profil, puis ce que vous cherchez.</h2>
-              <p>
-                On ne vous affiche pas une liste interminable. UKAN met en avant ce qui
-                compte selon votre besoin.
-              </p>
-            </div>
+        <section id="features" className="strip strip--features">
+          <div className="frame">
+            <header className="block-head">
+              <p className="kicker">À votre image</p>
+              <h2 className="headline-lg">Qui êtes-vous — et qu’est-ce qui vous anime ?</h2>
+            </header>
 
-            <div className="feature-controls">
-              <div className="role-switch">
+            <div className="pickers">
+              <div className="picker-line" role="group" aria-label="Profil">
                 <button
                   type="button"
-                  className={role === "sportif" ? "active" : ""}
+                  className={`picker-link ${role === "sportif" ? "is-on" : ""}`}
                   onClick={() => setRole("sportif")}
                 >
                   Je suis sportif
                 </button>
+                <span className="picker-sep" aria-hidden="true">
+                  /
+                </span>
                 <button
                   type="button"
-                  className={role === "coach" ? "active" : ""}
+                  className={`picker-link ${role === "coach" ? "is-on" : ""}`}
                   onClick={() => setRole("coach")}
                 >
                   Je suis coach
                 </button>
               </div>
 
-              <div className="goal-pills">
+              <div className="goal-row" role="group" aria-label="Ce que vous cherchez">
                 {goals.map((item) => (
                   <button
                     key={item}
                     type="button"
-                    className={goal === item ? "active" : ""}
+                    className={`goal-dot ${goal === item ? "is-on" : ""}`}
                     onClick={() => setGoal(item)}
                   >
                     {item}
@@ -350,112 +278,80 @@ export default function App() {
               </div>
             </div>
 
-            <div className="feature-spotlight">
-              <div className="spotlight-copy">
-                <span className="spotlight-badge">{currentCopy.badge}</span>
-                <h3>{currentCopy.title}</h3>
-                <p>{currentCopy.text}</p>
-
-                <ul className="spotlight-list">
-                  {currentCopy.points.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="spotlight-panel">
-                <span className="panel-label">
-                  {role === "sportif" ? "Parcours sportif" : "Parcours coach"}
-                </span>
-                <strong>{goal === "Tout" ? "Vue d’ensemble" : goal}</strong>
-                <p>
-                  {role === "sportif"
-                    ? "Une expérience conçue pour aider les sportifs à progresser sans se perdre."
-                    : "Une plateforme pensée pour aider les coachs à mieux accompagner et mieux se développer."}
-                </p>
-              </div>
+            <div className="editorial-block">
+              <p className="editorial-kicker">{currentCopy.kicker}</p>
+              <h3 className="editorial-title">{currentCopy.title}</h3>
+              <p className="editorial-lead">{currentCopy.text}</p>
+              <ul className="editorial-tags">
+                {currentCopy.points.map((p) => (
+                  <li key={p}>{p}</li>
+                ))}
+              </ul>
+              <p className="editorial-focus">
+                <span className="editorial-focus-label">Intention</span>
+                {goal === "Tout" ? "Vue large" : goal}
+              </p>
             </div>
 
-            <div className="features-grid">
-              {visibleFeatures.map((feature) => (
-                <article className="feature-card" key={`${feature.role}-${feature.title}`}>
-                  <span className="feature-role">
-                    {feature.role === "sportif" ? "Sportif" : "Coach"}
-                  </span>
-                  <h4>{feature.title}</h4>
-                  <p>{feature.text}</p>
-                </article>
-              ))}
-            </div>
+            {visibleFeatures.length > 0 && (
+              <div className="feature-fragments">
+                {visibleFeatures.map((feature) => (
+                  <div className="fragment" key={`${feature.role}-${feature.title}`}>
+                    <span className="fragment-name">{feature.title}</span>
+                    <span className="fragment-line">{feature.text}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
-        <section className="difference-section">
-          <div className="container">
-            <div className="difference-card">
-              <div className="difference-copy">
-                <span className="eyebrow">LA DIFFÉRENCE UKAN</span>
-                <h2>Bien plus qu’une app fitness.</h2>
-                <p>
-                  UKAN relie progression personnelle, motivation, communauté et business
-                  coach dans une seule plateforme cohérente.
-                </p>
-              </div>
-
-              <div className="difference-points">
-                <div className="diff-point">
-                  <strong>Une expérience unifiée</strong>
-                  <span>Moins d’outils dispersés, plus de continuité.</span>
-                </div>
-                <div className="diff-point">
-                  <strong>Une vraie dimension humaine</strong>
-                  <span>Sportifs et coachs évoluent dans le même écosystème.</span>
-                </div>
-                <div className="diff-point">
-                  <strong>Une vision pensée pour durer</strong>
-                  <span>Motivation, suivi, social et progression réunis.</span>
-                </div>
-              </div>
-            </div>
+        <section className="strip strip--diff" id="difference">
+          <div className="frame diff-frame">
+            <p className="diff-kicker">Hors case</p>
+            <h2 className="diff-title">Ni bruit. Ni superflu.</h2>
+            <p className="diff-one">
+              UKAN relie corps, communauté et ambition — pour jouer longtemps.
+            </p>
+            <ul className="diff-words">
+              <li>Un seul élan</li>
+              <li>Un même terrain</li>
+              <li>Une marque qui dure</li>
+            </ul>
           </div>
         </section>
 
-        <section id="beta" className="beta-section">
-          <div className="container">
-            <div className="beta-card">
-              <div className="beta-copy">
-                <span className="eyebrow">ACCÈS ANTICIPÉ</span>
-                <h2>Rejoignez les premiers testeurs UKAN</h2>
-                <p>
-                  Inscrivez-vous pour découvrir la plateforme avant son lancement public
-                  et faire partie des premiers retours.
-                </p>
-              </div>
-
-              <form className="beta-form" onSubmit={(e) => e.preventDefault()}>
-                <div className="form-row">
-                  <select defaultValue="sportif">
-                    <option value="sportif">Je suis sportif</option>
-                    <option value="coach">Je suis coach</option>
-                  </select>
-                  <input type="text" placeholder="Votre prénom" />
-                </div>
-
-                <div className="form-row">
-                  <input type="email" placeholder="Votre email" />
-                </div>
-
-                <div className="form-actions">
-                  <button type="submit" className="btn btn-primary btn-full">
-                    Rejoindre la liste d’attente
-                  </button>
-                </div>
-
-                <p className="form-note">
-                  Accès prioritaire au lancement, annonces bêta et informations en avant-première.
-                </p>
-              </form>
+        <section id="beta" className="strip strip--beta">
+          <div className="frame beta-frame">
+            <div className="beta-copy">
+              <p className="kicker">Accès anticipé</p>
+              <h2 className="headline-lg">Inscrivez-vous.</h2>
+              <p className="lead">
+                Soyez informés en premier. Pas de promesses creuses — uniquement le lancement et la bêta.
+              </p>
             </div>
+
+            <form className="beta-minimal" onSubmit={(e) => e.preventDefault()}>
+              <label className="field-min">
+                <span className="sr-only">Rôle</span>
+                <select defaultValue="sportif">
+                  <option value="sportif">Sportif</option>
+                  <option value="coach">Coach</option>
+                </select>
+              </label>
+              <label className="field-min">
+                <span className="sr-only">Prénom</span>
+                <input type="text" name="first" placeholder="Prénom" autoComplete="given-name" />
+              </label>
+              <label className="field-min field-min--grow">
+                <span className="sr-only">Email</span>
+                <input type="email" name="email" placeholder="Email" autoComplete="email" />
+              </label>
+              <button type="submit" className="cta cta--solid cta--send">
+                Envoyer
+              </button>
+            </form>
+            <p className="beta-foot">Pas de spam. Désinscription en un clic.</p>
           </div>
         </section>
       </main>
