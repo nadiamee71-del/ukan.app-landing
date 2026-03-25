@@ -86,11 +86,18 @@ const SHOWCASE_COACH = [
 ];
 
 const SHOWCASE_NUTRITION = [
-  { title: "Suivi simple", text: "Un suivi clair et rapide — sans tableur ni prise de tête." },
-  { title: "Habitudes", text: "Construis une routine durable : rappels, objectifs, constance." },
-  { title: "Repas & macros", text: "Garde le cap avec des repères adaptés à ton profil." },
-  { title: "FoodScan IA", text: "Analyse et suggestions pour progresser plus facilement." },
-  { title: "Progression", text: "Visualise ton évolution et ajuste sans extrêmes." },
+  { title: "Hub nutrition", text: "Une page principale claire : résumé + actions rapides." },
+  { title: "Résumé du jour", text: "Calories + macros en cercles, lisible en 2 secondes." },
+  { title: "Journal repas", text: "Jusqu’à 4 moments/jour pour suivre sans friction." },
+  { title: "Base aliments FR", text: "2M+ aliments français pour saisir vite et juste." },
+  { title: "Macros automatiques", text: "Calcul auto des macros pour éviter les erreurs." },
+  { title: "Streak nutrition", text: "Une flamme animée pour tenir la régularité." },
+  { title: "Conseil du jour", text: "Micro‑conseils simples pour progresser durablement." },
+  { title: "Calculatrice nutrition", text: "LCD + unités : des repères concrets au quotidien." },
+  { title: "Planning semaine", text: "Vue 7 jours pour anticiper et rester constant." },
+  { title: "Drag & drop repas", text: "Déplace tes repas d’un jour à l’autre en 1 geste." },
+  { title: "Calories par jour", text: "Total automatique pour chaque journée de la semaine." },
+  { title: "Liste de courses", text: "Génération automatique à partir de ton planning." },
 ];
 
 const SHOWCASE_INTERVAL_MS = 4200;
