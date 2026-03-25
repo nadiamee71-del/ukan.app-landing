@@ -138,6 +138,18 @@ const SHOWCASE_SYSTEME = [
 ];
 
 const SHOWCASE_INTERVAL_MS = 4200;
+
+/** Onglets « univers » — rangée ticker (id = valeur de showcasePersona) */
+const SHOWCASE_PERSONA_TABS = [
+  { id: "sportif", label: "Côté sportif" },
+  { id: "coach", label: "Côté coach" },
+  { id: "nutrition", label: "Côté nutrition" },
+  { id: "social", label: "Côté social" },
+  { id: "recettes", label: "Côté recettes" },
+  { id: "seances", label: "Côté séances" },
+  { id: "systeme", label: "Côté système" },
+];
+
 const PRICING_STUDENT_MAX = 120;
 
 const ROLE_COPY = {
@@ -284,6 +296,7 @@ export default function App() {
   const [showcasePersona, setShowcasePersona] = useState("sportif");
   const [showcaseIdx, setShowcaseIdx] = useState(0);
   const [showcasePaused, setShowcasePaused] = useState(false);
+  const [showcaseTickerPaused, setShowcaseTickerPaused] = useState(false);
 
   const [billingCycle, setBillingCycle] = useState("monthly");
   const [studentCount, setStudentCount] = useState(12);
@@ -436,70 +449,42 @@ export default function App() {
             </p>
 
             <div className="lp-showcase">
-              <div className="lp-showcase__persona" role="tablist" aria-label="Aperçu par univers">
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={showcasePersona === "sportif"}
-                  className={showcasePersona === "sportif" ? "is-active" : ""}
-                  onClick={() => setShowcasePersona("sportif")}
+              <div
+                className="lp-showcase__persona-ticker"
+                onMouseEnter={() => setShowcaseTickerPaused(true)}
+                onMouseLeave={() => setShowcaseTickerPaused(false)}
+              >
+                <div
+                  className={`lp-showcase__persona-track${showcaseTickerPaused ? " is-paused" : ""}`}
                 >
-                  Côté sportif
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={showcasePersona === "coach"}
-                  className={showcasePersona === "coach" ? "is-active" : ""}
-                  onClick={() => setShowcasePersona("coach")}
-                >
-                  Côté coach
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={showcasePersona === "nutrition"}
-                  className={showcasePersona === "nutrition" ? "is-active" : ""}
-                  onClick={() => setShowcasePersona("nutrition")}
-                >
-                  Côté nutrition
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={showcasePersona === "social"}
-                  className={showcasePersona === "social" ? "is-active" : ""}
-                  onClick={() => setShowcasePersona("social")}
-                >
-                  Côté social
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={showcasePersona === "recettes"}
-                  className={showcasePersona === "recettes" ? "is-active" : ""}
-                  onClick={() => setShowcasePersona("recettes")}
-                >
-                  Côté recettes
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={showcasePersona === "seances"}
-                  className={showcasePersona === "seances" ? "is-active" : ""}
-                  onClick={() => setShowcasePersona("seances")}
-                >
-                  Côté séances
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={showcasePersona === "systeme"}
-                  className={showcasePersona === "systeme" ? "is-active" : ""}
-                  onClick={() => setShowcasePersona("systeme")}
-                >
-                  Côté système
-                </button>
+                  <div className="lp-showcase__persona" role="tablist" aria-label="Aperçu par univers">
+                    {SHOWCASE_PERSONA_TABS.map((p) => (
+                      <button
+                        key={p.id}
+                        type="button"
+                        role="tab"
+                        aria-selected={showcasePersona === p.id}
+                        className={showcasePersona === p.id ? "is-active" : ""}
+                        onClick={() => setShowcasePersona(p.id)}
+                      >
+                        {p.label}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="lp-showcase__persona lp-showcase__persona--clone" role="presentation">
+                    {SHOWCASE_PERSONA_TABS.map((p) => (
+                      <button
+                        key={`clone-${p.id}`}
+                        type="button"
+                        tabIndex={-1}
+                        className={showcasePersona === p.id ? "is-active" : ""}
+                        onClick={() => setShowcasePersona(p.id)}
+                      >
+                        {p.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               <div
