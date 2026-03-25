@@ -350,45 +350,6 @@ select {
   }
 }
 
-.lp-hero__stores {
-  margin-top: 1.75rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border);
-  max-width: min(42ch, 100%);
-  width: 100%;
-  text-align: center;
-}
-
-.lp-hero__stores-label {
-  margin: 0 auto 1rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--muted);
-  text-align: center;
-  line-height: 1.45;
-}
-
-.lp-hero__stores-platforms {
-  display: inline-block;
-  margin-top: 0.2rem;
-  font-family: var(--font-head);
-  font-size: clamp(1rem, 2.8vw, 1.15rem);
-  font-weight: 800;
-  letter-spacing: 0.03em;
-  color: var(--gold);
-}
-
-.lp-hero__stores-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 0.85rem 1.15rem;
-}
-
 .lp-store-badge {
   display: inline-flex;
   line-height: 0;
@@ -1580,6 +1541,30 @@ select {
 
 .lp-footer__stores {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+}
+
+.lp-footer__stores-label {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.45;
+}
+
+.lp-footer__stores-platforms {
+  font-family: var(--font-head);
+  font-weight: 800;
+  color: var(--gold);
+}
+
+.lp-footer__stores-badges {
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -1597,11 +1582,6 @@ select {
     flex-direction: column;
     align-items: center;
     text-align: center;
-  }
-
-  .lp-footer__stores {
-    justify-content: center;
-    width: 100%;
   }
 
   .lp-footer__copy {

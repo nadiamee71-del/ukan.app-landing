@@ -354,33 +354,6 @@ export default function App() {
                 Voir les fonctionnalités
               </a>
             </div>
-            <div className="lp-hero__stores">
-              <p className="lp-hero__stores-label">
-                Disponible
-                <br />
-                prochainement sur
-                <br />
-                <span className="lp-hero__stores-platforms">iOS &amp; Android</span>
-              </p>
-              <div className="lp-hero__stores-row">
-                <a
-                  href={APP_STORE_URL}
-                  className="lp-store-badge"
-                  {...storeLinkProps(APP_STORE_URL)}
-                  aria-label="Télécharger UKAN sur l’App Store (lien actif au lancement — inscription en attendant)"
-                >
-                  <img src={badgeAppStore} alt="" width={120} height={40} decoding="async" />
-                </a>
-                <a
-                  href={GOOGLE_PLAY_URL}
-                  className="lp-store-badge"
-                  {...storeLinkProps(GOOGLE_PLAY_URL)}
-                  aria-label="Télécharger UKAN sur Google Play (lien actif au lancement — inscription en attendant)"
-                >
-                  <img src={badgeGooglePlay} alt="" width={155} height={60} decoding="async" />
-                </a>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -781,22 +754,28 @@ export default function App() {
       <footer className="lp-footer">
         <div className="lp-wrap lp-footer__inner">
           <div className="lp-footer__stores">
-            <a
-              href={APP_STORE_URL}
-              className="lp-store-badge lp-store-badge--footer"
-              {...storeLinkProps(APP_STORE_URL)}
-              aria-label="App Store — UKAN"
-            >
-              <img src={badgeAppStore} alt="" width={120} height={40} decoding="async" />
-            </a>
-            <a
-              href={GOOGLE_PLAY_URL}
-              className="lp-store-badge lp-store-badge--footer"
-              {...storeLinkProps(GOOGLE_PLAY_URL)}
-              aria-label="Google Play — UKAN"
-            >
-              <img src={badgeGooglePlay} alt="" width={155} height={60} decoding="async" />
-            </a>
+            <p className="lp-footer__stores-label">
+              Bientôt disponible sur{" "}
+              <span className="lp-footer__stores-platforms">iOS et Android</span>
+            </p>
+            <div className="lp-footer__stores-badges">
+              <a
+                href={APP_STORE_URL}
+                className="lp-store-badge lp-store-badge--footer"
+                {...storeLinkProps(APP_STORE_URL)}
+                aria-label="App Store — UKAN"
+              >
+                <img src={badgeAppStore} alt="" width={120} height={40} decoding="async" />
+              </a>
+              <a
+                href={GOOGLE_PLAY_URL}
+                className="lp-store-badge lp-store-badge--footer"
+                {...storeLinkProps(GOOGLE_PLAY_URL)}
+                aria-label="Google Play — UKAN"
+              >
+                <img src={badgeGooglePlay} alt="" width={155} height={60} decoding="async" />
+              </a>
+            </div>
           </div>
           <span className="lp-footer__copy">
             © {new Date().getFullYear()} UKAN — Sport, nutrition & coaching certifié.
