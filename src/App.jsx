@@ -74,6 +74,7 @@ const SHOWCASE_COACH = [
 ];
 
 const SHOWCASE_INTERVAL_MS = 4200;
+const PRICING_CAROUSEL_INTERVAL_MS = 4500;
 
 const ROLE_COPY = {
   sportif: {
@@ -206,6 +207,7 @@ export default function App() {
   const [billingCycle, setBillingCycle] = useState("monthly");
   const [pricingCarouselIndex, setPricingCarouselIndex] = useState(0);
   const [pricingCarousel, setPricingCarousel] = useState({ step: 0, maxIdx: 0 });
+  const [pricingCarouselPaused, setPricingCarouselPaused] = useState(false);
   const pricingViewportRef = useRef(null);
 
   const showcaseSlides =
@@ -265,6 +267,23 @@ export default function App() {
   useEffect(() => {
     setPricingCarouselIndex((i) => Math.min(i, pricingCarousel.maxIdx));
   }, [pricingCarousel.maxIdx]);
+
+  useEffect(() => {
+    if (pricingCarouselPaused) return undefined;
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return undefined;
+    }
+    const { maxIdx } = pricingCarousel;
+    const pages = maxIdx + 1;
+    if (pages <= 1) return undefined;
+    const id = window.setInterval(() => {
+      setPricingCarouselIndex((i) => (i + 1) % pages);
+    }, PRICING_CAROUSEL_INTERVAL_MS);
+    return () => window.clearInterval(id);
+  }, [pricingCarousel.maxIdx, pricingCarouselPaused]);
 
   const goals = role === "sportif" ? SPORTIF_GOALS : COACH_GOALS;
   const currentCopy = ROLE_COPY[role];
@@ -565,6 +584,8 @@ export default function App() {
               role="region"
               aria-roledescription="carrousel"
               aria-label="Formules et tarifs coach UKAN"
+              onMouseEnter={() => setPricingCarouselPaused(true)}
+              onMouseLeave={() => setPricingCarouselPaused(false)}
             >
               <div className="lp-pricing-carousel__chrome">
                 <button
