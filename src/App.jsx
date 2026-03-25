@@ -66,7 +66,6 @@ const FEATURES = [
 /** Aperçu « une fonctionnalité à la fois » — section Pourquoi UKAN */
 const SHOWCASE_SPORTIF = [
   { title: "Séances guidées", text: "Entraînements structurés, vidéos et progressions claires." },
-  { title: "Coachs certifiés", text: "Profils vérifiés — la promesse UKAN : des coachs diplômés, pas du bricolage." },
   { title: "Défis & objectifs", text: "Défis collectifs, rappels et fil d’énergie pour ne pas lâcher." },
   { title: "Avant / après", text: "Visualise ton évolution et célèbre chaque étape." },
   { title: "Matching coach", text: "Trouve l’accompagnement qui colle à ton niveau et ton style." },
@@ -79,6 +78,7 @@ const SHOWCASE_COACH = [
   { title: "Communauté", text: "Anime ton audience et crée de l’engagement durable." },
   { title: "Tableau de bord", text: "Lis les progrès de tes élèves en un coup d’œil." },
   { title: "Outils pro", text: "Moins d’outils éparpillés, plus de temps pour coacher." },
+  { title: "Coachs certifiés", text: "Profils vérifiés — la promesse UKAN : des coachs diplômés, pas du bricolage." },
   { title: "Certification", text: "Mise en avant réservée aux coachs certifiés — crédibilité immédiate." },
 ];
 
