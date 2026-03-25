@@ -483,6 +483,8 @@ select {
 /* Showcase « une fonctionnalité à la fois » — durée alignée avec SHOWCASE_INTERVAL_MS dans App.jsx */
 .lp-showcase {
   --showcase-dur: 4200ms;
+  /* Durée d’un cycle complet du ticker des onglets (plus bas = plus rapide) */
+  --showcase-ticker-dur: 24s;
   margin-top: 0.5rem;
 }
 
@@ -513,7 +515,7 @@ select {
   align-items: center;
   width: max-content;
   gap: 0.5rem;
-  animation: lp-showcase-ticker 50s linear infinite;
+  animation: lp-showcase-ticker var(--showcase-ticker-dur) linear infinite;
   will-change: transform;
 }
 
