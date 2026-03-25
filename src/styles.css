@@ -25,7 +25,7 @@
   --font-head: "Sora", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
   --radius: 20px;
-  --pad: clamp(1rem, 4vw, 1.5rem);
+  --pad: clamp(1.25rem, 5vw, 1.875rem);
   --max: 1080px;
   --max-narrow: 520px;
 }
@@ -165,7 +165,7 @@ select {
 
 .lp-nav a {
   flex-shrink: 0;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -268,9 +268,9 @@ select {
 .lp-hero__title {
   margin: 0 0 1.25rem;
   font-family: var(--font-head);
-  font-size: clamp(1.85rem, 6.5vw, 3.15rem);
+  font-size: clamp(1.6rem, 5.2vw, 2.65rem);
   font-weight: 800;
-  line-height: 1.08;
+  line-height: 1.1;
   letter-spacing: -0.04em;
   max-width: 22ch;
 }
