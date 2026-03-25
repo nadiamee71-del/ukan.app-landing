@@ -194,7 +194,6 @@ export default function App() {
   const [theme, setTheme] = useState("dark");
   const [role, setRole] = useState("sportif");
   const [goal, setGoal] = useState("Tout");
-  const [featuresOpen, setFeaturesOpen] = useState(false);
   const [formRole, setFormRole] = useState("sportif");
   const [specialties, setSpecialties] = useState(() =>
     Object.fromEntries(COACH_SPECIALTIES.map((s) => [s, false]))
@@ -295,11 +294,6 @@ export default function App() {
       return sameRole && matchesGoal;
     });
   }, [role, goal]);
-
-  const visibleFeatures = useMemo(() => {
-    if (featuresOpen) return filteredFeatures;
-    return filteredFeatures.slice(0, 5);
-  }, [filteredFeatures, featuresOpen]);
 
   const logoSrc = theme === "dark" ? logoDark : logoLight;
 
@@ -468,45 +462,50 @@ export default function App() {
           </div>
         </section>
 
-        <section className="lp-section" id="fonctionnalites">
+        <section className="lp-section lp-section--features" id="fonctionnalites">
           <div className="lp-wrap">
-            <h2 className="lp-h2">Fonctionnalités qui s’adaptent à vous</h2>
-            <p className="lp-sub">
-              Choisissez votre profil et ce que vous cherchez : la liste se met à jour. Déployez pour
-              voir l’ensemble des points correspondant à votre sélection.
-            </p>
+            <header className="lp-features-hero">
+              <p className="lp-features-hero__eyebrow">Personnalisation live</p>
+              <h2 className="lp-h2 lp-features-hero__title">Fonctionnalités qui s’adaptent à vous</h2>
+              <p className="lp-sub lp-sub--features-intro">
+                Un clic sur votre profil et votre objectif : la grille se recompose — même contenu,
+                présentation premium.
+              </p>
+            </header>
 
-            <div className="lp-toggle" role="group" aria-label="Profil">
-              <button
-                type="button"
-                className={role === "sportif" ? "is-active" : ""}
-                onClick={() => setRole("sportif")}
-              >
-                Je suis sportif
-              </button>
-              <button
-                type="button"
-                className={role === "coach" ? "is-active" : ""}
-                onClick={() => setRole("coach")}
-              >
-                Je suis coach
-              </button>
-            </div>
-
-            <div className="lp-goals" role="group" aria-label="Objectif">
-              {goals.map((g) => (
+            <div className="lp-features-toolbar-glass">
+              <div className="lp-toggle lp-toggle--glass" role="group" aria-label="Profil">
                 <button
-                  key={g}
                   type="button"
-                  className={goal === g ? "is-active" : ""}
-                  onClick={() => setGoal(g)}
+                  className={role === "sportif" ? "is-active" : ""}
+                  onClick={() => setRole("sportif")}
                 >
-                  {g}
+                  Je suis sportif
                 </button>
-              ))}
+                <button
+                  type="button"
+                  className={role === "coach" ? "is-active" : ""}
+                  onClick={() => setRole("coach")}
+                >
+                  Je suis coach
+                </button>
+              </div>
+              <div className="lp-goals lp-goals--glass" role="group" aria-label="Objectif">
+                {goals.map((g) => (
+                  <button
+                    key={g}
+                    type="button"
+                    className={goal === g ? "is-active" : ""}
+                    onClick={() => setGoal(g)}
+                  >
+                    {g}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            <div className="lp-focus">
+            <div className="lp-focus lp-focus--wow">
+              <div className="lp-focus--wow__shine" aria-hidden="true" />
               <h3 className="lp-focus__title">{currentCopy.title}</h3>
               <p className="lp-focus__text">{currentCopy.text}</p>
               <ul className="lp-focus__bullets">
@@ -516,27 +515,41 @@ export default function App() {
               </ul>
             </div>
 
-            <ul className="lp-features">
-              {visibleFeatures.map((f) => (
-                <li key={`${f.role}-${f.title}`}>
-                  <strong>{f.title}</strong>
-                  <span>{f.text}</span>
-                </li>
-              ))}
-            </ul>
-
-            {filteredFeatures.length > 5 && (
-              <button
-                type="button"
-                className="lp-expand"
-                onClick={() => setFeaturesOpen((v) => !v)}
-                aria-expanded={featuresOpen}
-              >
-                {featuresOpen
-                  ? "Replier la liste"
-                  : `Afficher tout (${filteredFeatures.length} éléments)`}
-              </button>
-            )}
+            <div className="lp-ft-bento-wrap">
+              <p className="lp-ft-bento__label" id="features-list-label">
+                Ce qui vous attend dans l’app
+                {filteredFeatures.length > 0 ? (
+                  <span className="lp-ft-bento__count">
+                    {" "}
+                    · {filteredFeatures.length} point
+                    {filteredFeatures.length > 1 ? "s" : ""}
+                  </span>
+                ) : null}
+              </p>
+              {filteredFeatures.length === 0 ? (
+                <p className="lp-features-empty" role="status">
+                  Aucun point pour cette combinaison — choisissez « Tout » ou un autre objectif.
+                </p>
+              ) : (
+                <ul
+                  key={`${role}-${goal}`}
+                  className="lp-ft-bento"
+                  aria-labelledby="features-list-label"
+                >
+                  {filteredFeatures.map((f, i) => (
+                    <li
+                      key={`${f.role}-${f.title}`}
+                      className="lp-ft-card"
+                      style={{ "--ft-i": i }}
+                    >
+                      <span className="lp-ft-card__accent" aria-hidden="true" />
+                      <h4 className="lp-ft-card__title">{f.title}</h4>
+                      <p className="lp-ft-card__text">{f.text}</p>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
         </section>
 
