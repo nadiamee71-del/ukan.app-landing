@@ -28,6 +28,8 @@
   --pad: clamp(1.25rem, 5vw, 1.875rem);
   --max: 1080px;
   --max-narrow: 520px;
+  /* Ancres : dégagement sous le header sticky au clic */
+  --header-scroll-offset: 5.5rem;
 }
 
 :root[data-theme="light"] {
@@ -58,6 +60,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Clic sur une ancre du menu : la section arrive sous le header sticky */
+  scroll-padding-top: var(--header-scroll-offset);
 }
 
 body {
@@ -164,18 +168,46 @@ select {
 }
 
 .lp-nav a {
+  position: relative;
   flex-shrink: 0;
-  font-size: 0.6875rem;
+  padding: 0.2rem 0 0.35rem;
+  font-size: 0.625rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--muted);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.lp-nav a:hover {
+.lp-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lp-nav a:hover,
+.lp-nav a:focus-visible {
   color: var(--gold);
+}
+
+.lp-nav a:hover::after,
+.lp-nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-nav a::after {
+    transition: none;
+  }
 }
 
 @media (max-width: 767px) {
@@ -216,7 +248,7 @@ select {
   }
 
   .lp-nav a {
-    font-size: 0.8125rem;
+    font-size: 0.6875rem;
   }
 }
 
