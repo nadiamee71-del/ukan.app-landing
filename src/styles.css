@@ -308,11 +308,15 @@ select {
 }
 
 .lp-txt-green {
-  color: var(--green);
+  color: var(--orange);
 }
 
 .lp-txt-gold {
   color: var(--gold);
+}
+
+.lp-txt-success {
+  color: var(--green);
 }
 
 .lp-hero__lead {
@@ -868,7 +872,7 @@ select {
 }
 
 .lp-ft-bento li:nth-child(3n + 3) {
-  --ft-accent: var(--green);
+  --ft-accent: var(--orange);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1261,7 +1265,7 @@ select {
 }
 
 .lp-pricing-card--green {
-  --plan-accent: var(--green);
+  --plan-accent: var(--orange);
 }
 
 .lp-pricing-card--red {
@@ -1458,8 +1462,8 @@ select {
 
 .lp-label input:focus {
   outline: none;
-  border-color: var(--green);
-  box-shadow: 0 0 0 3px var(--green-dim);
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px var(--orange-dim);
 }
 
 .lp-fieldset {
