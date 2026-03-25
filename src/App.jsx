@@ -1,7 +1,19 @@
 import React, { useEffect, useMemo, useState } from "react";
 import logoDark from "./assets/logo.png";
 import logoLight from "./assets/logo2.png";
+import badgeAppStore from "./assets/badge-app-store.svg?url";
+import badgeGooglePlay from "./assets/badge-google-play.svg?url";
 import "./styles.css";
+
+/** À la publication : remplacez par vos fiches App Store et Play Store. */
+const APP_STORE_URL = "#inscription";
+const GOOGLE_PLAY_URL = "#inscription";
+
+function storeLinkProps(url) {
+  return url.startsWith("http")
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {};
+}
 
 const SPORTIF_GOALS = [
   "Tout",
@@ -341,6 +353,33 @@ export default function App() {
               <a href="#fonctionnalites" className="lp-btn lp-btn--ghost">
                 Voir les fonctionnalités
               </a>
+            </div>
+            <div className="lp-hero__stores">
+              <p className="lp-hero__stores-label">
+                Disponible
+                <br />
+                prochainement sur
+                <br />
+                <span className="lp-hero__stores-platforms">iOS &amp; Android</span>
+              </p>
+              <div className="lp-hero__stores-row">
+                <a
+                  href={APP_STORE_URL}
+                  className="lp-store-badge"
+                  {...storeLinkProps(APP_STORE_URL)}
+                  aria-label="Télécharger UKAN sur l’App Store (lien actif au lancement — inscription en attendant)"
+                >
+                  <img src={badgeAppStore} alt="" width={120} height={40} decoding="async" />
+                </a>
+                <a
+                  href={GOOGLE_PLAY_URL}
+                  className="lp-store-badge"
+                  {...storeLinkProps(GOOGLE_PLAY_URL)}
+                  aria-label="Télécharger UKAN sur Google Play (lien actif au lancement — inscription en attendant)"
+                >
+                  <img src={badgeGooglePlay} alt="" width={155} height={60} decoding="async" />
+                </a>
+              </div>
             </div>
           </div>
         </section>
@@ -741,7 +780,27 @@ export default function App() {
 
       <footer className="lp-footer">
         <div className="lp-wrap lp-footer__inner">
-          <span>© {new Date().getFullYear()} UKAN — Sport, nutrition & coaching certifié.</span>
+          <div className="lp-footer__stores">
+            <a
+              href={APP_STORE_URL}
+              className="lp-store-badge lp-store-badge--footer"
+              {...storeLinkProps(APP_STORE_URL)}
+              aria-label="App Store — UKAN"
+            >
+              <img src={badgeAppStore} alt="" width={120} height={40} decoding="async" />
+            </a>
+            <a
+              href={GOOGLE_PLAY_URL}
+              className="lp-store-badge lp-store-badge--footer"
+              {...storeLinkProps(GOOGLE_PLAY_URL)}
+              aria-label="Google Play — UKAN"
+            >
+              <img src={badgeGooglePlay} alt="" width={155} height={60} decoding="async" />
+            </a>
+          </div>
+          <span className="lp-footer__copy">
+            © {new Date().getFullYear()} UKAN — Sport, nutrition & coaching certifié.
+          </span>
         </div>
       </footer>
     </div>

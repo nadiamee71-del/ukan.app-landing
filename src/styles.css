@@ -350,6 +350,81 @@ select {
   }
 }
 
+.lp-hero__stores {
+  margin-top: 1.75rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  max-width: min(42ch, 100%);
+  width: 100%;
+  text-align: center;
+}
+
+.lp-hero__stores-label {
+  margin: 0 auto 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.45;
+}
+
+.lp-hero__stores-platforms {
+  display: inline-block;
+  margin-top: 0.2rem;
+  font-family: var(--font-head);
+  font-size: clamp(1rem, 2.8vw, 1.15rem);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: var(--gold);
+}
+
+.lp-hero__stores-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem 1.15rem;
+}
+
+.lp-store-badge {
+  display: inline-flex;
+  line-height: 0;
+  border-radius: 10px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.lp-store-badge:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.lp-store-badge:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+  border-radius: 10px;
+}
+
+.lp-store-badge img {
+  display: block;
+  height: 40px;
+  width: auto;
+  max-width: min(148px, 46vw);
+}
+
+.lp-store-badge--footer img {
+  height: 34px;
+  max-width: min(128px, 40vw);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-store-badge:hover {
+    transform: none;
+  }
+}
+
 .lp-btn {
   display: inline-flex;
   align-items: center;
@@ -1496,16 +1571,42 @@ select {
 .lp-footer__inner {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 1.15rem;
   font-size: 0.75rem;
   color: var(--muted);
   text-align: center;
 }
 
+.lp-footer__stores {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.65rem 1rem;
+}
+
+.lp-footer__copy {
+  display: block;
+  max-width: 36rem;
+  line-height: 1.5;
+}
+
 @media (min-width: 640px) {
   .lp-footer__inner {
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: left;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .lp-footer__stores {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .lp-footer__copy {
+    text-align: center;
+    flex: none;
+    width: 100%;
   }
 }
