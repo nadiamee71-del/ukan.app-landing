@@ -415,7 +415,8 @@ export default function App() {
           <div className="lp-wrap">
             <p className="lp-eyebrow lp-eyebrow--gold">Lancement — rejoignez l’avant-première</p>
             <h1 className="lp-hero__title">
-              Reprends le contrôle de ton corps, tu n’es plus seul.
+              Reprends le <span className="lp-txt-green">contrôle</span> de ton{" "}
+              <span className="lp-txt-gold">corps</span>, tu n’es plus seul.
             </h1>
             <p className="lp-hero__lead">
               UKAN arrive pour ceux qui en ont assez des apps jetables : une expérience premium,
