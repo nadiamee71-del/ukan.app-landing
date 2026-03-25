@@ -85,6 +85,14 @@ const SHOWCASE_COACH = [
   { title: "Certification", text: "Mise en avant réservée aux coachs certifiés — crédibilité immédiate." },
 ];
 
+const SHOWCASE_NUTRITION = [
+  { title: "Suivi simple", text: "Un suivi clair et rapide — sans tableur ni prise de tête." },
+  { title: "Habitudes", text: "Construis une routine durable : rappels, objectifs, constance." },
+  { title: "Repas & macros", text: "Garde le cap avec des repères adaptés à ton profil." },
+  { title: "FoodScan IA", text: "Analyse et suggestions pour progresser plus facilement." },
+  { title: "Progression", text: "Visualise ton évolution et ajuste sans extrêmes." },
+];
+
 const SHOWCASE_INTERVAL_MS = 4200;
 const PRICING_STUDENT_MAX = 120;
 
@@ -237,7 +245,11 @@ export default function App() {
   const [studentCount, setStudentCount] = useState(12);
 
   const showcaseSlides =
-    showcasePersona === "sportif" ? SHOWCASE_SPORTIF : SHOWCASE_COACH;
+    showcasePersona === "sportif"
+      ? SHOWCASE_SPORTIF
+      : showcasePersona === "coach"
+        ? SHOWCASE_COACH
+        : SHOWCASE_NUTRITION;
   const showcaseActive = showcaseSlides[showcaseIdx] ?? showcaseSlides[0];
 
   useEffect(() => {
@@ -384,6 +396,15 @@ export default function App() {
                   onClick={() => setShowcasePersona("coach")}
                 >
                   Côté coach
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={showcasePersona === "nutrition"}
+                  className={showcasePersona === "nutrition" ? "is-active" : ""}
+                  onClick={() => setShowcasePersona("nutrition")}
+                >
+                  Côté nutrition
                 </button>
               </div>
 
