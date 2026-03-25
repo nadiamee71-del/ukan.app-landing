@@ -94,10 +94,50 @@ const SHOWCASE_NUTRITION = [
   { title: "Streak nutrition", text: "Une flamme animée pour tenir la régularité." },
   { title: "Conseil du jour", text: "Micro‑conseils simples pour progresser durablement." },
   { title: "Calculatrice nutrition", text: "LCD + unités : des repères concrets au quotidien." },
+  { title: "Bibliothèque icônes aliments", text: "Repères visuels rapides pour mieux choisir et varier." },
   { title: "Planning semaine", text: "Vue 7 jours pour anticiper et rester constant." },
   { title: "Drag & drop repas", text: "Déplace tes repas d’un jour à l’autre en 1 geste." },
   { title: "Calories par jour", text: "Total automatique pour chaque journée de la semaine." },
   { title: "Liste de courses", text: "Génération automatique à partir de ton planning." },
+  { title: "Validation semaine (coach)", text: "Validation des courses auto et ajustements côté coach." },
+  { title: "Diète hebdomadaire coach", text: "Interface dédiée pour piloter la semaine nutrition des élèves." },
+];
+
+const SHOWCASE_SOCIAL = [
+  { title: "Feed publications", text: "Tes abonnements : posts et actus au même endroit." },
+  { title: "Explorer", text: "Découvrir de nouveaux profils et contenus pertinents." },
+  { title: "Stories horizontales", text: "Un format rapide pour suivre et partager." },
+  { title: "Créer une publication", text: "Publie en quelques secondes : texte, média, tags." },
+  { title: "Interactions", text: "Like, commenter, partager, sauvegarder : simple et fluide." },
+  { title: "Types de publications", text: "Séance, recette, avant/après, motivation : un feed complet." },
+  { title: "Mes suivis", text: "Followers / following : garder le lien avec ta communauté." },
+];
+
+const SHOWCASE_RECETTES = [
+  { title: "Recettes communauté", text: "Explorer des recettes utiles, fiables et inspirantes." },
+  { title: "Mes recettes", text: "Créer et gérer tes recettes personnelles." },
+  { title: "Livre de recettes", text: "Sauvegardes et favoris réunis au même endroit." },
+  { title: "Recette personnalisée", text: "Créer une recette sur mesure selon tes besoins." },
+  { title: "Partager au feed", text: "Publier une recette directement dans la communauté." },
+];
+
+const SHOWCASE_SEANCES = [
+  { title: "Bibliothèque exercices", text: "9 groupes musculaires, structure claire et rapide." },
+  { title: "Carte exercice", text: "Image, muscle, équipement, difficulté : tout est lisible." },
+  { title: "Détail exercice", text: "Vidéo/GIF, instructions et variantes pour bien exécuter." },
+  { title: "Recherche & filtres", text: "Trouver le bon exercice selon ton matériel." },
+  { title: "Favoris", text: "Garder tes exercices préférés sous la main." },
+  { title: "Séance en cours", text: "Timer global + exercice actuel : focus total." },
+  { title: "Séries & répétitions", text: "Compteur simple pour suivre sans te disperser." },
+  { title: "Repos automatique", text: "Timer de repos intégré pour rester dans le rythme." },
+  { title: "Séance personnalisée", text: "Créer ton programme, à ta façon." },
+  { title: "Calendrier séances", text: "Vue mois pour planifier et rester régulier." },
+  { title: "Progression", text: "Historique par exercice pour voir les gains réels." },
+  { title: "Stats volume", text: "Volume par groupe musculaire pour piloter l’équilibre." },
+];
+
+const SHOWCASE_SYSTEME = [
+  { title: "Inscription / connexion", text: "Email, Google, Apple : entrée rapide et sécurisée." },
 ];
 
 const SHOWCASE_INTERVAL_MS = 4200;
@@ -251,12 +291,26 @@ export default function App() {
   const [billingCycle, setBillingCycle] = useState("monthly");
   const [studentCount, setStudentCount] = useState(12);
 
-  const showcaseSlides =
-    showcasePersona === "sportif"
-      ? SHOWCASE_SPORTIF
-      : showcasePersona === "coach"
-        ? SHOWCASE_COACH
-        : SHOWCASE_NUTRITION;
+  const showcaseSlides = useMemo(() => {
+    switch (showcasePersona) {
+      case "sportif":
+        return SHOWCASE_SPORTIF;
+      case "coach":
+        return SHOWCASE_COACH;
+      case "nutrition":
+        return SHOWCASE_NUTRITION;
+      case "social":
+        return SHOWCASE_SOCIAL;
+      case "recettes":
+        return SHOWCASE_RECETTES;
+      case "seances":
+        return SHOWCASE_SEANCES;
+      case "systeme":
+        return SHOWCASE_SYSTEME;
+      default:
+        return SHOWCASE_SPORTIF;
+    }
+  }, [showcasePersona]);
   const showcaseActive = showcaseSlides[showcaseIdx] ?? showcaseSlides[0];
 
   useEffect(() => {
@@ -385,7 +439,7 @@ export default function App() {
             </p>
 
             <div className="lp-showcase">
-              <div className="lp-showcase__persona" role="tablist" aria-label="Aperçu par profil">
+              <div className="lp-showcase__persona" role="tablist" aria-label="Aperçu par univers">
                 <button
                   type="button"
                   role="tab"
@@ -412,6 +466,42 @@ export default function App() {
                   onClick={() => setShowcasePersona("nutrition")}
                 >
                   Côté nutrition
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={showcasePersona === "social"}
+                  className={showcasePersona === "social" ? "is-active" : ""}
+                  onClick={() => setShowcasePersona("social")}
+                >
+                  Côté social
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={showcasePersona === "recettes"}
+                  className={showcasePersona === "recettes" ? "is-active" : ""}
+                  onClick={() => setShowcasePersona("recettes")}
+                >
+                  Côté recettes
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={showcasePersona === "seances"}
+                  className={showcasePersona === "seances" ? "is-active" : ""}
+                  onClick={() => setShowcasePersona("seances")}
+                >
+                  Côté séances
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={showcasePersona === "systeme"}
+                  className={showcasePersona === "systeme" ? "is-active" : ""}
+                  onClick={() => setShowcasePersona("systeme")}
+                >
+                  Côté système
                 </button>
               </div>
 
@@ -460,7 +550,7 @@ export default function App() {
               <div className="lp-showcase__dots" role="tablist" aria-label="Choisir une fonctionnalité">
                 {showcaseSlides.map((s, i) => (
                   <button
-                    key={s.title}
+                    key={`${showcasePersona}-${i}`}
                     type="button"
                     role="tab"
                     aria-selected={i === showcaseIdx}
