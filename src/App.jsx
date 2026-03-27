@@ -17,7 +17,6 @@ function storeLinkProps(url) {
 const SPORTIF_GOALS = [
   "Tout",
   "Progresser",
-  "Trouver un coach",
   "Rester motivé",
   "Mieux manger",
   "Partager",
@@ -56,14 +55,12 @@ const SPORTIF_NIVEAUX = ["Débutant", "Intermédiaire", "Avancé"];
 /** Riche : filtres sportif/coach + objectif */
 const FEATURES = [
   { role: "sportif", goals: ["Tout", "Progresser"], title: "Séances guidées", text: "Entraînements structurés, vidéos et progressions claires." },
-  { role: "sportif", goals: ["Tout", "Trouver un coach"], title: "Coachs certifiés", text: "Profils vérifiés — la promesse UKAN : des coachs diplômés, pas du bricolage." },
   { role: "sportif", goals: ["Tout", "Rester motivé"], title: "Défis & objectifs", text: "Défis collectifs, rappels et fil d’énergie pour ne pas lâcher." },
   { role: "sportif", goals: ["Tout", "Mieux manger"], title: "Nutrition", text: "Suivi des apports et habitudes, sans tableur ni prise de tête." },
   { role: "sportif", goals: ["Tout", "Partager"], title: "Communauté", text: "Publications, entraide et profils — un vrai réseau sportif." },
   { role: "sportif", goals: ["Tout", "Rester motivé"], title: "Avant / après", text: "Visualise ton évolution et célèbre chaque étape." },
   { role: "sportif", goals: ["Tout", "Progresser"], title: "Bibliothèque d’exercices", text: "Mouvements expliqués pour t’entraîner partout." },
-  { role: "sportif", goals: ["Tout", "Trouver un coach"], title: "Matching coach", text: "Trouve l’accompagnement qui colle à ton niveau et ton style." },
-  { role: "coach", goals: ["Tout", "Trouver des clients"], title: "Visibilité", text: "Ton profil mis en avant auprès de sportifs motivés." },
+  { role: "coach", goals: ["Tout", "Trouver des clients"], title: "Visibilité", text: "Ton profil mis en avant auprès de clients motivés." },
   { role: "coach", goals: ["Tout", "Gérer mes élèves"], title: "Espace élèves", text: "Messagerie, planning et suivi — centralisés." },
   { role: "coach", goals: ["Tout", "Monétiser"], title: "Lives & contenus", text: "Monétise tes séances et tes formats premium." },
   { role: "coach", goals: ["Tout", "Animer"], title: "Communauté", text: "Anime ton audience et crée de l’engagement durable." },
@@ -77,7 +74,7 @@ const SHOWCASE_SPORTIF = [
   { title: "Séances guidées", text: "Entraînements structurés, vidéos et progressions claires." },
   { title: "Défis & objectifs", text: "Défis collectifs, rappels et fil d’énergie pour ne pas lâcher." },
   { title: "Avant / après", text: "Visualise ton évolution et célèbre chaque étape." },
-  { title: "Matching coach", text: "Trouve l’accompagnement qui colle à ton niveau et ton style." },
+  { title: "Progression continue", text: "Des repères clairs pour rester régulier semaine après semaine." },
 ];
 
 const SHOWCASE_COACH = [
@@ -164,8 +161,8 @@ const PRICING_STUDENT_MAX = 120;
 const ROLE_COPY = {
   sportif: {
     title: "Pour les sportifs",
-    text: "Progresser, manger mieux, trouver un coach certifié et rester dans le rythme — sans jongler entre cinq applications.",
-    bullets: ["Coachs diplômés uniquement", "Nutrition & entraînement réunis", "Motivation qui dure"],
+    text: "Progresser, manger mieux et rester dans le rythme — sans jongler entre cinq applications.",
+    bullets: ["Routine claire", "Nutrition & entraînement réunis", "Motivation qui dure"],
   },
   coach: {
     title: "Pour les coachs",
@@ -185,9 +182,7 @@ const HERO_COPY = {
     lead: (
       <>
         UKAN arrive pour ceux qui en ont assez des apps jetables : une expérience premium, pensée
-        pour durer — et{" "}
-        <strong>la seule en France à n’accepter que des coachs certifiés</strong>, pour que chaque
-        accompagnement soit digne de confiance.
+        pour durer et t’aider à progresser avec méthode au quotidien.
       </>
     ),
   },
@@ -343,6 +338,13 @@ export default function App() {
   const [studentCount, setStudentCount] = useState(12);
 
   const showcaseSlides = useMemo(() => {
+    if (role === "sportif") {
+      return SHOWCASE_SPORTIF;
+    }
+    if (role === "coach") {
+      return SHOWCASE_COACH;
+    }
+
     switch (showcasePersona) {
       case "sportif":
         return SHOWCASE_SPORTIF;
@@ -361,7 +363,7 @@ export default function App() {
       default:
         return SHOWCASE_SPORTIF;
     }
-  }, [showcasePersona]);
+  }, [role, showcasePersona]);
   const showcaseActive = showcaseSlides[showcaseIdx] ?? showcaseSlides[0];
 
   useEffect(() => {
@@ -439,7 +441,7 @@ export default function App() {
           <nav className="lp-nav" aria-label="Sections">
             <a href="#pourquoi">Pourquoi UKAN</a>
             <a href="#fonctionnalites">Fonctionnalités</a>
-            <a href="#tarifs">Tarifs coach</a>
+            {role === "coach" && <a href="#tarifs">Tarifs coach</a>}
             <a href="#inscription">S’inscrire</a>
           </nav>
           <div className="lp-theme" role="group" aria-label="Profil">
@@ -500,7 +502,7 @@ export default function App() {
                   className={`lp-showcase__persona-track${showcaseTickerPaused ? " is-paused" : ""}`}
                 >
                   <div className="lp-showcase__persona" role="tablist" aria-label="Aperçu par univers">
-                    {SHOWCASE_PERSONA_TABS.map((p) => (
+                    {SHOWCASE_PERSONA_TABS.filter((p) => p.id === role).map((p) => (
                       <button
                         key={p.id}
                         type="button"
@@ -514,7 +516,7 @@ export default function App() {
                     ))}
                   </div>
                   <div className="lp-showcase__persona lp-showcase__persona--clone" role="presentation">
-                    {SHOWCASE_PERSONA_TABS.map((p) => (
+                    {SHOWCASE_PERSONA_TABS.filter((p) => p.id === role).map((p) => (
                       <button
                         key={`clone-${p.id}`}
                         type="button"
@@ -605,20 +607,9 @@ export default function App() {
             </header>
 
             <div className="lp-features-toolbar-glass">
-              <div className="lp-toggle lp-toggle--glass" role="group" aria-label="Profil">
-                <button
-                  type="button"
-                  className={role === "sportif" ? "is-active" : ""}
-                  onClick={() => setRole("sportif")}
-                >
-                  Je suis sportif
-                </button>
-                <button
-                  type="button"
-                  className={role === "coach" ? "is-active" : ""}
-                  onClick={() => setRole("coach")}
-                >
-                  Je suis coach
+              <div className="lp-toggle lp-toggle--glass" role="status" aria-live="polite">
+                <button type="button" className="is-active">
+                  {role === "coach" ? "Profil coach" : "Profil sportif"}
                 </button>
               </div>
               <div className="lp-goals lp-goals--glass" role="group" aria-label="Objectif">
@@ -684,6 +675,7 @@ export default function App() {
           </div>
         </section>
 
+        {role === "coach" && (
         <section className="lp-section lp-section--pricing" id="tarifs">
           <div className="lp-wrap">
             <div className="lp-pricing-header">
@@ -798,6 +790,7 @@ export default function App() {
             </div>
           </div>
         </section>
+        )}
 
         <section className="lp-cta-block">
           <div className="lp-wrap">
@@ -935,7 +928,8 @@ export default function App() {
             </div>
           </div>
           <span className="lp-footer__copy">
-            © {new Date().getFullYear()} UKAN — Sport, nutrition & coaching certifié.
+            © {new Date().getFullYear()} UKAN —{" "}
+            {role === "coach" ? "Coaching, nutrition & activité pro." : "Sport, nutrition & progression."}
           </span>
         </div>
       </footer>
