@@ -505,55 +505,54 @@ select {
   position: relative;
   z-index: 1;
   width: min(100%, 34rem);
-  padding: clamp(0.3rem, 0.9vw, 0.5rem);
-  border-radius: clamp(1.5rem, 4.2vw, 2.2rem);
+  padding: clamp(0.28rem, 0.8vw, 0.42rem);
+  border-radius: clamp(1.35rem, 3.9vw, 1.95rem);
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 30%),
-    linear-gradient(165deg, #1a1b1d, #27282b 52%, #111214);
+    linear-gradient(130deg, rgba(255, 255, 255, 0.08), transparent 32%),
+    linear-gradient(170deg, #2c3036, #1b1d22 56%, #0e0f12);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   transform: none;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.14) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.38) inset,
-    0 20px 44px rgba(0, 0, 0, 0.3),
-    0 7px 14px rgba(0, 0, 0, 0.24);
+    0 1px 0 rgba(255, 255, 255, 0.18) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.42) inset,
+    0 12px 26px rgba(0, 0, 0, 0.28),
+    0 3px 8px rgba(0, 0, 0, 0.22);
 }
 
 .lp-hero__device::before {
   content: "";
   position: absolute;
   top: 50%;
-  right: clamp(0.62rem, 1.8vw, 0.82rem);
-  width: 0.2rem;
+  right: clamp(0.48rem, 1.5vw, 0.62rem);
+  width: 0.45rem;
   height: 2rem;
   transform: translateY(-50%);
   border-radius: 999px;
-  background: rgba(10, 10, 12, 0.8);
+  background:
+    radial-gradient(circle at 35% 35%, rgba(70, 73, 83, 0.65), rgba(10, 10, 13, 0.95) 72%),
+    #0a0b0f;
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
     0 0 8px rgba(0, 0, 0, 0.3);
 }
 
 .lp-hero__device::after {
   content: "";
   position: absolute;
-  top: 50%;
-  right: clamp(0.34rem, 1vw, 0.48rem);
-  width: 0.36rem;
-  height: 0.36rem;
-  transform: translateY(-50%);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(106, 178, 255, 0.5), rgba(16, 17, 21, 0.92) 58%),
-    #0e0f13;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3) inset;
+  left: clamp(-0.14rem, -0.3vw, -0.08rem);
+  top: 34%;
+  width: 0.14rem;
+  height: 22%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #2c2f35, #181a1f);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
 }
 
 .lp-hero__device-screen {
   position: relative;
-  border-radius: clamp(1.28rem, 3.6vw, 1.9rem);
+  border-radius: clamp(1.15rem, 3.2vw, 1.65rem);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   background: #09090a;
   aspect-ratio: 16 / 9;
   box-shadow:
@@ -562,11 +561,31 @@ select {
 }
 
 .lp-hero__device-screen::before {
-  content: none;
+  content: "";
+  position: absolute;
+  z-index: 3;
+  left: clamp(0.32rem, 1vw, 0.45rem);
+  top: 50%;
+  width: 0.18rem;
+  height: 1.1rem;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: rgba(9, 9, 12, 0.75);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
 }
 
 .lp-hero__device-screen::after {
-  content: none;
+  content: "";
+  position: absolute;
+  z-index: 3;
+  left: clamp(0.58rem, 1.6vw, 0.76rem);
+  top: 50%;
+  width: 0.14rem;
+  height: 0.72rem;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: rgba(9, 9, 12, 0.72);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
 }
 
 .lp-hero__device-screen video {
