@@ -1387,8 +1387,24 @@ select {
   background: var(--bg-soft);
 }
 
-.lp-section--pricing-sportif {
+.lp-section--pricing-premium {
   background: #fff;
+}
+
+.lp-section--pricing-premium .lp-pricing-tagline,
+.lp-section--pricing-premium .lp-pricing-note {
+  color: #64748b;
+}
+
+.lp-pricing-billing--premium {
+  background: #f4f4f5;
+  border-color: #e8e8ea;
+}
+
+.lp-pricing-billing--premium .lp-pricing-billing__btn--active {
+  background: linear-gradient(135deg, #fbbf24 0%, #f97316 52%, #ea580c 100%);
+  color: #0a0a0a;
+  box-shadow: 0 2px 12px rgba(251, 146, 60, 0.28);
 }
 
 .lp-pricing-header {
@@ -1743,10 +1759,31 @@ select {
   border-color: var(--gold-hover);
 }
 
-/* —— Abonnement sportif : configurateur type Apple (pills + barre snap + carte) —— */
-.lp-pricing-bar__label--sportif {
+/* —— Tarifs sportif & coach : configurateur type Apple (pills + barre snap + carte) —— */
+.lp-pricing-bar__label--premium {
   color: #64748b;
   margin-bottom: 0.85rem;
+}
+
+.lp-pricing-bar__value-row--premium-coach {
+  margin-bottom: 0.85rem;
+}
+
+.lp-pricing-bar__value--premium-coach {
+  font-size: clamp(1.85rem, 6vw, 2.85rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: #ea580c;
+  background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.lp-pricing-bar__hint--premium {
+  color: #94a3b8;
 }
 
 .lp-pricing-pills {
@@ -1802,19 +1839,23 @@ select {
   outline-offset: 3px;
 }
 
-.lp-pricing-sportif-track {
+.lp-pricing-premium-track {
   max-width: min(28rem, 100%);
   margin: 0 auto 0.55rem;
   padding: 0.35rem 0.5rem 0.5rem;
 }
 
-.lp-pricing-range.lp-pricing-range--sportif {
+.lp-pricing-premium-track--coach {
+  max-width: min(40rem, 100%);
+}
+
+.lp-pricing-range.lp-pricing-range--premium {
   height: 2.75rem;
   margin: 0;
   accent-color: #f97316;
 }
 
-.lp-pricing-range--sportif::-webkit-slider-runnable-track {
+.lp-pricing-range--premium::-webkit-slider-runnable-track {
   height: 11px;
   border-radius: 999px;
   border: none;
@@ -1825,7 +1866,7 @@ select {
     0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-.lp-pricing-range--sportif::-webkit-slider-thumb {
+.lp-pricing-range--premium::-webkit-slider-thumb {
   appearance: none;
   width: 28px;
   height: 28px;
@@ -1841,11 +1882,11 @@ select {
   cursor: grab;
 }
 
-.lp-pricing-range--sportif:active::-webkit-slider-thumb {
+.lp-pricing-range--premium:active::-webkit-slider-thumb {
   cursor: grabbing;
 }
 
-.lp-pricing-range--sportif::-moz-range-track {
+.lp-pricing-range--premium::-moz-range-track {
   height: 11px;
   border-radius: 999px;
   border: none;
@@ -1856,7 +1897,7 @@ select {
     0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-.lp-pricing-range--sportif::-moz-range-thumb {
+.lp-pricing-range--premium::-moz-range-thumb {
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -1870,7 +1911,7 @@ select {
   cursor: grab;
 }
 
-.lp-pricing-bar__segments--sportif {
+.lp-pricing-bar__segments--premium {
   margin-bottom: 1.5rem;
   gap: 3px;
   border-radius: 12px;
@@ -1880,33 +1921,33 @@ select {
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
-.lp-pricing-bar__segments--sportif .lp-pricing-bar__segment {
+.lp-pricing-bar__segments--premium .lp-pricing-bar__segment {
   padding: 0.4rem 0.2rem;
   background: transparent;
   transition: background 0.22s ease, box-shadow 0.22s ease;
 }
 
-.lp-pricing-bar__segments--sportif .lp-pricing-bar__segment.is-active {
+.lp-pricing-bar__segments--premium .lp-pricing-bar__segment.is-active {
   background: linear-gradient(180deg, rgba(254, 243, 199, 0.55) 0%, rgba(255, 237, 213, 0.4) 100%);
   box-shadow: inset 0 0 0 1px rgba(251, 146, 60, 0.22);
 }
 
-.lp-pricing-bar__segments--sportif .lp-pricing-bar__segment-name {
+.lp-pricing-bar__segments--premium .lp-pricing-bar__segment-name {
   color: #94a3b8;
   font-size: 0.56rem;
 }
 
-.lp-pricing-bar__segments--sportif .lp-pricing-bar__segment.is-active .lp-pricing-bar__segment-name {
+.lp-pricing-bar__segments--premium .lp-pricing-bar__segment.is-active .lp-pricing-bar__segment-name {
   color: #c2410c;
 }
 
 @media (min-width: 520px) {
-  .lp-pricing-bar__segments--sportif .lp-pricing-bar__segment-name {
+  .lp-pricing-bar__segments--premium .lp-pricing-bar__segment-name {
     font-size: 0.62rem;
   }
 }
 
-.lp-pricing-sportif-card-shell {
+.lp-pricing-premium-card-shell {
   max-width: 28rem;
   margin-left: auto;
   margin-right: auto;
@@ -1919,7 +1960,7 @@ select {
     0 8px 24px rgba(251, 146, 60, 0.12);
 }
 
-.lp-pricing-card.lp-pricing-card--sportif {
+.lp-pricing-card.lp-pricing-card--premium {
   --plan-accent: #f97316;
   margin: 0;
   max-width: none;
@@ -1930,10 +1971,17 @@ select {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.9),
     0 12px 40px rgba(0, 0, 0, 0.06);
-  animation: lpSportifCardReveal 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: lpPremiumCardReveal 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-@keyframes lpSportifCardReveal {
+.lp-pricing-card--premium .lp-pricing-card__badge {
+  background: linear-gradient(135deg, #fde047 0%, #fbbf24 45%, #f97316 100%);
+  color: #0a0a0a;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(251, 146, 60, 0.25);
+}
+
+@keyframes lpPremiumCardReveal {
   from {
     opacity: 0;
     transform: translateY(14px);
@@ -1946,31 +1994,36 @@ select {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lp-pricing-card.lp-pricing-card--sportif {
+  .lp-pricing-card.lp-pricing-card--premium {
     animation: none;
   }
 }
 
-.lp-pricing-card__name--sportif {
+.lp-pricing-card__name--premium {
   color: #ea580c;
   margin-bottom: 0.65rem;
 }
 
-.lp-pricing-card__price--sportif {
+.lp-pricing-card__price--premium {
   color: #0a0a0a;
   font-family: var(--font-head), system-ui, sans-serif;
 }
 
-.lp-pricing-card__period--sportif {
+.lp-pricing-card__period--premium {
   color: #64748b;
 }
 
-.lp-pricing-card__features--sportif li::before {
+.lp-pricing-card__features--premium li::before {
   background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
   box-shadow: 0 0 0 1px rgba(251, 146, 60, 0.25);
 }
 
-.lp-pricing-card__cta--sportif {
+.lp-pricing-card__per--premium,
+.lp-pricing-card__elite--premium {
+  color: #64748b;
+}
+
+.lp-pricing-card__cta--premium {
   border: none;
   color: #0a0a0a;
   font-weight: 800;
@@ -1986,7 +2039,7 @@ select {
     filter 0.2s ease;
 }
 
-.lp-pricing-card__cta--sportif:hover {
+.lp-pricing-card__cta--premium:hover {
   filter: brightness(1.03);
   box-shadow:
     0 2px 0 rgba(255, 255, 255, 0.4) inset,
@@ -1995,7 +2048,31 @@ select {
   transform: translateY(-1px);
 }
 
-.lp-pricing-card__cta--sportif:active {
+.lp-pricing-card__cta--premium:active {
+  transform: translateY(0);
+}
+
+.lp-pricing-card__cta--premium-outline {
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(135deg, #fde047 0%, #fbbf24 40%, #f97316 100%) border-box;
+  color: #0a0a0a;
+  font-weight: 700;
+  box-shadow: 0 2px 12px rgba(251, 146, 60, 0.12);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.lp-pricing-card__cta--premium-outline:hover {
+  filter: brightness(1.02);
+  box-shadow: 0 4px 18px rgba(251, 146, 60, 0.22);
+  transform: translateY(-1px);
+}
+
+.lp-pricing-card__cta--premium-outline:active {
   transform: translateY(0);
 }
 

@@ -249,7 +249,6 @@ const PRICING_PLANS = [
   {
     id: "starter",
     name: "Starter",
-    accent: "blue",
     monthly: 15,
     studentCount: 5,
     features: [
@@ -265,7 +264,6 @@ const PRICING_PLANS = [
   {
     id: "pro",
     name: "Pro",
-    accent: "gold",
     monthly: 39,
     studentCount: 20,
     features: [
@@ -283,7 +281,6 @@ const PRICING_PLANS = [
   {
     id: "growth",
     name: "Growth",
-    accent: "purple",
     monthly: 71,
     studentCount: 50,
     features: [
@@ -300,7 +297,6 @@ const PRICING_PLANS = [
   {
     id: "scale",
     name: "Scale",
-    accent: "green",
     monthly: 119,
     studentCount: 100,
     features: [
@@ -317,7 +313,6 @@ const PRICING_PLANS = [
   {
     id: "elite",
     name: "Elite",
-    accent: "red",
     monthly: 199,
     studentCount: null,
     eliteSubline: "Élèves illimités — valeur sur mesure",
@@ -715,10 +710,7 @@ export default function App() {
           </div>
         </section>
 
-        <section
-          className={`lp-section lp-section--pricing ${role === "sportif" ? "lp-section--pricing-sportif" : ""}`}
-          id="tarifs"
-        >
+        <section className="lp-section lp-section--pricing lp-section--pricing-premium" id="tarifs">
           <div className="lp-wrap">
             <div className="lp-pricing-header">
               <h2 className="lp-h2 lp-h2--pricing-main">
@@ -730,7 +722,7 @@ export default function App() {
                 <>
                   <p className="lp-pricing-tagline">Des paliers simples, un prix clair.</p>
                   <div
-                    className="lp-pricing-billing"
+                    className="lp-pricing-billing lp-pricing-billing--premium"
                     role="group"
                     aria-label="Période de facturation"
                   >
@@ -751,9 +743,7 @@ export default function App() {
                       Annuel –20%
                     </button>
                   </div>
-                  <p className="lp-pricing-note">
-                    Prix indicatifs avant lancement.
-                  </p>
+                  <p className="lp-pricing-note">Prix indicatifs avant lancement.</p>
                 </>
               ) : null}
             </div>
@@ -761,36 +751,59 @@ export default function App() {
             <div className="lp-pricing-bar" aria-labelledby="pricing-bar-label">
               {role === "coach" ? (
                 <>
-                  <p className="lp-pricing-bar__label" id="pricing-bar-label">
+                  <p className="lp-pricing-bar__label lp-pricing-bar__label--premium" id="pricing-bar-label">
                     Nombre d’élèves suivis
                   </p>
-                  <div className="lp-pricing-bar__value-row">
-                    <output className="lp-pricing-bar__value" htmlFor="pricing-students-range">
+                  <div className="lp-pricing-bar__value-row lp-pricing-bar__value-row--premium-coach">
+                    <output
+                      className="lp-pricing-bar__value lp-pricing-bar__value--premium-coach"
+                      htmlFor="pricing-students-range"
+                    >
                       {activeCoachStudentThreshold ?? "Illimité"}
                     </output>
-                    <span className="lp-pricing-bar__hint">
+                    <span className="lp-pricing-bar__hint lp-pricing-bar__hint--premium">
                       {activeCoachStudentThreshold ? "élèves max" : "sans limite"}
                     </span>
                   </div>
 
-                  <input
-                    id="pricing-students-range"
-                    className="lp-pricing-range"
-                    type="range"
-                    min={0}
-                    max={PRICING_PLANS.length - 1}
-                    step={1}
-                    value={coachPlanIdx}
-                    onChange={(e) => setCoachPlanIdx(Number(e.target.value))}
-                    aria-valuemin={0}
-                    aria-valuemax={PRICING_PLANS.length - 1}
-                    aria-valuenow={coachPlanIdx}
-                    aria-valuetext={`${activePricingPlan.name} — ${activeCoachStudentThreshold ?? "illimité"} élève${
-                      activeCoachStudentThreshold && activeCoachStudentThreshold > 1 ? "s" : ""
-                    }`}
-                  />
+                  <div className="lp-pricing-pills" role="tablist" aria-label="Formules coach">
+                    {PRICING_PLANS.map((plan, i) => (
+                      <button
+                        key={plan.id}
+                        type="button"
+                        role="tab"
+                        id={`coach-tier-tab-${i}`}
+                        aria-selected={coachPlanIdx === i}
+                        aria-controls="coach-pricing-panel"
+                        className={`lp-pricing-pill ${coachPlanIdx === i ? "is-active" : ""}`}
+                        onClick={() => setCoachPlanIdx(i)}
+                      >
+                        {plan.name}
+                      </button>
+                    ))}
+                  </div>
 
-                  <div className="lp-pricing-bar__segments" aria-hidden="true">
+                  <div className="lp-pricing-premium-track lp-pricing-premium-track--coach">
+                    <input
+                      id="pricing-students-range"
+                      className="lp-pricing-range lp-pricing-range--premium"
+                      type="range"
+                      min={0}
+                      max={PRICING_PLANS.length - 1}
+                      step={1}
+                      value={coachPlanIdx}
+                      onChange={(e) => setCoachPlanIdx(Number(e.target.value))}
+                      aria-valuemin={0}
+                      aria-valuemax={PRICING_PLANS.length - 1}
+                      aria-valuenow={coachPlanIdx}
+                      aria-valuetext={`${activePricingPlan.name} — ${activeCoachStudentThreshold ?? "illimité"} élève${
+                        activeCoachStudentThreshold && activeCoachStudentThreshold > 1 ? "s" : ""
+                      }`}
+                      aria-labelledby="pricing-bar-label"
+                    />
+                  </div>
+
+                  <div className="lp-pricing-bar__segments lp-pricing-bar__segments--premium" aria-hidden="true">
                     {PRICING_BAR_SEGMENTS.map((seg) => (
                       <div
                         key={seg.id}
@@ -804,46 +817,54 @@ export default function App() {
                     ))}
                   </div>
 
-                  <article
-                    className={`lp-pricing-dynamic lp-pricing-card lp-pricing-card--${activePricingPlan.accent} ${activePricingPlan.featured ? "lp-pricing-card--featured" : ""}`}
-                  >
-                    {activePricingPlan.recommended && (
-                      <span className="lp-pricing-card__badge">Recommandé</span>
-                    )}
-                    <h3 className="lp-pricing-card__name">{activePricingPlan.name}</h3>
-                    <p className="lp-pricing-card__price">
-                      {pricingDisplayEuros(activePricingPlan.monthly, billingCycle)}
-                      <span className="lp-pricing-card__period">/mois</span>
-                    </p>
-                    {pricingPerDisplay && (
-                      <p className="lp-pricing-card__per">
-                        ≈ {pricingPerDisplay}€ / élève / mois (à {activeCoachStudentThreshold} élève
-                        {activeCoachStudentThreshold > 1 ? "s" : ""})
-                      </p>
-                    )}
-                    {activePricingPlan.eliteSubline && (
-                      <p className="lp-pricing-card__elite">{activePricingPlan.eliteSubline}</p>
-                    )}
-                    <ul className="lp-pricing-card__features">
-                      {activePricingPlan.features.map((f) => (
-                        <li key={f}>{f}</li>
-                      ))}
-                    </ul>
-                    <a
-                      href="#inscription"
-                      className={
-                        activePricingPlan.featured && !activePricingPlan.contactOnly
-                          ? "lp-pricing-card__cta lp-pricing-card__cta--primary"
-                          : "lp-pricing-card__cta lp-pricing-card__cta--outline"
-                      }
+                  <div className="lp-pricing-premium-card-shell">
+                    <article
+                      key={coachPlanIdx}
+                      id="coach-pricing-panel"
+                      role="tabpanel"
+                      aria-labelledby={`coach-tier-tab-${coachPlanIdx}`}
+                      className="lp-pricing-dynamic lp-pricing-card lp-pricing-card--premium"
                     >
-                      {activePricingPlan.contactOnly ? "Nous contacter" : "Choisir ce plan"}
-                    </a>
-                  </article>
+                      {activePricingPlan.recommended && (
+                        <span className="lp-pricing-card__badge">Recommandé</span>
+                      )}
+                      <h3 className="lp-pricing-card__name lp-pricing-card__name--premium">{activePricingPlan.name}</h3>
+                      <p className="lp-pricing-card__price lp-pricing-card__price--premium">
+                        {pricingDisplayEuros(activePricingPlan.monthly, billingCycle)}
+                        <span className="lp-pricing-card__period lp-pricing-card__period--premium">/mois</span>
+                      </p>
+                      {pricingPerDisplay && (
+                        <p className="lp-pricing-card__per lp-pricing-card__per--premium">
+                          ≈ {pricingPerDisplay}€ / élève / mois (à {activeCoachStudentThreshold} élève
+                          {activeCoachStudentThreshold > 1 ? "s" : ""})
+                        </p>
+                      )}
+                      {activePricingPlan.eliteSubline && (
+                        <p className="lp-pricing-card__elite lp-pricing-card__elite--premium">
+                          {activePricingPlan.eliteSubline}
+                        </p>
+                      )}
+                      <ul className="lp-pricing-card__features lp-pricing-card__features--premium">
+                        {activePricingPlan.features.map((f) => (
+                          <li key={f}>{f}</li>
+                        ))}
+                      </ul>
+                      <a
+                        href="#inscription"
+                        className={
+                          activePricingPlan.contactOnly
+                            ? "lp-pricing-card__cta lp-pricing-card__cta--premium-outline"
+                            : "lp-pricing-card__cta lp-pricing-card__cta--premium"
+                        }
+                      >
+                        {activePricingPlan.contactOnly ? "Nous contacter" : "Choisir ce plan"}
+                      </a>
+                    </article>
+                  </div>
                 </>
               ) : (
                 <>
-                  <p className="lp-pricing-bar__label lp-pricing-bar__label--sportif" id="pricing-bar-label">
+                  <p className="lp-pricing-bar__label lp-pricing-bar__label--premium" id="pricing-bar-label">
                     Choisissez votre palier
                   </p>
 
@@ -868,10 +889,10 @@ export default function App() {
                     ))}
                   </div>
 
-                  <div className="lp-pricing-sportif-track">
+                  <div className="lp-pricing-premium-track">
                     <input
                       id="pricing-sportif-range"
-                      className="lp-pricing-range lp-pricing-range--sportif"
+                      className="lp-pricing-range lp-pricing-range--premium"
                       type="range"
                       min={0}
                       max={PRICING_SPORTIF_PLANS.length - 1}
@@ -886,7 +907,7 @@ export default function App() {
                     />
                   </div>
 
-                  <div className="lp-pricing-bar__segments lp-pricing-bar__segments--sportif" aria-hidden="true">
+                  <div className="lp-pricing-bar__segments lp-pricing-bar__segments--premium" aria-hidden="true">
                     {PRICING_SPORTIF_PLANS.map((plan) => (
                       <div
                         key={plan.id}
@@ -898,29 +919,29 @@ export default function App() {
                     ))}
                   </div>
 
-                  <div className="lp-pricing-sportif-card-shell">
+                  <div className="lp-pricing-premium-card-shell">
                     <article
                       key={sportifPlanIdx}
                       id="sportif-pricing-panel"
                       role="tabpanel"
                       aria-labelledby={`sportif-tier-tab-${sportifPlanIdx}`}
-                      className="lp-pricing-dynamic lp-pricing-card lp-pricing-card--sportif"
+                      className="lp-pricing-dynamic lp-pricing-card lp-pricing-card--premium"
                     >
-                      <h3 className="lp-pricing-card__name lp-pricing-card__name--sportif">
+                      <h3 className="lp-pricing-card__name lp-pricing-card__name--premium">
                         {activeSportifPlan.name}
                       </h3>
-                      <p className="lp-pricing-card__price lp-pricing-card__price--sportif">
+                      <p className="lp-pricing-card__price lp-pricing-card__price--premium">
                         {activeSportifPlan.monthlyLabel}
-                        <span className="lp-pricing-card__period lp-pricing-card__period--sportif">/mois</span>
+                        <span className="lp-pricing-card__period lp-pricing-card__period--premium">/mois</span>
                       </p>
-                      <ul className="lp-pricing-card__features lp-pricing-card__features--sportif">
+                      <ul className="lp-pricing-card__features lp-pricing-card__features--premium">
                         {activeSportifPlan.features.map((f) => (
                           <li key={f}>{f}</li>
                         ))}
                       </ul>
                       <a
                         href="#inscription"
-                        className="lp-pricing-card__cta lp-pricing-card__cta--sportif"
+                        className="lp-pricing-card__cta lp-pricing-card__cta--premium"
                       >
                         Choisir ce plan
                       </a>
