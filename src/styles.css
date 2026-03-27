@@ -1102,8 +1102,8 @@ select {
 
 .lp-focus--wow {
   position: relative;
-  margin-bottom: 1.75rem;
-  padding: 1.25rem 1.2rem 1.2rem;
+  margin-bottom: 1.1rem;
+  padding: 0.95rem 1rem 0.9rem;
   overflow: hidden;
   border: none;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
@@ -1392,17 +1392,17 @@ select {
 }
 
 .lp-focus__title {
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.32rem;
   font-family: var(--font-head);
-  font-size: 1.35rem;
+  font-size: 1.16rem;
   font-weight: 800;
 }
 
 .lp-focus__text {
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.5rem;
   color: var(--muted);
-  font-size: 0.9rem;
-  line-height: 1.55;
+  font-size: 0.82rem;
+  line-height: 1.42;
 }
 
 .lp-focus__bullets {
@@ -1411,13 +1411,13 @@ select {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.22rem;
 }
 
 .lp-focus__bullets li {
-  font-size: 0.875rem;
+  font-size: 0.79rem;
   font-weight: 600;
-  padding-left: 1rem;
+  padding-left: 0.82rem;
   position: relative;
 }
 
@@ -1425,9 +1425,9 @@ select {
   content: "";
   position: absolute;
   left: 0;
-  top: 0.55em;
-  width: 5px;
-  height: 5px;
+  top: 0.57em;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
   background: var(--gold);
 }
