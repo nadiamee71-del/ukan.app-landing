@@ -23,6 +23,13 @@
   --red: #ef4444;
   --red-dim: rgba(239, 68, 68, 0.16);
   --border: rgba(240, 237, 232, 0.1);
+  --hero-green: #16a34a;
+  --hero-green-bright: #22c55e;
+  --hero-green-soft: rgba(34, 197, 94, 0.14);
+  --hero-orange: #f97316;
+  --hero-orange-deep: #ea580c;
+  --gradient-hero: linear-gradient(135deg, var(--hero-green-bright) 0%, var(--hero-orange) 52%, var(--hero-orange-deep) 100%);
+  --gradient-hero-text: linear-gradient(135deg, #15803d 0%, #f97316 55%, #ea580c 100%);
   --font-head: "Sora", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
   --radius: 20px;
@@ -107,7 +114,7 @@ select {
   z-index: 50;
   background: color-mix(in srgb, var(--bg) 88%, transparent);
   backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid color-mix(in srgb, var(--hero-green) 12%, var(--border));
 }
 
 .lp-header__inner {
@@ -145,6 +152,11 @@ select {
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.1;
+  background: var(--gradient-hero-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .lp-brand__tag {
@@ -154,8 +166,8 @@ select {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  /* Texte seul, pas de fond ni d’ombre — dégradé charte sur les lettres */
-  background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+  /* Texte seul — dégradé vert → orange */
+  background: var(--gradient-hero-text);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -182,8 +194,7 @@ select {
   letter-spacing: 0.07em;
   text-transform: uppercase;
   text-decoration: none;
-  /* Même charte que « Liste d’attente » : texte en dégradé orange → rouge */
-  background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+  background: var(--gradient-hero-text);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -199,7 +210,7 @@ select {
   bottom: 0;
   height: 2px;
   border-radius: 2px;
-  background: linear-gradient(90deg, #f97316, #ef4444);
+  background: linear-gradient(90deg, #22c55e, #f97316);
   transform: scaleX(0);
   transform-origin: center;
   transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
@@ -411,9 +422,9 @@ select {
 }
 
 .lp-theme button {
-  border: 1px solid #e3e3e1;
+  border: 1px solid color-mix(in srgb, var(--hero-green) 22%, #e3e3e1);
   background: #ffffff;
-  color: rgba(26, 26, 24, 0.42);
+  color: rgba(21, 83, 45, 0.55);
   cursor: pointer;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
@@ -421,26 +432,26 @@ select {
 .lp-theme span.is-on,
 .lp-theme button.is-on {
   border-color: transparent;
-  background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
-  color: #1a1a18;
+  background: var(--gradient-hero);
+  color: #0f172a;
   box-shadow:
-    0 0 0 1px rgba(249, 115, 22, 0.35),
-    0 10px 26px rgba(239, 68, 68, 0.38),
-    0 4px 12px rgba(249, 115, 22, 0.22);
+    0 0 0 1px rgba(34, 197, 94, 0.35),
+    0 10px 26px rgba(249, 115, 22, 0.28),
+    0 4px 14px rgba(22, 163, 74, 0.2);
 }
 
 .lp-theme button:hover:not(.is-on) {
-  border-color: rgba(249, 115, 22, 0.35);
-  color: rgba(26, 26, 24, 0.62);
+  border-color: rgba(34, 197, 94, 0.45);
+  color: rgba(21, 83, 45, 0.85);
   transform: translateY(-1px);
 }
 
 .lp-theme button:hover.is-on {
   transform: translateY(-1px);
   box-shadow:
-    0 0 0 1px rgba(249, 115, 22, 0.45),
-    0 12px 30px rgba(239, 68, 68, 0.45),
-    0 4px 14px rgba(249, 115, 22, 0.28);
+    0 0 0 1px rgba(34, 197, 94, 0.4),
+    0 12px 30px rgba(249, 115, 22, 0.32),
+    0 4px 14px rgba(22, 163, 74, 0.25);
 }
 
 .lp-theme button:active {
@@ -450,6 +461,8 @@ select {
 /* Hero */
 .lp-hero {
   padding: clamp(2.5rem, 8vw, 5rem) 0 clamp(3rem, 10vw, 6rem);
+  background: radial-gradient(120% 80% at 50% -20%, var(--hero-green-soft), transparent 55%),
+    linear-gradient(180deg, rgba(254, 243, 199, 0.35) 0%, transparent 42%);
 }
 
 .lp-eyebrow {
@@ -465,11 +478,17 @@ select {
   color: var(--gold);
 }
 
-/* Hero uniquement : ligne d’accroche discrète (pas de jaune flashy) */
+/* Hero : pastille lancement vert → orange */
 .lp-eyebrow--hero {
-  color: rgba(26, 26, 24, 0.42);
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  display: inline-block;
+  margin-bottom: 1.1rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #fff;
+  background: var(--gradient-hero);
+  box-shadow: 0 2px 14px rgba(34, 197, 94, 0.25), 0 4px 20px rgba(249, 115, 22, 0.15);
 }
 
 .lp-hero__title {
@@ -483,9 +502,9 @@ select {
   color: #1a1a18;
 }
 
-/* Un seul mot en dégradé orange → rouge (hiérarchie claire) */
+/* Accent titre : vert → orange */
 .lp-hero__accent {
-  background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+  background: var(--gradient-hero-text);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -541,38 +560,38 @@ select {
   }
 }
 
-/* Hero : CTA alignés sur le dégradé orange/rouge (pas d’or) */
+/* Hero : CTA vert → orange */
 .lp-hero .lp-btn--primary {
-  background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
-  color: #1a1a18;
+  background: var(--gradient-hero);
+  color: #0f172a;
   font-weight: 600;
   letter-spacing: 0.03em;
   box-shadow:
-    0 0 0 1px rgba(249, 115, 22, 0.35),
-    0 10px 28px rgba(239, 68, 68, 0.32),
-    0 4px 12px rgba(249, 115, 22, 0.2);
+    0 0 0 1px rgba(34, 197, 94, 0.35),
+    0 10px 28px rgba(249, 115, 22, 0.28),
+    0 4px 14px rgba(22, 163, 74, 0.18);
 }
 
 .lp-hero .lp-btn--primary:hover {
-  background: linear-gradient(135deg, #fb7c1f 0%, #f05555 100%);
+  background: linear-gradient(135deg, #4ade80 0%, #fb923c 48%, #ea580c 100%);
   box-shadow:
-    0 0 0 1px rgba(249, 115, 22, 0.45),
-    0 14px 34px rgba(239, 68, 68, 0.38),
-    0 4px 14px rgba(249, 115, 22, 0.26);
+    0 0 0 1px rgba(34, 197, 94, 0.45),
+    0 14px 34px rgba(249, 115, 22, 0.32),
+    0 4px 14px rgba(22, 163, 74, 0.22);
 }
 
 .lp-hero .lp-btn--ghost {
   background: #ffffff;
-  color: #1a1a18;
-  box-shadow: inset 0 0 0 1.5px rgba(26, 26, 24, 0.12);
+  color: #14532d;
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--hero-green) 38%, rgba(26, 26, 24, 0.08));
 }
 
 .lp-hero .lp-btn--ghost:hover {
-  color: #1a1a18;
+  color: #0f3d22;
   border-color: transparent;
   box-shadow:
-    inset 0 0 0 1.5px color-mix(in srgb, var(--orange) 42%, rgba(26, 26, 24, 0.12));
-  background: #ffffff;
+    inset 0 0 0 1.5px color-mix(in srgb, var(--hero-orange) 45%, var(--hero-green) 35%);
+  background: color-mix(in srgb, var(--hero-green-soft) 40%, #ffffff);
 }
 
 .lp-hero__device-wrap {
@@ -590,8 +609,8 @@ select {
   border-radius: 999px;
   background: radial-gradient(
     ellipse at center,
-    color-mix(in srgb, var(--orange) 28%, transparent),
-    color-mix(in srgb, var(--red) 12%, transparent),
+    color-mix(in srgb, var(--hero-green-bright) 32%, transparent),
+    color-mix(in srgb, var(--hero-orange) 22%, transparent),
     transparent 70%
   );
   filter: blur(22px);
@@ -680,7 +699,12 @@ select {
   height: 0.26rem;
   transform: none;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, rgba(106, 178, 255, 0.45), rgba(11, 12, 15, 0.95) 70%);
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(74, 222, 128, 0.5),
+    rgba(249, 115, 22, 0.22),
+    rgba(11, 12, 15, 0.95) 72%
+  );
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
 }
 
