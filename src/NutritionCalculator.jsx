@@ -2,15 +2,27 @@ import React, { useCallback, useEffect, useMemo, useReducer, useRef, useState } 
 import { FoodIcon } from "./FoodIcons.jsx";
 import "./nutrition-calculator.css";
 
-/** kcal de référence pour 100 g (ou 100 ml pour le lait) */
+/** zone: plate = assiette, drink = verre, dessert = zone dessert */
 const FOODS = [
-  { id: "broccoli", name: "Brocoli", kcalPer100: 34, kcalLabel: "34" },
-  { id: "chicken", name: "Cuisse de poulet", kcalPer100: 165, kcalLabel: "165" },
-  { id: "rice", name: "Riz", kcalPer100: 130, kcalLabel: "130" },
-  { id: "milk", name: "Lait", kcalPer100: 42, kcalLabel: "42", perVolume: true },
-  { id: "egg", name: "Œuf", kcalPer100: 155, kcalLabel: "155" },
-  { id: "banana", name: "Banane", kcalPer100: 89, kcalLabel: "89" },
-  { id: "steak", name: "Steak", kcalPer100: 250, kcalLabel: "250" },
+  { id: "broccoli", name: "Brocoli", shortLabel: "Brocoli", kcalPer100: 34, zone: "plate" },
+  { id: "chicken", name: "Cuisse de poulet", shortLabel: "Poulet", kcalPer100: 165, zone: "plate" },
+  { id: "rice", name: "Riz", shortLabel: "Riz", kcalPer100: 130, zone: "plate" },
+  { id: "egg", name: "Œuf", shortLabel: "Œuf", kcalPer100: 155, zone: "plate" },
+  { id: "banana", name: "Banane", shortLabel: "Banane", kcalPer100: 89, zone: "plate" },
+  { id: "steak", name: "Steak", shortLabel: "Steak", kcalPer100: 250, zone: "plate" },
+  { id: "spaghetti", name: "Spaghettis", shortLabel: "Spaghettis", kcalPer100: 158, zone: "plate" },
+  { id: "fries", name: "Frites", shortLabel: "Frites", kcalPer100: 312, zone: "plate" },
+  { id: "milk", name: "Lait", shortLabel: "Lait", kcalPer100: 42, perVolume: true, zone: "drink" },
+  { id: "coca", name: "Coca", shortLabel: "Coca", kcalPer100: 42, perVolume: true, zone: "drink" },
+  { id: "dessert", name: "Dessert", shortLabel: "Dessert", kcalPer100: 320, zone: "dessert" },
+];
+
+/** Rangées défilantes : féculents, plat, boissons, dessert */
+const FOOD_ROWS = [
+  { key: "starches", label: "Féculents", ids: ["rice", "spaghetti", "fries"] },
+  { key: "mains", label: "Au menu", ids: ["broccoli", "chicken", "steak", "egg", "banana"] },
+  { key: "drinks", label: "Boissons", ids: ["milk", "coca"] },
+  { key: "sweet", label: "Dessert", ids: ["dessert"] },
 ];
 
 const UNITS = [
@@ -45,7 +57,6 @@ function formatNum(n) {
   return s;
 }
 
-/** Quantité exploitable pour l’ajout (affichage calculatrice → nombre > 0) */
 function parseQuantityFromDisplay(display) {
   if (display === "Erreur" || display === undefined || display === "") return null;
   const trimmed = String(display).trim();
@@ -105,7 +116,6 @@ function calcReducer(state, action) {
   }
 }
 
-/** Compteur total avec interpolation douce (ease-out cubic) */
 function useAnimatedKcal(target, durationMs = 480) {
   const [value, setValue] = useState(target);
   const valueRef = useRef(target);
@@ -143,30 +153,49 @@ function useAnimatedKcal(target, durationMs = 480) {
   return value;
 }
 
+function foodById(id) {
+  return FOODS.find((f) => f.id === id);
+}
+
 export function NutritionCalculator() {
   const [selectedId, setSelectedId] = useState(null);
   const [unitId, setUnitId] = useState("g");
-  const [plate, setPlate] = useState([]);
+  const [items, setItems] = useState([]);
   const [calc, dispatch] = useReducer(calcReducer, calcInitial);
 
-  const selectedFood = useMemo(() => (selectedId ? FOODS.find((f) => f.id === selectedId) : null), [selectedId]);
+  const selectedFood = useMemo(() => (selectedId ? foodById(selectedId) : null), [selectedId]);
   const unit = useMemo(() => UNITS.find((u) => u.id === unitId) ?? UNITS[0], [unitId]);
-  const totalKcal = useMemo(() => plate.reduce((s, p) => s + p.kcal, 0), [plate]);
+
+  const plateItems = useMemo(() => items.filter((i) => i.zone === "plate"), [items]);
+  const drinkItems = useMemo(() => items.filter((i) => i.zone === "drink"), [items]);
+  const dessertItems = useMemo(() => items.filter((i) => i.zone === "dessert"), [items]);
+
+  const totalKcal = useMemo(() => items.reduce((s, p) => s + p.kcal, 0), [items]);
   const animatedTotal = useAnimatedKcal(totalKcal);
-  /** Remplissage visuel de l’assiette (0 → 1), plafonné pour rester subtil */
-  const plateFill = useMemo(() => Math.min(1, totalKcal / 650), [totalKcal]);
+
+  const plateKcalSum = useMemo(() => plateItems.reduce((s, p) => s + p.kcal, 0), [plateItems]);
+  const drinkKcalSum = useMemo(() => drinkItems.reduce((s, p) => s + p.kcal, 0), [drinkItems]);
+
+  const drinkMilkOnly = useMemo(
+    () => drinkItems.length > 0 && drinkItems.every((i) => i.foodId === "milk"),
+    [drinkItems]
+  );
+
+  const plateFill = useMemo(() => Math.min(1, plateKcalSum / 500), [plateKcalSum]);
+  const drinkFill = useMemo(() => Math.min(1, drinkKcalSum / 250), [drinkKcalSum]);
+  const dessertFill = useMemo(() => Math.min(1, dessertItems.length / 4), [dessertItems.length]);
 
   const quantity = useMemo(() => parseQuantityFromDisplay(calc.display), [calc.display]);
   const canAdd = Boolean(selectedFood && quantity !== null);
 
-  const clearPlate = useCallback(() => {
-    setPlate([]);
+  const clearAll = useCallback(() => {
+    setItems([]);
     setSelectedId(null);
     setUnitId("g");
     dispatch({ type: "clear" });
   }, []);
 
-  const addToPlate = useCallback(() => {
+  const addItem = useCallback(() => {
     if (!selectedFood) return;
     const qty = parseQuantityFromDisplay(calc.display);
     if (qty === null) return;
@@ -174,11 +203,12 @@ export function NutritionCalculator() {
     const kcal = (selectedFood.kcalPer100 * baseAmount) / 100;
     const rounded = Math.round(kcal * 10) / 10;
     const label = `${selectedFood.name} · ${qty} ${unit.label}`;
-    setPlate((p) => [
+    setItems((p) => [
       ...p,
       {
         id: `${Date.now()}-${p.length}`,
         foodId: selectedFood.id,
+        zone: selectedFood.zone,
         label,
         kcal: rounded,
       },
@@ -203,59 +233,121 @@ export function NutritionCalculator() {
         <p className="nc-plate-card__total">
           Total : <strong className="nc-total-kcal">{Math.round(animatedTotal * 10) / 10}</strong> kcal
         </p>
-        <div
-          className={`nc-plate ${plate.length > 0 ? "nc-plate--has-food" : ""}`}
-          style={{ "--nc-plate-fill": plateFill }}
-          aria-hidden="true"
-        >
-          <div className="nc-plate__fill" />
-          <div className="nc-plate__inner">
-            {plate.length === 0 ? (
-              <span className="nc-plate__hint">Ajoutez un aliment</span>
-            ) : (
-              <div
-                className={`nc-plate-chips ${plate.length > 6 ? "nc-plate-chips--compact" : ""}`}
-                role="list"
-              >
-                {plate.map((item) => (
-                  <div key={item.id} className="nc-plate-chip" role="listitem" title={item.label}>
-                    <span className="nc-plate-chip__icon" aria-hidden>
-                      <FoodIcon name={item.foodId ?? "broccoli"} />
-                    </span>
-                    <span className="nc-plate-chip__kcal">{item.kcal}</span>
-                  </div>
-                ))}
+
+        <div className="nc-meal-stage" aria-hidden="true">
+          {/* Verre — boissons */}
+          <div className="nc-slot nc-slot--glass">
+            <span className="nc-slot__label">Verre</span>
+            <div
+              className={`nc-glass ${drinkMilkOnly ? "nc-glass--milk" : ""}`}
+              style={{ "--nc-drink-fill": drinkFill }}
+            >
+              <div className="nc-glass__liquid" />
+              <div className="nc-glass__icons">
+                {drinkItems.length === 0 ? (
+                  <span className="nc-slot__empty">Boisson</span>
+                ) : (
+                  drinkItems.map((item) => (
+                    <div key={item.id} className="nc-slot-chip nc-slot-chip--glass" title={item.label}>
+                      <span className="nc-slot-chip__icon nc-slot-chip__icon--lg">
+                        <FoodIcon name={item.foodId ?? "milk"} size="lg" />
+                      </span>
+                    </div>
+                  ))
+                )}
               </div>
-            )}
+            </div>
+          </div>
+
+          {/* Assiette — repas */}
+          <div className="nc-slot nc-slot--plate">
+            <span className="nc-slot__label">Assiette</span>
+            <div
+              className={`nc-plate ${plateItems.length > 0 ? "nc-plate--has-food" : ""}`}
+              style={{ "--nc-plate-fill": plateFill }}
+            >
+              <div className="nc-plate__fill" />
+              <div className="nc-plate__inner">
+                {plateItems.length === 0 ? (
+                  <span className="nc-plate__hint">Ajoutez un aliment</span>
+                ) : (
+                  <div
+                    className={`nc-plate-chips ${plateItems.length > 4 ? "nc-plate-chips--compact" : ""}`}
+                    role="list"
+                  >
+                    {plateItems.map((item) => (
+                      <div key={item.id} className="nc-plate-chip" role="listitem" title={item.label}>
+                        <span className="nc-plate-chip__icon" aria-hidden>
+                          <FoodIcon name={item.foodId ?? "broccoli"} size="lg" />
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Zone dessert */}
+          <div className="nc-slot nc-slot--dessert">
+            <span className="nc-slot__label">Dessert</span>
+            <div className="nc-dessert-zone" style={{ "--nc-dessert-fill": dessertFill }}>
+              <div className="nc-dessert-zone__inner">
+                {dessertItems.length === 0 ? (
+                  <span className="nc-slot__empty">Dessert</span>
+                ) : (
+                  dessertItems.map((item) => (
+                    <div key={item.id} className="nc-slot-chip nc-slot-chip--dessert" title={item.label}>
+                      <span className="nc-slot-chip__icon nc-slot-chip__icon--lg">
+                        <FoodIcon name={item.foodId ?? "dessert"} size="lg" />
+                      </span>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
           </div>
         </div>
+
         <ul className="nc-plate-sr" aria-live="polite">
-          {plate.map((item) => (
+          {items.map((item) => (
             <li key={item.id}>
               {item.label} : {item.kcal} kcal
             </li>
           ))}
         </ul>
-        <button type="button" className="nc-btn-clear" onClick={clearPlate}>
-          Vider l’assiette
+
+        <button type="button" className="nc-btn-clear" onClick={clearAll}>
+          Tout vider
         </button>
       </div>
 
-      <div className="nc-foods" role="group" aria-label="Choisir un aliment">
-        {FOODS.map((f) => (
-          <button
-            key={f.id}
-            type="button"
-            className={`nc-food ${selectedId === f.id ? "is-selected" : ""}`}
-            onClick={() => setSelectedId(f.id)}
-            aria-pressed={selectedId === f.id}
-            aria-label={`${f.name}, ${f.kcalLabel} kcal pour 100 ${f.perVolume ? "ml" : "g"}`}
-          >
-            <span className="nc-food__icon">
-              <FoodIcon name={f.id} />
-            </span>
-            <span className="nc-food__kcal">{f.kcalLabel} kcal</span>
-          </button>
+      <div className="nc-food-pickers" role="region" aria-label="Choisir des aliments">
+        {FOOD_ROWS.map((row) => (
+          <div key={row.key} className="nc-food-row">
+            <p className="nc-food-row__label">{row.label}</p>
+            <div className="nc-food-row__scroll" role="group" aria-label={row.label}>
+              {row.ids.map((fid) => {
+                const f = foodById(fid);
+                if (!f) return null;
+                return (
+                  <button
+                    key={f.id}
+                    type="button"
+                    className={`nc-food ${selectedId === f.id ? "is-selected" : ""}`}
+                    onClick={() => setSelectedId(f.id)}
+                    aria-pressed={selectedId === f.id}
+                    aria-label={`${f.name}`}
+                  >
+                    <span className="nc-food__icon">
+                      <FoodIcon name={f.id} />
+                    </span>
+                    <span className="nc-food__name">{f.shortLabel}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         ))}
       </div>
 
@@ -276,7 +368,7 @@ export function NutritionCalculator() {
       <button
         type="button"
         className="nc-btn-add"
-        onClick={addToPlate}
+        onClick={addItem}
         disabled={!canAdd}
         aria-disabled={!canAdd}
         title={
@@ -291,7 +383,7 @@ export function NutritionCalculator() {
       </button>
 
       <p className="nc-feedback" role="status" aria-live="polite">
-        {!selectedFood && "Sélectionnez un aliment, puis saisissez une quantité et une unité."}
+        {!selectedFood && "Choisissez un aliment dans les listes, puis quantité et unité."}
         {selectedFood && quantity === null && calc.display !== "Erreur" && "Indiquez une quantité supérieure à 0."}
         {selectedFood && calc.display === "Erreur" && "Calcul invalide — touchez C pour réinitialiser."}
       </p>
@@ -360,13 +452,14 @@ export function NutritionCalculator() {
           <button type="button" className="nc-calc__btn nc-calc__btn--num" onClick={() => handleKey(".")}>
             .
           </button>
-          <button type="button" className="nc-calc__btn nc-calc__btn--eq" onClick={() => handleKey("=")} aria-label="Égal">
-            =
-          </button>
+          <span className="nc-calc__grid-spacer" aria-hidden="true" />
         </div>
       </div>
 
-      <p className="nc-hint">Saisissez une quantité, choisissez l’unité, puis + Ajouter pour alimenter l’assiette.</p>
+      <p className="nc-hint">
+        Faites défiler chaque ligne pour choisir. Les boissons vont au verre, les desserts à côté, le reste dans
+        l’assiette.
+      </p>
     </div>
   );
 }
