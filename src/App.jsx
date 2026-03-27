@@ -624,11 +624,9 @@ export default function App() {
             </header>
 
             <div className="lp-features-toolbar-glass">
-              <div className="lp-toggle lp-toggle--glass" role="status" aria-live="polite">
-                <button type="button" className="is-active">
-                  {role === "coach" ? "Profil coach" : "Profil sportif"}
-                </button>
-              </div>
+              <p className="lp-features-profile-chip" role="status" aria-live="polite">
+                {role === "coach" ? "Profil coach" : "Profil sportif"}
+              </p>
               <div className="lp-goals lp-goals--glass" role="group" aria-label="Objectif">
                 {goals.map((g) => (
                   <button
