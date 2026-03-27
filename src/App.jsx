@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import logoLight from "./assets/logo2.png";
 import badgeAppStore from "./assets/badge-app-store.svg?url";
 import badgeGooglePlay from "./assets/badge-google-play.svg?url";
+import demoVideo from "../assets/ukan.mp4";
 import "./styles.css";
 
 /** À la publication : remplacez par vos fiches App Store et Play Store. */
@@ -501,6 +502,16 @@ export default function App() {
                 Voir les fonctionnalités
               </a>
             </div>
+            <div className="lp-hero__device-wrap" aria-label="Démonstration vidéo UKAN">
+              <div className="lp-hero__device-glow" aria-hidden="true" />
+              <div className="lp-hero__device">
+                <div className="lp-hero__device-screen">
+                  <video autoPlay muted loop playsInline preload="metadata">
+                    <source src={demoVideo} type="video/mp4" />
+                  </video>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -825,7 +836,10 @@ export default function App() {
                     Choisissez votre palier SPORTIF
                   </p>
                   <div className="lp-pricing-bar__value-row">
-                    <output className="lp-pricing-bar__value" htmlFor="pricing-sportif-range">
+                    <output
+                      className="lp-pricing-bar__value lp-pricing-bar__value--compact"
+                      htmlFor="pricing-sportif-range"
+                    >
                       {activeSportifPlan.name}
                     </output>
                     <span className="lp-pricing-bar__hint">palier fixe</span>
