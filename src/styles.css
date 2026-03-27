@@ -148,23 +148,18 @@ select {
 }
 
 .lp-brand__tag {
-  display: inline-block;
-  margin-top: 0.2rem;
-  width: fit-content;
-  max-width: 100%;
-  font-size: 0.625rem;
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.6875rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #1a1a18;
-  padding: 0.38rem 0.7rem;
-  border-radius: 999px;
-  border: 1px solid transparent;
+  /* Texte seul, pas de fond ni d’ombre — dégradé charte sur les lettres */
   background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
-  box-shadow:
-    0 0 0 1px rgba(249, 115, 22, 0.35),
-    0 8px 22px rgba(239, 68, 68, 0.32),
-    0 3px 10px rgba(249, 115, 22, 0.2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .lp-nav {
