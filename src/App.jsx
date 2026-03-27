@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import logoLight from "./assets/logo2.png";
 import badgeAppStore from "./assets/badge-app-store.svg?url";
 import badgeGooglePlay from "./assets/badge-google-play.svg?url";
-import demoVideo from "../assets/ukan-kang.mp4";
+import demoVideo from "../assets/ukan-kang2.mp4";
 import "./styles.css";
 
 /** À la publication : remplacez par vos fiches App Store et Play Store. */

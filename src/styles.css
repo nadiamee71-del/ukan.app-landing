@@ -564,8 +564,8 @@ select {
   z-index: 3;
   right: clamp(0.5rem, 1.4vw, 0.72rem);
   top: 50%;
-  width: 1.8rem;
-  height: 0.35rem;
+  width: 0.35rem;
+  height: 1.8rem;
   transform: translateY(-50%);
   border-radius: 999px;
   background: rgba(9, 9, 12, 0.86);
@@ -576,11 +576,11 @@ select {
   content: "";
   position: absolute;
   z-index: 3;
-  right: clamp(2.45rem, 6.2vw, 2.75rem);
-  top: 50%;
+  right: clamp(0.54rem, 1.5vw, 0.78rem);
+  top: calc(50% - 1.2rem);
   width: 0.26rem;
   height: 0.26rem;
-  transform: translateY(-50%);
+  transform: none;
   border-radius: 50%;
   background: radial-gradient(circle at 35% 35%, rgba(106, 178, 255, 0.45), rgba(11, 12, 15, 0.95) 70%);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
