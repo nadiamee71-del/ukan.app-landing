@@ -2251,7 +2251,7 @@ select {
 
 /* Form — liste d’attente premium */
 .lp-section--form {
-  padding-bottom: clamp(3rem, 10vw, 5rem);
+  padding: clamp(1.5rem, 4vw, 2.25rem) 0 clamp(1.5rem, 4vw, 2.25rem);
   background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
 }
 
@@ -2261,27 +2261,27 @@ select {
 
 .lp-form-intro {
   text-align: center;
-  margin-bottom: 1.75rem;
+  margin-bottom: 0.95rem;
 }
 
 .lp-form-intro__title {
-  margin-bottom: 0.5rem;
-  font-size: clamp(1.45rem, 4vw, 1.85rem);
+  margin-bottom: 0.35rem;
+  font-size: clamp(1.25rem, 3.5vw, 1.65rem);
   letter-spacing: -0.03em;
 }
 
 .lp-form-intro__lead {
   margin: 0 auto;
   max-width: 34ch;
-  font-size: 0.98rem;
-  line-height: 1.55;
+  font-size: 0.9rem;
+  line-height: 1.4;
   color: var(--muted);
 }
 
 .lp-form-card {
   position: relative;
-  border-radius: 24px;
-  padding: clamp(1.35rem, 4vw, 1.85rem);
+  border-radius: 18px;
+  padding: clamp(0.85rem, 3vw, 1.25rem);
   background: var(--surface);
   border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
   box-shadow:
@@ -2302,10 +2302,10 @@ select {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
-  margin-bottom: 1.35rem;
-  padding: 0.65rem 0.9rem;
-  border-radius: 14px;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: 12px;
   background: rgba(240, 180, 41, 0.32);
   border: 1px solid color-mix(in srgb, var(--gold) 55%, rgba(26, 26, 24, 0.12));
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
@@ -2335,7 +2335,7 @@ select {
 }
 
 .lp-form__block {
-  margin-bottom: 1.35rem;
+  margin-bottom: 0.85rem;
 }
 
 .lp-form__block:last-of-type {
@@ -2343,8 +2343,8 @@ select {
 }
 
 .lp-form__legend {
-  margin: 0 0 0.65rem;
-  font-size: 0.68rem;
+  margin: 0 0 0.4rem;
+  font-size: 0.65rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -2358,7 +2358,7 @@ select {
 
 .lp-form__grid {
   display: grid;
-  gap: 0.85rem;
+  gap: 0.5rem;
   min-width: 0;
 }
 
@@ -2371,10 +2371,10 @@ select {
 .lp-form--premium .lp-label {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  margin-bottom: 0.85rem;
+  gap: 0.28rem;
+  margin-bottom: 0.5rem;
   min-width: 0;
-  font-size: 0.8125rem;
+  font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.01em;
   text-transform: none;
@@ -2393,12 +2393,12 @@ select {
 .lp-form--premium .lp-label :is(input, select) {
   width: 100%;
   max-width: 100%;
-  min-height: 52px;
-  padding: 0 1rem;
-  border-radius: 14px;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  border-radius: 12px;
   border: 1px solid rgba(234, 179, 8, 0.35);
   background: #ffffff;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--text);
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
@@ -2429,24 +2429,30 @@ select {
 }
 
 .lp-form__actions {
-  margin-top: 1.5rem;
-  padding-top: 0.25rem;
+  margin-top: 0.85rem;
+  padding-top: 0.15rem;
+}
+
+.lp-form__actions .lp-btn--submit {
+  min-height: 46px;
+  padding: 0 1.15rem;
+  font-size: 0.8125rem;
 }
 
 .lp-fieldset {
-  margin: 0 0 1.25rem;
+  margin: 0 0 0.75rem;
   padding: 0;
   border: none;
 }
 
 .lp-fieldset--checks {
-  margin-top: 0.25rem;
+  margin-top: 0.15rem;
   margin-bottom: 0;
 }
 
 .lp-fieldset--premium {
-  padding: 1rem 1rem 1.1rem;
-  border-radius: 16px;
+  padding: 0.65rem 0.75rem 0.7rem;
+  border-radius: 14px;
   border: 1px solid rgba(234, 179, 8, 0.35);
   background: color-mix(in srgb, var(--bg-soft) 55%, #ffffff);
 }
@@ -2455,8 +2461,8 @@ select {
   float: unset;
   width: 100%;
   padding: 0;
-  margin: 0 0 0.35rem;
-  font-size: 0.8125rem;
+  margin: 0 0 0.28rem;
+  font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.02em;
   text-transform: none;
@@ -2464,15 +2470,15 @@ select {
 }
 
 .lp-fieldset__hint {
-  margin: 0 0 0.75rem;
-  font-size: 0.78rem;
-  line-height: 1.45;
+  margin: 0 0 0.45rem;
+  font-size: 0.74rem;
+  line-height: 1.38;
   color: rgba(26, 26, 24, 0.52);
 }
 
 .lp-fieldset--checks .lp-checks {
   display: grid;
-  gap: 0.45rem;
+  gap: 0.3rem;
   margin-top: 0;
 }
 
@@ -2485,10 +2491,10 @@ select {
 .lp-check {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
-  padding: 0.45rem 0.55rem;
-  border-radius: 12px;
-  font-size: 0.8125rem;
+  gap: 0.4rem;
+  padding: 0.32rem 0.42rem;
+  border-radius: 10px;
+  font-size: 0.78rem;
   font-weight: 500;
   cursor: pointer;
   color: rgba(26, 26, 24, 0.78);
@@ -2509,8 +2515,8 @@ select {
 }
 
 .lp-form__foot {
-  margin: 0.85rem 0 0;
-  font-size: 0.75rem;
+  margin: 0.55rem 0 0;
+  font-size: 0.72rem;
   color: rgba(26, 26, 24, 0.48);
   line-height: 1.5;
   text-align: center;
