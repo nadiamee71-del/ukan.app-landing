@@ -994,11 +994,11 @@ export default function App() {
                   <p className="lp-form__legend">Identité</p>
                   <div className="lp-form__grid">
                     <label className="lp-label">
-                      Prénom <span className="lp-label__req">*</span>
+                      Prénom
                       <input type="text" name="prenom" required placeholder="Camille" autoComplete="given-name" />
                     </label>
                     <label className="lp-label">
-                      Nom <span className="lp-label__req">*</span>
+                      Nom
                       <input type="text" name="nom" required placeholder="Martin" autoComplete="family-name" />
                     </label>
                   </div>
@@ -1007,7 +1007,7 @@ export default function App() {
                 <div className="lp-form__block">
                   <p className="lp-form__legend">Contact</p>
                   <label className="lp-label">
-                    Email <span className="lp-label__req">*</span>
+                    Email
                     <input type="email" name="email" required placeholder="vous@email.com" autoComplete="email" />
                   </label>
 
@@ -1042,7 +1042,7 @@ export default function App() {
                   <div className="lp-form__block">
                     <p className="lp-form__legend lp-form__legend--sport">Votre profil sportif</p>
                     <label className="lp-label">
-                      Objectif principal <span className="lp-label__req">*</span>
+                      Objectif principal
                       <select name="objectif" defaultValue="" required>
                         <option value="" disabled>
                           Choisir un objectif
@@ -1056,7 +1056,7 @@ export default function App() {
                     </label>
 
                     <label className="lp-label">
-                      Niveau <span className="lp-label__req">*</span>
+                      Niveau
                       <select name="niveau" defaultValue="" required>
                         <option value="" disabled>
                           Choisir un niveau
