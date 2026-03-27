@@ -1,5 +1,5 @@
 /**
- * Calculatrice nutritionnelle UKAN — thème clair, compact mobile
+ * Calculatrice nutritionnelle UKAN — bloc anthracite, assiette crème, compact mobile
  */
 
 .nc {
@@ -7,25 +7,27 @@
   --nc-surface-deep: #dce2ed;
   --nc-gold: #e8c547;
   --nc-gold-mid: #d4a832;
-  --nc-gold-shadow: rgba(212, 168, 50, 0.28);
+  --nc-gold-shadow: rgba(212, 168, 50, 0.35);
   --nc-cream: #f5f0e8;
   --nc-cream-soft: #faf6f0;
-  --nc-text: #1a1a18;
-  --nc-text-muted: rgba(26, 26, 24, 0.58);
+  /* Texte sur fond anthracite */
+  --nc-text: #f0ede8;
+  --nc-text-muted: rgba(240, 237, 232, 0.62);
   --nc-red: #ef4444;
   --nc-red-deep: #dc2626;
   --nc-radius-xl: 22px;
   --nc-radius-lg: 16px;
   --nc-radius-md: 12px;
-  --nc-shadow-soft: 0 10px 36px rgba(15, 23, 42, 0.08), 0 2px 10px rgba(15, 23, 42, 0.04);
-  --nc-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  --nc-shadow-soft: 0 14px 40px rgba(0, 0, 0, 0.22), 0 4px 14px rgba(0, 0, 0, 0.12);
+  --nc-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.07);
 
   max-width: 22.5rem;
   margin: 0 auto;
   padding: clamp(0.85rem, 3vw, 1.35rem);
   border-radius: var(--nc-radius-xl);
-  background: linear-gradient(180deg, #ffffff 0%, #faf8f5 100%);
-  border: 1px solid rgba(26, 26, 24, 0.07);
+  /* Anthracite UKAN (#2E2E2C → #343432) */
+  background: linear-gradient(165deg, #3d3d3a 0%, #2e2e2c 42%, #252524 100%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   box-shadow: var(--nc-shadow-soft), var(--nc-shadow-inset);
   color: var(--nc-text);
   font-family: "Inter", system-ui, sans-serif;
@@ -44,7 +46,7 @@
   line-height: 1.22;
   text-align: center;
   text-wrap: balance;
-  color: var(--nc-text);
+  color: #faf8f5;
 }
 
 /* —— Carte assiette (crème) —— */
@@ -323,10 +325,10 @@
   padding: 0.32rem 0.12rem;
   border-radius: var(--nc-radius-md);
   background: linear-gradient(180deg, var(--nc-surface) 0%, var(--nc-surface-deep) 100%);
-  color: var(--nc-text);
+  color: #1a1a18;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.07);
-  border: 1px solid rgba(26, 26, 24, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   transition:
     transform 0.18s ease,
     box-shadow 0.18s ease,
@@ -371,12 +373,12 @@
   font-size: 0.5625rem;
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: var(--nc-text-muted);
+  color: rgba(26, 26, 24, 0.58);
   font-variant-numeric: tabular-nums;
 }
 
 .nc-food.is-selected .nc-food__kcal {
-  color: var(--nc-gold);
+  color: #a16207;
 }
 
 /* —— Unités + Ajouter —— */
@@ -391,10 +393,10 @@
 .nc-btn-unit {
   min-width: 2.35rem;
   padding: 0.35rem 0.5rem;
-  border: 1px solid rgba(26, 26, 24, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 999px;
-  background: rgba(26, 26, 24, 0.04);
-  color: var(--nc-text-muted);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(240, 237, 232, 0.88);
   font-size: 0.75rem;
   font-weight: 700;
   cursor: pointer;
@@ -402,9 +404,9 @@
 }
 
 .nc-btn-unit:hover {
-  color: var(--nc-text);
-  border-color: rgba(212, 168, 50, 0.45);
-  background: rgba(26, 26, 24, 0.06);
+  color: #faf8f5;
+  border-color: rgba(232, 197, 71, 0.45);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .nc-btn-unit.is-active {
@@ -459,9 +461,9 @@
 .nc-calc {
   padding: 0.55rem 0.6rem 0.6rem;
   border-radius: var(--nc-radius-lg);
-  background: rgba(26, 26, 24, 0.045);
-  border: 1px solid rgba(26, 26, 24, 0.08);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.25);
 }
 
 .nc-calc__label {
@@ -485,7 +487,7 @@
   font-weight: 600;
   letter-spacing: 0.06em;
   text-align: right;
-  color: var(--nc-text);
+  color: #1a1a18;
   min-height: 2.15rem;
   display: flex;
   align-items: center;
@@ -516,7 +518,7 @@
 }
 
 .nc-calc__btn--num {
-  color: var(--nc-text);
+  color: #1a1a18;
   background: linear-gradient(180deg, #e8ecf2 0%, #dde3ec 100%);
   border: 1px solid rgba(26, 26, 24, 0.1);
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
