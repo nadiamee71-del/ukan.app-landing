@@ -23,18 +23,18 @@ export function FoodIcon({ name, size = "md" }) {
           <defs>
             <linearGradient id={gid("stem")} x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#86efac" />
-              <stop offset="100%" stopColor="#22c55e" />
+              <stop offset="100%" stopColor="#34a853" />
             </linearGradient>
             <radialGradient id={gid("fl1")} cx="40%" cy="35%" r="65%">
               <stop offset="0%" stopColor="#bbf7d0" />
-              <stop offset="100%" stopColor="#16a34a" />
+              <stop offset="100%" stopColor="#34a853" />
             </radialGradient>
             <radialGradient id={gid("fl2")} cx="50%" cy="40%" r="60%">
               <stop offset="0%" stopColor="#86efac" />
               <stop offset="100%" stopColor="#15803d" />
             </radialGradient>
             <radialGradient id={gid("fl3")} cx="45%" cy="35%" r="55%">
-              <stop offset="0%" stopColor="#4ade80" />
+              <stop offset="0%" stopColor="#4cd964" />
               <stop offset="100%" stopColor="#166534" />
             </radialGradient>
           </defs>
@@ -42,7 +42,7 @@ export function FoodIcon({ name, size = "md" }) {
           <circle cx="12" cy="12" r="4.2" fill={`url(#${gid("fl1")})`} />
           <circle cx="16" cy="9" r="4.8" fill={`url(#${gid("fl2")})`} />
           <circle cx="20" cy="12" r="4.2" fill={`url(#${gid("fl3")})`} />
-          <ellipse cx="16" cy="13" rx="5" ry="3.5" fill="#22c55e" opacity="0.35" />
+          <ellipse cx="16" cy="13" rx="5" ry="3.5" fill="#34a853" opacity="0.35" />
         </svg>
       );
 
@@ -110,7 +110,7 @@ export function FoodIcon({ name, size = "md" }) {
             strokeWidth="1.2"
             strokeLinecap="round"
           />
-          <ellipse cx="16" cy="12" rx="5" ry="2.5" fill="#fbbf24" opacity="0.9" />
+          <ellipse cx="16" cy="12" rx="5" ry="2.5" fill="#ffc83d" opacity="0.9" />
         </svg>
       );
 
@@ -119,12 +119,12 @@ export function FoodIcon({ name, size = "md" }) {
         <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
           <defs>
             <linearGradient id={gid("box")} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#dc2626" />
+              <stop offset="0%" stopColor="#ff4d4d" />
               <stop offset="100%" stopColor="#991b1b" />
             </linearGradient>
             <linearGradient id={gid("fry")} x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#fde047" />
-              <stop offset="100%" stopColor="#eab308" />
+              <stop offset="100%" stopColor="#ffc83d" />
             </linearGradient>
           </defs>
           <path d="M8 24h16l-2-14H10L8 24z" fill={`url(#${gid("box")})`} />
@@ -161,7 +161,7 @@ export function FoodIcon({ name, size = "md" }) {
         <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
           <defs>
             <linearGradient id={gid("can")} x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#dc2626" />
+              <stop offset="0%" stopColor="#ff4d4d" />
               <stop offset="50%" stopColor="#b91c1c" />
               <stop offset="100%" stopColor="#7f1d1d" />
             </linearGradient>
@@ -224,7 +224,7 @@ export function FoodIcon({ name, size = "md" }) {
           <defs>
             <linearGradient id={gid("meat2")} x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stopColor="#f87171" />
-              <stop offset="40%" stopColor="#dc2626" />
+              <stop offset="40%" stopColor="#ff4d4d" />
               <stop offset="100%" stopColor="#7f1d1d" />
             </linearGradient>
           </defs>
@@ -269,7 +269,7 @@ export function FoodIcon({ name, size = "md" }) {
             </linearGradient>
           </defs>
           <path d="M15 6c2 1 3.5 3 4 5.5L18 28c-0.5 1.5-2 2-3.5 1.5L10 8c0.5-2 2.5-3.5 5-2z" fill={`url(#${gid("carrot")})`} />
-          <path d="M14 6l-1.5-3 2 1.5M16 5.5l0.5-3 1.5 2.5M18 6.5l2-2.5-1 3" stroke="#16a34a" strokeWidth="1" fill="none" strokeLinecap="round" />
+          <path d="M14 6l-1.5-3 2 1.5M16 5.5l0.5-3 1.5 2.5M18 6.5l2-2.5-1 3" stroke="#34a853" strokeWidth="1" fill="none" strokeLinecap="round" />
         </svg>
       );
 
@@ -293,7 +293,7 @@ export function FoodIcon({ name, size = "md" }) {
           <defs>
             <linearGradient id={gid("zuc")} x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#86efac" />
-              <stop offset="100%" stopColor="#16a34a" />
+              <stop offset="100%" stopColor="#34a853" />
             </linearGradient>
           </defs>
           <ellipse cx="16" cy="17" rx="5" ry="11" fill={`url(#${gid("zuc")})`} transform="rotate(-12 16 17)" />
@@ -366,7 +366,7 @@ export function FoodIcon({ name, size = "md" }) {
           <defs>
             <radialGradient id={gid("ap")} cx="35%" cy="30%" r="70%">
               <stop offset="0%" stopColor="#86efac" />
-              <stop offset="100%" stopColor="#16a34a" />
+              <stop offset="100%" stopColor="#34a853" />
             </radialGradient>
           </defs>
           <circle cx="16" cy="18" r="8" fill={`url(#${gid("ap")})`} />

@@ -1,40 +1,43 @@
 /**
- * Calculatrice nutritionnelle UKAN — bloc anthracite, carte repas gris clair, compact mobile
+ * Calculatrice nutritionnelle UKAN — fond bleu nuit cartoon, crème + accents charte
  */
 
 .nc {
-  --nc-surface: #e8ecf3;
-  --nc-surface-deep: #dce2ed;
-  /* Jaune aligné charte UKAN (#f0b429), tons miel / ambre plus doux */
-  --nc-gold-highlight: #fde68a;
-  --nc-gold: #f0b429;
-  --nc-gold-mid: #c9a017;
-  --nc-gold-deep: #a16207;
-  --nc-gold-shadow: rgba(240, 180, 41, 0.32);
-  --nc-gold-glow: rgba(253, 230, 138, 0.45);
-  --nc-cream: #f5f0e8;
-  --nc-cream-soft: #faf6f0;
-  /* Carte repas — fond gris doux */
-  --nc-plate-card-bg: linear-gradient(165deg, #e9ecef 0%, #dfe3e8 48%, #d4d9e0 100%);
-  --nc-plate-card-border: rgba(26, 26, 24, 0.07);
-  /* Texte sur fond anthracite */
-  --nc-text: #f0ede8;
-  --nc-text-muted: rgba(240, 237, 232, 0.62);
-  --nc-red: #ef4444;
-  --nc-red-deep: #dc2626;
+  --nc-surface: #fdebd3;
+  --nc-surface-deep: #f5e0c8;
+  --nc-gold-highlight: #ffe27a;
+  --nc-gold: #ffc83d;
+  --nc-gold-mid: #e6a800;
+  --nc-gold-deep: #c48f00;
+  --nc-gold-shadow: rgba(255, 200, 61, 0.38);
+  --nc-gold-glow: rgba(255, 226, 122, 0.5);
+  --nc-orange: #ff8a00;
+  --nc-orange-mid: #e56f00;
+  --nc-orange-light: #ffb347;
+  --nc-orange-shadow: rgba(255, 138, 0, 0.35);
+  --nc-green: #4cd964;
+  --nc-green-mid: #34a853;
+  --nc-green-light: #8ef5a5;
+  --nc-cream: #fff6e9;
+  --nc-cream-soft: #fdebd3;
+  --nc-plate-card-bg: linear-gradient(165deg, #fff8ef 0%, #fdebd3 48%, #f5e6d4 100%);
+  --nc-plate-card-border: rgba(30, 42, 68, 0.08);
+  --nc-text: #fff6e9;
+  --nc-text-muted: rgba(255, 246, 233, 0.65);
+  --nc-red: #ff4d4d;
+  --nc-red-deep: #d93636;
   --nc-radius-xl: 16px;
   --nc-radius-lg: 16px;
   --nc-radius-md: 12px;
-  --nc-shadow-soft: 0 10px 28px rgba(0, 0, 0, 0.2), 0 3px 10px rgba(0, 0, 0, 0.1);
-  --nc-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  --nc-shadow-soft: 0 12px 32px rgba(15, 23, 42, 0.35), 0 4px 12px rgba(0, 0, 0, 0.2);
+  --nc-shadow-inset: inset 0 2px 0 rgba(255, 255, 255, 0.08);
 
   max-width: 20.5rem;
   margin: 0 auto;
   padding: clamp(0.45rem, 2vw, 0.95rem);
   border-radius: var(--nc-radius-xl);
-  /* Anthracite UKAN (#2E2E2C → #343432) */
-  background: linear-gradient(165deg, #3d3d3a 0%, #2e2e2c 42%, #252524 100%);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: linear-gradient(165deg, #253659 0%, #1e2a44 42%, #182038 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: var(--nc-shadow-soft), var(--nc-shadow-inset);
   color: var(--nc-text);
   font-family: "Inter", system-ui, sans-serif;
@@ -53,7 +56,7 @@
   line-height: 1.22;
   text-align: center;
   text-wrap: balance;
-  color: #faf8f5;
+  color: #fff6e9;
 }
 
 /* —— Carte repas (fond gris léger) —— */
@@ -73,13 +76,13 @@
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: #1a1a18;
+  color: #1e2a44;
   text-align: center;
 }
 
 .nc-plate-card__total strong {
   font-variant-numeric: tabular-nums;
-  color: #0f172a;
+  color: #1e2a44;
 }
 
 .nc-total-kcal {
@@ -117,13 +120,13 @@
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(26, 26, 24, 0.45);
+  color: rgba(30, 42, 68, 0.45);
 }
 
 .nc-slot__empty {
   font-size: 0.65rem;
   font-weight: 600;
-  color: rgba(26, 26, 24, 0.38);
+  color: rgba(30, 42, 68, 0.38);
   text-align: center;
   line-height: 1.25;
 }
@@ -217,7 +220,7 @@
   padding: 0.15rem;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(26, 26, 24, 0.08);
+  border: 1px solid rgba(30, 42, 68, 0.08);
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
   animation: nc-plate-chip-in 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -245,7 +248,7 @@
   font-weight: 800;
   line-height: 1.1;
   text-align: center;
-  color: rgba(26, 26, 24, 0.82);
+  color: rgba(30, 42, 68, 0.82);
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -349,12 +352,12 @@
 }
 
 .nc-cat-tab.is-active {
-  color: #1a1408;
+  color: #1e2a44;
   background: linear-gradient(180deg, var(--nc-gold-highlight) 0%, var(--nc-gold) 42%, var(--nc-gold-mid) 100%);
   border-color: color-mix(in srgb, var(--nc-gold) 55%, transparent);
   box-shadow:
     0 4px 16px var(--nc-gold-shadow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    inset 0 2px 0 rgba(255, 255, 255, 0.55);
   transform: translateY(-1px);
 }
 
@@ -428,7 +431,9 @@
 .nc-picker-dot.is-active {
   transform: scale(1.35);
   background: linear-gradient(180deg, var(--nc-gold-highlight), var(--nc-gold));
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.25), 0 2px 8px var(--nc-gold-shadow);
+  box-shadow:
+    0 0 0 2px rgba(0, 0, 0, 0.28),
+    0 2px 8px var(--nc-gold-shadow);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -448,7 +453,7 @@
   font-weight: 700;
   line-height: 1.15;
   text-align: center;
-  color: rgba(26, 26, 24, 0.78);
+  color: rgba(30, 42, 68, 0.78);
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -556,7 +561,7 @@
   font-size: 0.72rem;
   font-weight: 600;
   line-height: 1.35;
-  color: rgba(26, 26, 24, 0.42);
+  color: rgba(30, 42, 68, 0.42);
   max-width: 12ch;
 }
 
@@ -603,12 +608,12 @@
   padding: 0.18rem 0.14rem 0.2rem;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(26, 26, 24, 0.07);
+  border: 1px solid rgba(30, 42, 68, 0.07);
   box-shadow:
     0 2px 8px rgba(15, 23, 42, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
   animation: nc-plate-chip-in 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
-  color: #3d3830;
+  color: #1e2a44;
 }
 
 @keyframes nc-plate-chip-in {
@@ -654,7 +659,7 @@
   justify-content: center;
   width: 1.78rem;
   height: 1.78rem;
-  color: #3d3830;
+  color: #1e2a44;
 }
 
 .nc-plate-chip__icon svg {
@@ -668,7 +673,7 @@
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
-  color: rgba(26, 26, 24, 0.55);
+  color: rgba(30, 42, 68, 0.55);
   line-height: 1;
 }
 
@@ -699,8 +704,8 @@
   color: #fff;
   background: linear-gradient(180deg, var(--nc-red) 0%, var(--nc-red-deep) 100%);
   box-shadow:
-    0 4px 14px rgba(239, 68, 68, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    0 4px 14px rgba(255, 77, 77, 0.38),
+    inset 0 2px 0 rgba(255, 255, 255, 0.22);
   transition: transform 0.15s ease, filter 0.15s ease;
 }
 
@@ -751,10 +756,10 @@
 }
 
 .nc-food.is-selected {
-  background: linear-gradient(180deg, #ffffff 0%, #fffbeb 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #fff6e9 100%);
   box-shadow:
-    0 0 0 2px var(--nc-gold),
-    0 4px 14px var(--nc-gold-glow);
+    0 0 0 2px var(--nc-orange),
+    0 4px 14px var(--nc-orange-shadow);
 }
 
 .nc-food__icon {
@@ -783,12 +788,12 @@
   font-size: 0.5625rem;
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: rgba(26, 26, 24, 0.58);
+  color: rgba(30, 42, 68, 0.58);
   font-variant-numeric: tabular-nums;
 }
 
 .nc-food.is-selected .nc-food__kcal {
-  color: var(--nc-gold-deep);
+  color: var(--nc-orange-mid);
 }
 
 /* —— Unités + Ajouter —— */
@@ -814,16 +819,18 @@
 }
 
 .nc-btn-unit:hover {
-  color: #faf8f5;
-  border-color: color-mix(in srgb, var(--nc-gold) 48%, transparent);
+  color: #fff6e9;
+  border-color: color-mix(in srgb, var(--nc-orange) 48%, transparent);
   background: rgba(255, 255, 255, 0.12);
 }
 
 .nc-btn-unit.is-active {
-  color: #0f172a;
-  background: linear-gradient(180deg, var(--nc-gold) 0%, var(--nc-gold-mid) 100%);
+  color: #1e2a44;
+  background: linear-gradient(180deg, var(--nc-orange-light) 0%, var(--nc-orange) 45%, var(--nc-orange-mid) 100%);
   border-color: transparent;
-  box-shadow: 0 4px 12px var(--nc-gold-shadow);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.35),
+    0 4px 12px var(--nc-orange-shadow);
 }
 
 .nc-btn-add {
@@ -837,11 +844,12 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
-  color: #1a1408;
+  color: #1e2a44;
   background: linear-gradient(180deg, var(--nc-gold-highlight) 0%, var(--nc-gold) 40%, var(--nc-gold-mid) 100%);
   box-shadow:
-    0 5px 16px var(--nc-gold-shadow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    inset 0 2px 0 rgba(255, 255, 255, 0.45),
+    0 5px 0 rgba(230, 168, 0, 0.45),
+    0 8px 20px var(--nc-gold-shadow);
   transition: transform 0.15s ease, filter 0.15s ease;
 }
 
@@ -891,7 +899,7 @@
   padding: 0.28rem 0.42rem;
   border-radius: var(--nc-radius-md);
   background: #ffffff;
-  border: 1px solid rgba(26, 26, 24, 0.1);
+  border: 1px solid rgba(30, 42, 68, 0.1);
   font-family: ui-monospace, "SF Mono", Menlo, monospace;
   font-size: 0.92rem;
   font-weight: 600;
@@ -930,7 +938,7 @@
 .nc-calc__btn--num {
   color: #1a1a18;
   background: linear-gradient(180deg, #e8ecf2 0%, #dde3ec 100%);
-  border: 1px solid rgba(26, 26, 24, 0.1);
+  border: 1px solid rgba(30, 42, 68, 0.1);
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
 }
 
@@ -939,10 +947,13 @@
 }
 
 .nc-calc__btn--op {
-  color: #1a1408;
-  background: linear-gradient(180deg, var(--nc-gold-highlight) 0%, var(--nc-gold) 45%, var(--nc-gold-mid) 100%);
-  border: 1px solid color-mix(in srgb, var(--nc-gold) 42%, transparent);
-  box-shadow: 0 3px 10px var(--nc-gold-shadow);
+  color: #1e2a44;
+  background: linear-gradient(180deg, var(--nc-orange-light) 0%, var(--nc-orange) 45%, var(--nc-orange-mid) 100%);
+  border: 1px solid color-mix(in srgb, var(--nc-orange) 42%, transparent);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.35),
+    0 3px 0 rgba(229, 111, 0, 0.35),
+    0 6px 14px var(--nc-orange-shadow);
 }
 
 .nc-calc__btn--op:hover {
@@ -950,9 +961,13 @@
 }
 
 .nc-calc__btn--eq {
-  color: #1a1408;
+  color: #1e2a44;
   background: linear-gradient(180deg, var(--nc-gold-highlight) 0%, var(--nc-gold) 45%, var(--nc-gold-mid) 100%);
   font-weight: 800;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.4),
+    0 4px 0 rgba(230, 168, 0, 0.4),
+    0 8px 18px var(--nc-gold-shadow);
 }
 
 .nc-calc__btn--zero {
@@ -963,7 +978,9 @@
   color: #fff;
   background: linear-gradient(180deg, var(--nc-red) 0%, var(--nc-red-deep) 100%);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.2),
+    0 4px 12px rgba(255, 77, 77, 0.35);
 }
 
 .nc-calc__btn--c:hover {
@@ -977,6 +994,16 @@
   line-height: 1.45;
   text-align: center;
   color: var(--nc-text-muted);
+}
+
+.nc-feedback--ok {
+  color: var(--nc-green-light);
+  font-weight: 600;
+}
+
+.nc-feedback--error {
+  color: #ff7a7a;
+  font-weight: 600;
 }
 
 .nc-hint {

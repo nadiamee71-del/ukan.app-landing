@@ -8,8 +8,8 @@ export function FeatureIcon({ name, tone = "coral" }) {
   const gradId = `ftg${uid}`;
   const grad =
     tone === "gold"
-      ? { a: "#f0b429", b: "#d4a20a" }
-      : { a: "#f97316", b: "#ef4444" };
+      ? { a: "#ffc83d", b: "#e6a800" }
+      : { a: "#ff8a00", b: "#e56f00" };
 
   const common = {
     fill: "none",

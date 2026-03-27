@@ -496,7 +496,17 @@ export function NutritionCalculator() {
         + Ajouter
       </button>
 
-      <p className="nc-feedback" role="status" aria-live="polite">
+      <p
+        className={`nc-feedback${
+          selectedFood && calc.display === "Erreur"
+            ? " nc-feedback--error"
+            : selectedFood && quantity === null && calc.display !== "Erreur"
+              ? " nc-feedback--ok"
+              : ""
+        }`}
+        role="status"
+        aria-live="polite"
+      >
         {!selectedFood && "Choisissez une catégorie, un aliment, puis la quantité et l’unité."}
         {selectedFood && quantity === null && calc.display !== "Erreur" && "Indiquez une quantité supérieure à 0."}
         {selectedFood && calc.display === "Erreur" && "Calcul invalide — touchez C pour réinitialiser."}
