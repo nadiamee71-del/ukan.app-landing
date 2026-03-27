@@ -160,12 +160,12 @@ const SHOWCASE_PERSONA_TABS = [
 const ROLE_COPY = {
   sportif: {
     title: "Pour les sportifs",
-    text: "Progresser, manger mieux et rester dans le rythme — sans jongler entre cinq applications.",
+    text: "Progresse chaque jour avec une app claire.",
     bullets: ["Routine claire", "Nutrition & entraînement réunis", "Motivation qui dure"],
   },
   coach: {
     title: "Pour les coachs",
-    text: "Développer ta visibilité, structurer tes élèves et monétiser tes offres — sur une plateforme qui valorise les profils certifiés.",
+    text: "Développe ton activité sur une seule plateforme.",
     bullets: ["Visibilité qualifiée", "Tarifs adaptés au volume d’élèves", "Image pro renforcée"],
   },
 };
@@ -174,30 +174,22 @@ const HERO_COPY = {
   sportif: {
     title: (
       <>
-        Reprends le <span className="lp-txt-green">contrôle</span> de ton{" "}
-        <span className="lp-txt-gold">corps</span>, tu n’es plus seul.
+        Reprends le <span className="lp-txt-green">contrôle</span>.
+        <br />
+        Transforme ton <span className="lp-txt-gold">corps</span>.
       </>
     ),
-    lead: (
-      <>
-        UKAN arrive pour ceux qui en ont assez des apps jetables : une expérience premium, pensée
-        pour durer et t’aider à progresser avec méthode au quotidien.
-      </>
-    ),
+    lead: <>Une app premium pour t’entraîner, manger mieux et tenir le rythme.</>,
   },
   coach: {
     title: (
       <>
-        Développe ton activité de <span className="lp-txt-green">coach</span> avec une base{" "}
-        <span className="lp-txt-gold">élèves</span> engagée.
+        Scale ton <span className="lp-txt-green">coaching</span>.
+        <br />
+        Plus d’<span className="lp-txt-gold">élèves</span>, moins d’outils.
       </>
     ),
-    lead: (
-      <>
-        UKAN centralise ta visibilité, le suivi de tes élèves et la monétisation de tes offres dans
-        un environnement premium réservé aux profils certifiés.
-      </>
-    ),
+    lead: <>Gagne du temps, structure ton suivi et monétise mieux.</>,
   },
 };
 
@@ -490,10 +482,6 @@ export default function App() {
             <p className="lp-eyebrow lp-eyebrow--gold">Lancement — rejoignez l’avant-première</p>
             <h1 className="lp-hero__title">{heroCopy.title}</h1>
             <p className="lp-hero__lead">{heroCopy.lead}</p>
-            <p className="lp-hero__quote">
-              « On ne vous vend pas un écran de plus. On vous ouvre l’accès à un écosystème où votre
-              progression et votre métier comptent vraiment. »
-            </p>
             <div className="lp-hero__cta">
               <a href="#inscription" className="lp-btn lp-btn--primary">
                 Rejoindre la liste d’attente
@@ -519,8 +507,7 @@ export default function App() {
           <div className="lp-wrap">
             <h2 className="lp-h2">Pourquoi UKAN change la donne</h2>
             <p className="lp-sub lp-sub--wow">
-              <strong>Une fonctionnalité à la fois, comme dans l’app.</strong> UKAN se déploie sous vos
-              yeux : pas une liste figée — un aperçu vivant de ce qui vous attend au lancement.
+              <strong>Une app claire.</strong> Une expérience simple, fluide et efficace.
             </p>
 
             <div className="lp-showcase">
@@ -632,8 +619,7 @@ export default function App() {
               <p className="lp-features-hero__eyebrow">Personnalisation live</p>
               <h2 className="lp-h2 lp-features-hero__title">Fonctionnalités qui s’adaptent à vous</h2>
               <p className="lp-sub lp-sub--features-intro">
-                Un clic sur votre profil et votre objectif : la grille se recompose — même contenu,
-                présentation premium.
+                Votre profil change. Les fonctionnalités s’adaptent.
               </p>
             </header>
 
@@ -716,7 +702,7 @@ export default function App() {
               </h2>
               {role === "coach" ? (
                 <>
-                  <p className="lp-pricing-tagline">Pas de forfait figé. Juste ce qu’il vous faut.</p>
+                  <p className="lp-pricing-tagline">Des paliers simples, un prix clair.</p>
                   <div
                     className="lp-pricing-billing"
                     role="group"
@@ -740,8 +726,7 @@ export default function App() {
                     </button>
                   </div>
                   <p className="lp-pricing-note">
-                    Montants <strong>indicatifs</strong> ; confirmation et options finales aux inscrits
-                    avant l’ouverture publique.
+                    Prix indicatifs avant lancement.
                   </p>
                 </>
               ) : null}
@@ -898,10 +883,7 @@ export default function App() {
         <section className="lp-cta-block">
           <div className="lp-wrap">
             <h2 className="lp-h2 lp-h2--light">Prêt à faire partie de l’histoire UKAN ?</h2>
-            <p className="lp-cta-block__text">
-              Inscrivez-vous : vous serez informés en priorité du lancement, des tarifs définitifs et
-              de la bêta. C’est gratuit, engagé, et sans promesses creuses.
-            </p>
+            <p className="lp-cta-block__text">Rejoignez la liste et accédez en priorité au lancement.</p>
           </div>
         </section>
 
@@ -910,8 +892,8 @@ export default function App() {
             <h2 className="lp-h2">Fiche d’inscription — liste d’attente</h2>
             <p className="lp-sub">
               {formRole === "coach"
-                ? "Informations coach : nous préparons un espace pro adapté à votre activité."
-                : "Informations sportif : nous préparons un accompagnement adapté à votre profil."}
+                ? "Version coach : rapide et claire."
+                : "Version sportif : rapide et claire."}
             </p>
 
             <form
@@ -999,10 +981,7 @@ export default function App() {
               <button type="submit" className="lp-btn lp-btn--primary lp-btn--block">
                 Valider mon inscription
               </button>
-              <p className="lp-form__foot">
-                En vous inscrivant, vous acceptez d’être contacté·e pour le lancement UKAN. Pas de
-                spam — désinscription possible à tout moment.
-              </p>
+              <p className="lp-form__foot">Aucun spam. Désinscription à tout moment.</p>
             </form>
           </div>
         </section>
