@@ -291,6 +291,37 @@ const PRICING_PLANS = [
   },
 ];
 
+const PRICING_SPORTIF_PLANS = [
+  {
+    id: "non-coaches",
+    name: "NON COACHES",
+    accent: "blue",
+    monthlyLabel: "4,99€",
+    features: ["Accès de base UKAN", "Suivi personnel essentiel"],
+  },
+  {
+    id: "basic",
+    name: "BASIC",
+    accent: "gold",
+    monthlyLabel: "14,99€",
+    features: ["Fonctionnalités de progression", "Suivi nutrition simplifié"],
+  },
+  {
+    id: "premium",
+    name: "PREMIUM",
+    accent: "purple",
+    monthlyLabel: "37€",
+    features: ["Expérience avancée", "Outils premium inclus"],
+  },
+  {
+    id: "illimite",
+    name: "ILLIMITÉ",
+    accent: "green",
+    monthlyLabel: "70€",
+    features: ["Accès illimité", "Toutes les fonctionnalités sportives"],
+  },
+];
+
 function pricingDisplayEuros(monthly, billing) {
   const v = billing === "annual" ? Math.round(monthly * 0.8) : monthly;
   return `${v}€`;
@@ -336,6 +367,7 @@ export default function App() {
 
   const [billingCycle, setBillingCycle] = useState("monthly");
   const [studentCount, setStudentCount] = useState(12);
+  const [sportifPlanIdx, setSportifPlanIdx] = useState(0);
 
   const showcaseSlides = useMemo(() => {
     if (role === "sportif") {
@@ -402,6 +434,7 @@ export default function App() {
     () => getPlanForStudentCount(studentCount),
     [studentCount]
   );
+  const activeSportifPlan = PRICING_SPORTIF_PLANS[sportifPlanIdx] ?? PRICING_SPORTIF_PLANS[0];
 
   const pricingPerDisplay = pricingPerStudent(
     activePricingPlan,
@@ -675,122 +708,187 @@ export default function App() {
           </div>
         </section>
 
-        {role === "coach" && (
         <section className="lp-section lp-section--pricing" id="tarifs">
           <div className="lp-wrap">
             <div className="lp-pricing-header">
               <h2 className="lp-h2 lp-h2--pricing-main">
-                Un abonnement qui évolue avec votre succès.
+                {role === "sportif"
+                  ? "Abonnement qui évolue avec votre progrès"
+                  : "Un abonnement qui évolue avec votre succès."}
               </h2>
-              <p className="lp-pricing-tagline">Pas de forfait figé. Juste ce qu’il vous faut.</p>
-              <div
-                className="lp-pricing-billing"
-                role="group"
-                aria-label="Période de facturation"
-              >
-                <button
-                  type="button"
-                  className={`lp-pricing-billing__btn ${billingCycle === "monthly" ? "lp-pricing-billing__btn--active" : ""}`}
-                  onClick={() => setBillingCycle("monthly")}
-                  aria-pressed={billingCycle === "monthly"}
-                >
-                  Mensuel
-                </button>
-                <button
-                  type="button"
-                  className={`lp-pricing-billing__btn ${billingCycle === "annual" ? "lp-pricing-billing__btn--active" : ""}`}
-                  onClick={() => setBillingCycle("annual")}
-                  aria-pressed={billingCycle === "annual"}
-                >
-                  Annuel –20%
-                </button>
-              </div>
-              <p className="lp-pricing-note">
-                Montants <strong>indicatifs</strong> ; confirmation et options finales aux inscrits
-                avant l’ouverture publique.
-              </p>
+              {role === "coach" ? (
+                <>
+                  <p className="lp-pricing-tagline">Pas de forfait figé. Juste ce qu’il vous faut.</p>
+                  <div
+                    className="lp-pricing-billing"
+                    role="group"
+                    aria-label="Période de facturation"
+                  >
+                    <button
+                      type="button"
+                      className={`lp-pricing-billing__btn ${billingCycle === "monthly" ? "lp-pricing-billing__btn--active" : ""}`}
+                      onClick={() => setBillingCycle("monthly")}
+                      aria-pressed={billingCycle === "monthly"}
+                    >
+                      Mensuel
+                    </button>
+                    <button
+                      type="button"
+                      className={`lp-pricing-billing__btn ${billingCycle === "annual" ? "lp-pricing-billing__btn--active" : ""}`}
+                      onClick={() => setBillingCycle("annual")}
+                      aria-pressed={billingCycle === "annual"}
+                    >
+                      Annuel –20%
+                    </button>
+                  </div>
+                  <p className="lp-pricing-note">
+                    Montants <strong>indicatifs</strong> ; confirmation et options finales aux inscrits
+                    avant l’ouverture publique.
+                  </p>
+                </>
+              ) : null}
             </div>
 
             <div className="lp-pricing-bar" aria-labelledby="pricing-bar-label">
-              <p className="lp-pricing-bar__label" id="pricing-bar-label">
-                Nombre d’élèves suivis
-              </p>
-              <div className="lp-pricing-bar__value-row">
-                <output className="lp-pricing-bar__value" htmlFor="pricing-students-range">
-                  {studentCount}
-                  {studentCount >= PRICING_STUDENT_MAX ? "+" : ""}
-                </output>
-                <span className="lp-pricing-bar__hint">élève{studentCount > 1 ? "s" : ""}</span>
-              </div>
-
-              <input
-                id="pricing-students-range"
-                className="lp-pricing-range"
-                type="range"
-                min={1}
-                max={PRICING_STUDENT_MAX}
-                value={studentCount}
-                onChange={(e) => setStudentCount(Number(e.target.value))}
-                aria-valuemin={1}
-                aria-valuemax={PRICING_STUDENT_MAX}
-                aria-valuenow={studentCount}
-                aria-valuetext={`${studentCount} élèves — formule ${activePricingPlan.name}`}
-              />
-
-              <div className="lp-pricing-bar__segments" aria-hidden="true">
-                {PRICING_BAR_SEGMENTS.map((seg) => (
-                  <div
-                    key={seg.id}
-                    className={`lp-pricing-bar__segment ${activePricingPlan.id === seg.id ? "is-active" : ""}`}
-                    style={{ flex: seg.flex }}
-                  >
-                    <span className="lp-pricing-bar__segment-name">
-                      {PRICING_PLANS.find((p) => p.id === seg.id)?.name ?? seg.id}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              <article
-                className={`lp-pricing-dynamic lp-pricing-card lp-pricing-card--${activePricingPlan.accent} ${activePricingPlan.featured ? "lp-pricing-card--featured" : ""}`}
-              >
-                {activePricingPlan.recommended && (
-                  <span className="lp-pricing-card__badge">Recommandé</span>
-                )}
-                <h3 className="lp-pricing-card__name">{activePricingPlan.name}</h3>
-                <p className="lp-pricing-card__price">
-                  {pricingDisplayEuros(activePricingPlan.monthly, billingCycle)}
-                  <span className="lp-pricing-card__period">/mois</span>
-                </p>
-                {pricingPerDisplay && (
-                  <p className="lp-pricing-card__per">
-                    ≈ {pricingPerDisplay}€ / élève / mois (à {studentCount} élève
-                    {studentCount > 1 ? "s" : ""})
+              {role === "coach" ? (
+                <>
+                  <p className="lp-pricing-bar__label" id="pricing-bar-label">
+                    Nombre d’élèves suivis
                   </p>
-                )}
-                {activePricingPlan.eliteSubline && (
-                  <p className="lp-pricing-card__elite">{activePricingPlan.eliteSubline}</p>
-                )}
-                <ul className="lp-pricing-card__features">
-                  {activePricingPlan.features.map((f) => (
-                    <li key={f}>{f}</li>
-                  ))}
-                </ul>
-                <a
-                  href="#inscription"
-                  className={
-                    activePricingPlan.featured && !activePricingPlan.contactOnly
-                      ? "lp-pricing-card__cta lp-pricing-card__cta--primary"
-                      : "lp-pricing-card__cta lp-pricing-card__cta--outline"
-                  }
-                >
-                  {activePricingPlan.contactOnly ? "Nous contacter" : "Choisir ce plan"}
-                </a>
-              </article>
+                  <div className="lp-pricing-bar__value-row">
+                    <output className="lp-pricing-bar__value" htmlFor="pricing-students-range">
+                      {studentCount}
+                      {studentCount >= PRICING_STUDENT_MAX ? "+" : ""}
+                    </output>
+                    <span className="lp-pricing-bar__hint">élève{studentCount > 1 ? "s" : ""}</span>
+                  </div>
+
+                  <input
+                    id="pricing-students-range"
+                    className="lp-pricing-range"
+                    type="range"
+                    min={1}
+                    max={PRICING_STUDENT_MAX}
+                    value={studentCount}
+                    onChange={(e) => setStudentCount(Number(e.target.value))}
+                    aria-valuemin={1}
+                    aria-valuemax={PRICING_STUDENT_MAX}
+                    aria-valuenow={studentCount}
+                    aria-valuetext={`${studentCount} élèves — formule ${activePricingPlan.name}`}
+                  />
+
+                  <div className="lp-pricing-bar__segments" aria-hidden="true">
+                    {PRICING_BAR_SEGMENTS.map((seg) => (
+                      <div
+                        key={seg.id}
+                        className={`lp-pricing-bar__segment ${activePricingPlan.id === seg.id ? "is-active" : ""}`}
+                        style={{ flex: seg.flex }}
+                      >
+                        <span className="lp-pricing-bar__segment-name">
+                          {PRICING_PLANS.find((p) => p.id === seg.id)?.name ?? seg.id}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <article
+                    className={`lp-pricing-dynamic lp-pricing-card lp-pricing-card--${activePricingPlan.accent} ${activePricingPlan.featured ? "lp-pricing-card--featured" : ""}`}
+                  >
+                    {activePricingPlan.recommended && (
+                      <span className="lp-pricing-card__badge">Recommandé</span>
+                    )}
+                    <h3 className="lp-pricing-card__name">{activePricingPlan.name}</h3>
+                    <p className="lp-pricing-card__price">
+                      {pricingDisplayEuros(activePricingPlan.monthly, billingCycle)}
+                      <span className="lp-pricing-card__period">/mois</span>
+                    </p>
+                    {pricingPerDisplay && (
+                      <p className="lp-pricing-card__per">
+                        ≈ {pricingPerDisplay}€ / élève / mois (à {studentCount} élève
+                        {studentCount > 1 ? "s" : ""})
+                      </p>
+                    )}
+                    {activePricingPlan.eliteSubline && (
+                      <p className="lp-pricing-card__elite">{activePricingPlan.eliteSubline}</p>
+                    )}
+                    <ul className="lp-pricing-card__features">
+                      {activePricingPlan.features.map((f) => (
+                        <li key={f}>{f}</li>
+                      ))}
+                    </ul>
+                    <a
+                      href="#inscription"
+                      className={
+                        activePricingPlan.featured && !activePricingPlan.contactOnly
+                          ? "lp-pricing-card__cta lp-pricing-card__cta--primary"
+                          : "lp-pricing-card__cta lp-pricing-card__cta--outline"
+                      }
+                    >
+                      {activePricingPlan.contactOnly ? "Nous contacter" : "Choisir ce plan"}
+                    </a>
+                  </article>
+                </>
+              ) : (
+                <>
+                  <p className="lp-pricing-bar__label" id="pricing-bar-label">
+                    Choisissez votre palier SPORTIF
+                  </p>
+                  <div className="lp-pricing-bar__value-row">
+                    <output className="lp-pricing-bar__value" htmlFor="pricing-sportif-range">
+                      {activeSportifPlan.name}
+                    </output>
+                    <span className="lp-pricing-bar__hint">palier fixe</span>
+                  </div>
+
+                  <input
+                    id="pricing-sportif-range"
+                    className="lp-pricing-range"
+                    type="range"
+                    min={0}
+                    max={PRICING_SPORTIF_PLANS.length - 1}
+                    step={1}
+                    value={sportifPlanIdx}
+                    onChange={(e) => setSportifPlanIdx(Number(e.target.value))}
+                    aria-valuemin={0}
+                    aria-valuemax={PRICING_SPORTIF_PLANS.length - 1}
+                    aria-valuenow={sportifPlanIdx}
+                    aria-valuetext={`${activeSportifPlan.name} — ${activeSportifPlan.monthlyLabel} par mois`}
+                  />
+
+                  <div className="lp-pricing-bar__segments" aria-hidden="true">
+                    {PRICING_SPORTIF_PLANS.map((plan) => (
+                      <div
+                        key={plan.id}
+                        className={`lp-pricing-bar__segment ${activeSportifPlan.id === plan.id ? "is-active" : ""}`}
+                        style={{ flex: 1 }}
+                      >
+                        <span className="lp-pricing-bar__segment-name">{plan.name}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <article
+                    className={`lp-pricing-dynamic lp-pricing-card lp-pricing-card--${activeSportifPlan.accent}`}
+                  >
+                    <h3 className="lp-pricing-card__name">{activeSportifPlan.name}</h3>
+                    <p className="lp-pricing-card__price">
+                      {activeSportifPlan.monthlyLabel}
+                      <span className="lp-pricing-card__period">/mois</span>
+                    </p>
+                    <ul className="lp-pricing-card__features">
+                      {activeSportifPlan.features.map((f) => (
+                        <li key={f}>{f}</li>
+                      ))}
+                    </ul>
+                    <a href="#inscription" className="lp-pricing-card__cta lp-pricing-card__cta--primary">
+                      Choisir ce plan
+                    </a>
+                  </article>
+                </>
+              )}
             </div>
           </div>
         </section>
-        )}
 
         <section className="lp-cta-block">
           <div className="lp-wrap">
