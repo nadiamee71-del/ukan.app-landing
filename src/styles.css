@@ -23,13 +23,21 @@
   --red: #ef4444;
   --red-dim: rgba(239, 68, 68, 0.16);
   --border: rgba(240, 237, 232, 0.1);
-  --hero-green: #16a34a;
-  --hero-green-bright: #22c55e;
-  --hero-green-soft: rgba(34, 197, 94, 0.14);
+  /* Vert UKAN — forêt / sauge (identité premium, sans mélange vert citron + orange) */
+  --ukan-forest: #152a22;
+  --ukan-wood: #2d4a3c;
+  --ukan-sage: #3d6654;
+  --ukan-leaf: #4f8064;
+  --hero-green: var(--ukan-wood);
+  --hero-green-bright: var(--ukan-leaf);
+  --hero-green-soft: rgba(45, 74, 60, 0.07);
   --hero-orange: #f97316;
   --hero-orange-deep: #ea580c;
-  --gradient-hero: linear-gradient(135deg, var(--hero-green-bright) 0%, var(--hero-orange) 52%, var(--hero-orange-deep) 100%);
-  --gradient-hero-text: linear-gradient(135deg, #15803d 0%, #f97316 55%, #ea580c 100%);
+  /* UI header / hero : verts uniquement */
+  --gradient-hero: linear-gradient(135deg, #243d32 0%, #2d5040 44%, #3d6654 100%);
+  --gradient-hero-text: linear-gradient(135deg, #152a22 0%, #2d4a3c 42%, #3d6654 92%);
+  /* CTA principal : or UKAN → orange (charte, séparé du vert) */
+  --gradient-hero-cta: linear-gradient(135deg, #f0b429 0%, #e8a820 32%, #f97316 96%);
   --font-head: "Sora", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
   --radius: 20px;
@@ -166,7 +174,7 @@ select {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  /* Texte seul — dégradé vert → orange */
+  /* Texte seul — dégradé vert UKAN */
   background: var(--gradient-hero-text);
   -webkit-background-clip: text;
   background-clip: text;
@@ -210,7 +218,7 @@ select {
   bottom: 0;
   height: 2px;
   border-radius: 2px;
-  background: linear-gradient(90deg, #22c55e, #f97316);
+  background: linear-gradient(90deg, #2d4a3c, #4f8064);
   transform: scaleX(0);
   transform-origin: center;
   transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
@@ -422,9 +430,9 @@ select {
 }
 
 .lp-theme button {
-  border: 1px solid color-mix(in srgb, var(--hero-green) 22%, #e3e3e1);
+  border: 1px solid color-mix(in srgb, var(--ukan-wood) 18%, #e3e3e1);
   background: #ffffff;
-  color: rgba(21, 83, 45, 0.55);
+  color: rgba(29, 58, 48, 0.52);
   cursor: pointer;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
@@ -433,25 +441,25 @@ select {
 .lp-theme button.is-on {
   border-color: transparent;
   background: var(--gradient-hero);
-  color: #0f172a;
+  color: #f8faf9;
   box-shadow:
-    0 0 0 1px rgba(34, 197, 94, 0.35),
-    0 10px 26px rgba(249, 115, 22, 0.28),
-    0 4px 14px rgba(22, 163, 74, 0.2);
+    0 0 0 1px rgba(45, 74, 60, 0.35),
+    0 10px 26px rgba(36, 61, 50, 0.22),
+    0 4px 14px rgba(45, 74, 60, 0.18);
 }
 
 .lp-theme button:hover:not(.is-on) {
-  border-color: rgba(34, 197, 94, 0.45);
-  color: rgba(21, 83, 45, 0.85);
+  border-color: rgba(45, 74, 60, 0.35);
+  color: rgba(21, 42, 35, 0.88);
   transform: translateY(-1px);
 }
 
 .lp-theme button:hover.is-on {
   transform: translateY(-1px);
   box-shadow:
-    0 0 0 1px rgba(34, 197, 94, 0.4),
-    0 12px 30px rgba(249, 115, 22, 0.32),
-    0 4px 14px rgba(22, 163, 74, 0.25);
+    0 0 0 1px rgba(45, 74, 60, 0.42),
+    0 12px 30px rgba(36, 61, 50, 0.26),
+    0 4px 14px rgba(45, 74, 60, 0.2);
 }
 
 .lp-theme button:active {
@@ -461,8 +469,8 @@ select {
 /* Hero */
 .lp-hero {
   padding: clamp(2.5rem, 8vw, 5rem) 0 clamp(3rem, 10vw, 6rem);
-  background: radial-gradient(120% 80% at 50% -20%, var(--hero-green-soft), transparent 55%),
-    linear-gradient(180deg, rgba(254, 243, 199, 0.35) 0%, transparent 42%);
+  background: radial-gradient(120% 85% at 50% -15%, rgba(45, 74, 60, 0.06), transparent 58%),
+    linear-gradient(180deg, rgba(240, 245, 242, 0.85) 0%, transparent 48%);
 }
 
 .lp-eyebrow {
@@ -478,7 +486,7 @@ select {
   color: var(--gold);
 }
 
-/* Hero : pastille lancement vert → orange */
+/* Hero : pastille lancement — vert UKAN */
 .lp-eyebrow--hero {
   display: inline-block;
   margin-bottom: 1.1rem;
@@ -486,9 +494,9 @@ select {
   border-radius: 999px;
   font-weight: 700;
   letter-spacing: 0.14em;
-  color: #fff;
-  background: var(--gradient-hero);
-  box-shadow: 0 2px 14px rgba(34, 197, 94, 0.25), 0 4px 20px rgba(249, 115, 22, 0.15);
+  color: #f6f9f7;
+  background: linear-gradient(135deg, #1c3329 0%, #2d4a3c 55%, #355c4a 100%);
+  box-shadow: 0 2px 12px rgba(28, 51, 41, 0.18), 0 1px 0 rgba(255, 255, 255, 0.06) inset;
 }
 
 .lp-hero__title {
@@ -502,7 +510,7 @@ select {
   color: #1a1a18;
 }
 
-/* Accent titre : vert → orange */
+/* Accent titre : vert UKAN (tons forêt / sauge) */
 .lp-hero__accent {
   background: var(--gradient-hero-text);
   -webkit-background-clip: text;
@@ -560,38 +568,37 @@ select {
   }
 }
 
-/* Hero : CTA vert → orange */
+/* Hero : CTA principal — or → orange (charte UKAN) */
 .lp-hero .lp-btn--primary {
-  background: var(--gradient-hero);
-  color: #0f172a;
+  background: var(--gradient-hero-cta);
+  color: #1a1a18;
   font-weight: 600;
   letter-spacing: 0.03em;
   box-shadow:
-    0 0 0 1px rgba(34, 197, 94, 0.35),
-    0 10px 28px rgba(249, 115, 22, 0.28),
-    0 4px 14px rgba(22, 163, 74, 0.18);
+    0 0 0 1px rgba(240, 180, 41, 0.45),
+    0 10px 28px rgba(249, 115, 22, 0.2),
+    0 4px 14px rgba(240, 180, 41, 0.18);
 }
 
 .lp-hero .lp-btn--primary:hover {
-  background: linear-gradient(135deg, #4ade80 0%, #fb923c 48%, #ea580c 100%);
+  background: linear-gradient(135deg, #f5c84a 0%, #f0b429 38%, #fb923c 100%);
   box-shadow:
-    0 0 0 1px rgba(34, 197, 94, 0.45),
-    0 14px 34px rgba(249, 115, 22, 0.32),
-    0 4px 14px rgba(22, 163, 74, 0.22);
+    0 0 0 1px rgba(240, 180, 41, 0.55),
+    0 14px 34px rgba(249, 115, 22, 0.24),
+    0 4px 14px rgba(240, 180, 41, 0.2);
 }
 
 .lp-hero .lp-btn--ghost {
   background: #ffffff;
-  color: #14532d;
-  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--hero-green) 38%, rgba(26, 26, 24, 0.08));
+  color: #243d32;
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ukan-wood) 32%, rgba(26, 26, 24, 0.08));
 }
 
 .lp-hero .lp-btn--ghost:hover {
-  color: #0f3d22;
+  color: #152a22;
   border-color: transparent;
-  box-shadow:
-    inset 0 0 0 1.5px color-mix(in srgb, var(--hero-orange) 45%, var(--hero-green) 35%);
-  background: color-mix(in srgb, var(--hero-green-soft) 40%, #ffffff);
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ukan-sage) 55%, rgba(26, 26, 24, 0.1));
+  background: color-mix(in srgb, var(--hero-green-soft) 65%, #ffffff);
 }
 
 .lp-hero__device-wrap {
@@ -609,8 +616,8 @@ select {
   border-radius: 999px;
   background: radial-gradient(
     ellipse at center,
-    color-mix(in srgb, var(--hero-green-bright) 32%, transparent),
-    color-mix(in srgb, var(--hero-orange) 22%, transparent),
+    color-mix(in srgb, var(--ukan-sage) 22%, transparent),
+    color-mix(in srgb, var(--ukan-wood) 14%, transparent),
     transparent 70%
   );
   filter: blur(22px);
@@ -701,8 +708,8 @@ select {
   border-radius: 50%;
   background: radial-gradient(
     circle at 35% 35%,
-    rgba(74, 222, 128, 0.5),
-    rgba(249, 115, 22, 0.22),
+    rgba(79, 128, 100, 0.42),
+    rgba(45, 74, 60, 0.2),
     rgba(11, 12, 15, 0.95) 72%
   );
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
