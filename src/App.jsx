@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { FeatureIcon } from "./FeatureIcon.jsx";
 import logoLight from "./assets/logo2.png";
 import badgeAppStore from "./assets/badge-app-store.svg?url";
 import badgeGooglePlay from "./assets/badge-google-play.svg?url";
@@ -42,84 +43,84 @@ const FEATURES = [
   {
     role: "sportif",
     goals: ["Tout", "Motivation"],
-    icon: "🔥",
+    iconKey: "defis",
     title: "Défis",
     text: "Motivation quotidienne",
   },
   {
     role: "sportif",
     goals: ["Tout", "Nutrition"],
-    icon: "🥗",
+    iconKey: "nutrition",
     title: "Nutrition",
     text: "Suivi simple",
   },
   {
     role: "sportif",
     goals: ["Tout", "Progresser"],
-    icon: "🏋️",
+    iconKey: "seances",
     title: "Séances",
     text: "Programmes guidés",
   },
   {
     role: "sportif",
     goals: ["Tout", "Social"],
-    icon: "👥",
+    iconKey: "communaute",
     title: "Communauté",
     text: "Réseau sportif",
   },
   {
     role: "sportif",
     goals: ["Tout", "Progresser"],
-    icon: "📈",
+    iconKey: "suivi",
     title: "Suivi",
     text: "Stats et progrès",
   },
   {
     role: "sportif",
     goals: ["Tout", "Motivation"],
-    icon: "🧍",
+    iconKey: "avantApres",
     title: "Avant / après",
     text: "Évolution visuelle",
   },
   {
     role: "coach",
     goals: ["Tout", "Social"],
-    icon: "📣",
+    iconKey: "visibilite",
     title: "Visibilité",
     text: "Attire des sportifs qualifiés",
   },
   {
     role: "coach",
     goals: ["Tout", "Progresser"],
-    icon: "📋",
+    iconKey: "suiviEleves",
     title: "Suivi élèves",
     text: "Programmes et progrès centralisés",
   },
   {
     role: "coach",
     goals: ["Tout", "Nutrition"],
-    icon: "🥣",
+    iconKey: "nutritionCoach",
     title: "Nutrition",
     text: "Plans alimentaires simples",
   },
   {
     role: "coach",
     goals: ["Tout", "Social"],
-    icon: "💬",
+    iconKey: "communauteCoach",
     title: "Communauté",
     text: "Anime ton audience",
   },
   {
     role: "coach",
     goals: ["Tout", "Motivation"],
-    icon: "🎯",
+    iconKey: "challenges",
     title: "Challenges",
     text: "Garde tes élèves engagés",
   },
   {
     role: "coach",
     goals: ["Tout", "Progresser"],
-    icon: "📊",
+    iconKey: "dashboard",
     title: "Tableau de bord",
     text: "Pilotage en un coup d'oeil",
   },
@@ -695,7 +696,9 @@ export default function App() {
                     >
                       <span className="lp-ft-card__accent" aria-hidden="true" />
                       <div className="lp-ft-card__head">
-                        <span className="lp-ft-card__icon" aria-hidden="true">{f.icon}</span>
+                        <span className="lp-ft-card__icon" aria-hidden="true">
+                          <FeatureIcon name={f.iconKey} />
+                        </span>
                         <h4 className="lp-ft-card__title">{f.title}</h4>
                       </div>
                       <p className="lp-ft-card__text">{f.text}</p>
@@ -903,132 +906,144 @@ export default function App() {
         </section>
 
         <section className="lp-section lp-section--form" id="inscription">
-          <div className="lp-wrap lp-wrap--narrow">
-            <h2 className="lp-h2">Fiche d’inscription — liste d’attente</h2>
-            <p className="lp-sub">
-              {formRole === "coach"
-                ? "Version coach : rapide et claire."
-                : "Version sportif : rapide et claire."}
-            </p>
+          <div className="lp-wrap lp-wrap--narrow lp-wrap--form">
+            <header className="lp-form-intro">
+              <h2 className="lp-h2 lp-form-intro__title">Liste d’attente</h2>
+              <p className="lp-form-intro__lead">
+                Quelques infos pour vous prévenir en priorité au lancement.
+              </p>
+            </header>
 
-            <form
-              className="lp-form"
-              onSubmit={async (e) => {
-                e.preventDefault();
-                const country = await detectCountryFromCity(city);
-                const form = e.currentTarget;
-                const payload = new FormData(form);
-                payload.set("ville", city.trim());
-                payload.set("pays", country || detectedCountry || "");
-              }}
-            >
-              <div className="lp-form__grid">
-                <label className="lp-label">
-                  Prénom *
-                  <input type="text" name="prenom" required placeholder="Camille" autoComplete="given-name" />
-                </label>
-                <label className="lp-label">
-                  Nom *
-                  <input type="text" name="nom" required placeholder="Martin" autoComplete="family-name" />
-                </label>
-              </div>
+            <div className="lp-form-card">
+              <span className="lp-form-card__accent" aria-hidden="true" />
+              <form
+                className="lp-form lp-form--premium"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const country = await detectCountryFromCity(city);
+                  const form = e.currentTarget;
+                  const payload = new FormData(form);
+                  payload.set("ville", city.trim());
+                  payload.set("pays", country || detectedCountry || "");
+                }}
+              >
+                <input type="hidden" name="role" value={formRole} />
 
-              <input type="hidden" name="role" value={formRole} />
+                <div className="lp-form-role" role="status">
+                  <span className="lp-form-role__label">Profil</span>
+                  <span className="lp-form-role__value">
+                    {formRole === "coach" ? "Coach certifié" : "Sportif"}
+                  </span>
+                </div>
 
-              <fieldset className="lp-fieldset">
-                <p className="lp-fieldset__title">Vous êtes *</p>
-                <label className="lp-radio">
-                  <input type="radio" checked readOnly />
-                  {formRole === "coach" ? "Coach certifié" : "Sportif"}
-                </label>
-              </fieldset>
-
-              <label className="lp-label">
-                Email *
-                <input type="email" name="email" required placeholder="vous@email.com" autoComplete="email" />
-              </label>
-
-              <label className="lp-label">
-                De quelle plateforme êtes-vous inscrit ?
-                <input
-                  type="text"
-                  name="plateforme_actuelle"
-                  placeholder="Ex : Instagram, Basic-Fit, autre"
-                  autoComplete="off"
-                />
-              </label>
-
-              <label className="lp-label">
-                Ville
-                <input
-                  type="text"
-                  name="ville"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  onBlur={(e) => {
-                    void detectCountryFromCity(e.target.value);
-                  }}
-                  placeholder="Votre ville"
-                  autoComplete="address-level2"
-                />
-              </label>
-              <input type="hidden" name="pays" value={detectedCountry} />
-
-              {formRole === "sportif" && (
-                <>
-                  <label className="lp-label">
-                    Objectif principal *
-                    <select name="objectif" defaultValue="" required>
-                      <option value="" disabled>
-                        Sélectionnez votre objectif
-                      </option>
-                      {SPORTIF_OBJECTIFS.map((o) => (
-                        <option key={o} value={o}>
-                          {o}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-
-                  <label className="lp-label">
-                    Niveau *
-                    <select name="niveau" defaultValue="" required>
-                      <option value="" disabled>
-                        Sélectionnez votre niveau
-                      </option>
-                      {SPORTIF_NIVEAUX.map((n) => (
-                        <option key={n} value={n}>
-                          {n}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                </>
-              )}
-
-              {formRole === "coach" && (
-                <fieldset className="lp-fieldset lp-fieldset--checks">
-                  <p className="lp-fieldset__title">Vos spécialités (cochez tout ce qui vous correspond)</p>
-                  <div className="lp-checks">
-                    {COACH_SPECIALTIES.map((s) => (
-                      <label key={s} className="lp-check">
-                        <input
-                          type="checkbox"
-                          checked={specialties[s]}
-                          onChange={() => toggleSpecialty(s)}
-                        />
-                        {s}
-                      </label>
-                    ))}
+                <div className="lp-form__block">
+                  <p className="lp-form__legend">Identité</p>
+                  <div className="lp-form__grid">
+                    <label className="lp-label">
+                      Prénom <span className="lp-label__req">*</span>
+                      <input type="text" name="prenom" required placeholder="Camille" autoComplete="given-name" />
+                    </label>
+                    <label className="lp-label">
+                      Nom <span className="lp-label__req">*</span>
+                      <input type="text" name="nom" required placeholder="Martin" autoComplete="family-name" />
+                    </label>
                   </div>
-                </fieldset>
-              )}
+                </div>
 
-              <button type="submit" className="lp-btn lp-btn--primary lp-btn--block">
-                Valider mon inscription
-              </button>
-              <p className="lp-form__foot">Aucun spam. Désinscription à tout moment.</p>
-            </form>
+                <div className="lp-form__block">
+                  <p className="lp-form__legend">Contact</p>
+                  <label className="lp-label">
+                    Email <span className="lp-label__req">*</span>
+                    <input type="email" name="email" required placeholder="vous@email.com" autoComplete="email" />
+                  </label>
+
+                  <label className="lp-label">
+                    De quelle plateforme êtes-vous inscrit ?
+                    <input
+                      type="text"
+                      name="plateforme_actuelle"
+                      placeholder="Ex. Instagram, Basic-Fit, autre"
+                      autoComplete="off"
+                    />
+                  </label>
+
+                  <label className="lp-label">
+                    Ville
+                    <input
+                      type="text"
+                      name="ville"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                      onBlur={(e) => {
+                        void detectCountryFromCity(e.target.value);
+                      }}
+                      placeholder="Votre ville"
+                      autoComplete="address-level2"
+                    />
+                  </label>
+                  <input type="hidden" name="pays" value={detectedCountry} />
+                </div>
+
+                {formRole === "sportif" && (
+                  <div className="lp-form__block">
+                    <p className="lp-form__legend">Votre profil sportif</p>
+                    <label className="lp-label">
+                      Objectif principal <span className="lp-label__req">*</span>
+                      <select name="objectif" defaultValue="" required>
+                        <option value="" disabled>
+                          Choisir un objectif
+                        </option>
+                        {SPORTIF_OBJECTIFS.map((o) => (
+                          <option key={o} value={o}>
+                            {o}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+
+                    <label className="lp-label">
+                      Niveau <span className="lp-label__req">*</span>
+                      <select name="niveau" defaultValue="" required>
+                        <option value="" disabled>
+                          Choisir un niveau
+                        </option>
+                        {SPORTIF_NIVEAUX.map((n) => (
+                          <option key={n} value={n}>
+                            {n}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
+                )}
+
+                {formRole === "coach" && (
+                  <fieldset className="lp-fieldset lp-fieldset--checks lp-fieldset--premium">
+                    <legend className="lp-fieldset__title">Spécialités</legend>
+                    <p className="lp-fieldset__hint">Cochez tout ce qui vous correspond.</p>
+                    <div className="lp-checks">
+                      {COACH_SPECIALTIES.map((s) => (
+                        <label key={s} className="lp-check">
+                          <input
+                            type="checkbox"
+                            checked={specialties[s]}
+                            onChange={() => toggleSpecialty(s)}
+                          />
+                          {s}
+                        </label>
+                      ))}
+                    </div>
+                  </fieldset>
+                )}
+
+                <div className="lp-form__actions">
+                  <button type="submit" className="lp-btn lp-btn--submit lp-btn--block">
+                    Valider mon inscription
+                  </button>
+                  <p className="lp-form__foot">Aucun spam. Désinscription à tout moment.</p>
+                </div>
+              </form>
+            </div>
           </div>
         </section>
       </main>
