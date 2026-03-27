@@ -1,32 +1,31 @@
 /**
- * Calculatrice nutritionnelle UKAN — maquette premium
- * Fond marine, or, crème assiette, mobile first
+ * Calculatrice nutritionnelle UKAN — thème clair, compact mobile
  */
 
 .nc {
-  --nc-bg: #0a1628;
-  --nc-bg-deep: #060d18;
-  --nc-surface: #111f35;
+  --nc-surface: #e8ecf3;
+  --nc-surface-deep: #dce2ed;
   --nc-gold: #e8c547;
   --nc-gold-mid: #d4a832;
-  --nc-gold-shadow: rgba(232, 197, 71, 0.35);
+  --nc-gold-shadow: rgba(212, 168, 50, 0.28);
   --nc-cream: #f5f0e8;
   --nc-cream-soft: #faf6f0;
-  --nc-text: #f8f4ec;
-  --nc-text-muted: rgba(248, 244, 236, 0.72);
+  --nc-text: #1a1a18;
+  --nc-text-muted: rgba(26, 26, 24, 0.58);
   --nc-red: #ef4444;
   --nc-red-deep: #dc2626;
-  --nc-radius-xl: 28px;
-  --nc-radius-lg: 20px;
-  --nc-radius-md: 14px;
-  --nc-shadow-soft: 0 18px 48px rgba(0, 0, 0, 0.45), 0 4px 16px rgba(0, 0, 0, 0.25);
-  --nc-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --nc-radius-xl: 22px;
+  --nc-radius-lg: 16px;
+  --nc-radius-md: 12px;
+  --nc-shadow-soft: 0 10px 36px rgba(15, 23, 42, 0.08), 0 2px 10px rgba(15, 23, 42, 0.04);
+  --nc-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.95);
 
-  max-width: 26rem;
+  max-width: 22.5rem;
   margin: 0 auto;
-  padding: clamp(1.25rem, 4vw, 1.75rem);
+  padding: clamp(0.85rem, 3vw, 1.35rem);
   border-radius: var(--nc-radius-xl);
-  background: linear-gradient(165deg, #0d1a2e 0%, var(--nc-bg) 42%, var(--nc-bg-deep) 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #faf8f5 100%);
+  border: 1px solid rgba(26, 26, 24, 0.07);
   box-shadow: var(--nc-shadow-soft), var(--nc-shadow-inset);
   color: var(--nc-text);
   font-family: "Inter", system-ui, sans-serif;
@@ -34,15 +33,15 @@
 }
 
 .nc__title {
-  margin: 0 0 1rem;
-  max-width: 22ch;
+  margin: 0 0 0.75rem;
+  max-width: 26ch;
   margin-left: auto;
   margin-right: auto;
   font-family: "Sora", "Inter", system-ui, sans-serif;
-  font-size: clamp(1.05rem, 3.8vw, 1.28rem);
+  font-size: clamp(0.95rem, 3.4vw, 1.2rem);
   font-weight: 700;
   letter-spacing: -0.02em;
-  line-height: 1.25;
+  line-height: 1.22;
   text-align: center;
   text-wrap: balance;
   color: var(--nc-text);
@@ -51,7 +50,7 @@
 /* —— Carte assiette (crème) —— */
 .nc-plate-card {
   position: relative;
-  padding: 1rem 1rem 1.15rem;
+  padding: 0.75rem 0.75rem 0.85rem;
   border-radius: var(--nc-radius-lg);
   background: linear-gradient(180deg, var(--nc-cream-soft) 0%, var(--nc-cream) 100%);
   box-shadow:
@@ -61,8 +60,8 @@
 }
 
 .nc-plate-card__total {
-  margin: 0 0 0.85rem;
-  font-size: 0.9375rem;
+  margin: 0 0 0.55rem;
+  font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: #1a1a18;
@@ -82,8 +81,8 @@
 .nc-plate {
   --nc-plate-fill: 0;
   position: relative;
-  margin: 0 auto 0.85rem;
-  width: min(100%, 15rem);
+  margin: 0 auto 0.6rem;
+  width: min(100%, 12.5rem);
   aspect-ratio: 1.35 / 1;
   display: flex;
   align-items: center;
@@ -158,7 +157,7 @@
   align-items: flex-end;
   gap: 0.35rem 0.4rem;
   width: 100%;
-  max-height: 5.75rem;
+  max-height: 4.5rem;
   overflow: hidden;
 }
 
@@ -306,14 +305,13 @@
 .nc-foods {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.5rem 0.35rem;
-  margin: 1.15rem 0 0.85rem;
+  gap: 0.35rem 0.28rem;
+  margin: 0.75rem 0 0.55rem;
 }
 
 @media (min-width: 380px) {
   .nc-foods {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.65rem 0.5rem;
+    gap: 0.45rem 0.35rem;
   }
 }
 
@@ -321,14 +319,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.45rem 0.2rem;
-  border: none;
+  gap: 0.22rem;
+  padding: 0.32rem 0.12rem;
   border-radius: var(--nc-radius-md);
-  background: var(--nc-surface);
+  background: linear-gradient(180deg, var(--nc-surface) 0%, var(--nc-surface-deep) 100%);
   color: var(--nc-text);
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.07);
+  border: 1px solid rgba(26, 26, 24, 0.06);
   transition:
     transform 0.18s ease,
     box-shadow 0.18s ease,
@@ -336,20 +334,20 @@
 }
 
 .nc-food:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
 }
 
 .nc-food.is-selected {
-  background: linear-gradient(180deg, #1a3352 0%, #152a45 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #fffbf0 100%);
   box-shadow:
     0 0 0 2px var(--nc-gold),
-    0 8px 22px rgba(232, 197, 71, 0.2);
+    0 4px 14px rgba(232, 197, 71, 0.22);
 }
 
 .nc-food__icon {
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   flex-shrink: 0;
 }
 
@@ -359,8 +357,18 @@
   display: block;
 }
 
+.nc-food-icon-svg {
+  display: block;
+  overflow: visible;
+}
+
+.nc-food__icon .nc-food-icon-svg,
+.nc-plate-chip__icon .nc-food-icon-svg {
+  filter: drop-shadow(0 1px 1.5px rgba(15, 23, 42, 0.09));
+}
+
 .nc-food__kcal {
-  font-size: 0.625rem;
+  font-size: 0.5625rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--nc-text-muted);
@@ -375,17 +383,17 @@
 .nc-row-units {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 0.32rem;
   justify-content: center;
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.45rem;
 }
 
 .nc-btn-unit {
-  min-width: 2.65rem;
-  padding: 0.45rem 0.65rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  min-width: 2.35rem;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid rgba(26, 26, 24, 0.1);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(26, 26, 24, 0.04);
   color: var(--nc-text-muted);
   font-size: 0.75rem;
   font-weight: 700;
@@ -395,7 +403,8 @@
 
 .nc-btn-unit:hover {
   color: var(--nc-text);
-  border-color: rgba(232, 197, 71, 0.35);
+  border-color: rgba(212, 168, 50, 0.45);
+  background: rgba(26, 26, 24, 0.06);
 }
 
 .nc-btn-unit.is-active {
@@ -407,13 +416,13 @@
 
 .nc-btn-add {
   width: 100%;
-  margin-bottom: 1.1rem;
-  padding: 0.72rem 1rem;
+  margin-bottom: 0.65rem;
+  padding: 0.55rem 0.85rem;
   border: none;
   border-radius: var(--nc-radius-md);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
   color: #1a1408;
@@ -448,16 +457,16 @@
 
 /* —— Calculatrice —— */
 .nc-calc {
-  padding: 0.85rem;
+  padding: 0.55rem 0.6rem 0.6rem;
   border-radius: var(--nc-radius-lg);
-  background: rgba(0, 0, 0, 0.22);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.25);
+  background: rgba(26, 26, 24, 0.045);
+  border: 1px solid rgba(26, 26, 24, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 .nc-calc__label {
-  margin: 0 0 0.45rem;
-  font-size: 0.65rem;
+  margin: 0 0 0.35rem;
+  font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -466,18 +475,18 @@
 }
 
 .nc-calc__display {
-  margin-bottom: 0.65rem;
-  padding: 0.65rem 0.85rem;
+  margin-bottom: 0.45rem;
+  padding: 0.45rem 0.65rem;
   border-radius: var(--nc-radius-md);
-  background: rgba(5, 12, 24, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+  border: 1px solid rgba(26, 26, 24, 0.1);
   font-family: ui-monospace, "SF Mono", Menlo, monospace;
-  font-size: 1.35rem;
+  font-size: 1.1rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-align: right;
-  color: var(--nc-cream);
-  min-height: 2.75rem;
+  color: var(--nc-text);
+  min-height: 2.15rem;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -488,15 +497,15 @@
 .nc-calc__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.45rem;
+  gap: 0.32rem;
 }
 
 .nc-calc__btn {
-  min-height: 2.65rem;
-  padding: 0.35rem;
+  min-height: 2.2rem;
+  padding: 0.28rem;
   border: none;
   border-radius: var(--nc-radius-md);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
   transition: transform 0.12s ease, filter 0.12s ease;
@@ -508,13 +517,13 @@
 
 .nc-calc__btn--num {
   color: var(--nc-text);
-  background: linear-gradient(180deg, #1e3a5f 0%, #162d4a 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(180deg, #e8ecf2 0%, #dde3ec 100%);
+  border: 1px solid rgba(26, 26, 24, 0.1);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
 }
 
 .nc-calc__btn--num:hover {
-  filter: brightness(1.12);
+  filter: brightness(1.03);
 }
 
 .nc-calc__btn--op {
@@ -550,17 +559,17 @@
 }
 
 .nc-feedback {
-  min-height: 2.5rem;
-  margin: 0 0 0.75rem;
-  font-size: 0.7rem;
+  min-height: 1.35rem;
+  margin: 0 0 0.45rem;
+  font-size: 0.65rem;
   line-height: 1.45;
   text-align: center;
   color: var(--nc-text-muted);
 }
 
 .nc-hint {
-  margin: 0.85rem 0 0;
-  font-size: 0.7rem;
+  margin: 0.5rem 0 0;
+  font-size: 0.65rem;
   line-height: 1.45;
   text-align: center;
   color: var(--nc-text-muted);
@@ -578,5 +587,89 @@
   .nc-btn-add:hover,
   .nc-btn-clear:hover {
     transform: none;
+  }
+}
+
+/* Très petits écrans : hauteur minimale pour voir assiette + grille + pavé */
+@media (max-width: 480px) {
+  .nc {
+    max-width: 100%;
+    padding: 0.65rem 0.5rem 0.75rem;
+    border-radius: 18px;
+  }
+
+  .nc__title {
+    margin-bottom: 0.55rem;
+    font-size: clamp(0.88rem, 3.8vw, 1rem);
+    max-width: 32ch;
+  }
+
+  .nc-plate-card {
+    padding: 0.55rem 0.5rem 0.65rem;
+  }
+
+  .nc-plate-card__total {
+    margin-bottom: 0.45rem;
+    font-size: 0.8125rem;
+  }
+
+  .nc-plate {
+    width: min(100%, 10.5rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .nc-plate__hint {
+    font-size: 0.75rem;
+  }
+
+  .nc-plate-chips {
+    max-height: 3.85rem;
+    gap: 0.22rem 0.28rem;
+  }
+
+  .nc-plate-chip {
+    width: 2.35rem;
+    min-height: 2.75rem;
+    padding: 0.18rem 0.12rem 0.22rem;
+  }
+
+  .nc-plate-chip__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .nc-foods {
+    margin: 0.6rem 0 0.45rem;
+    gap: 0.28rem 0.22rem;
+  }
+
+  .nc-food {
+    padding: 0.28rem 0.08rem;
+    gap: 0.18rem;
+  }
+
+  .nc-food__icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .nc-food__kcal {
+    font-size: 0.5rem;
+  }
+
+  .nc-btn-clear {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .nc-calc__btn {
+    min-height: 2rem;
+    font-size: 0.82rem;
+  }
+
+  .nc-calc__display {
+    font-size: 1rem;
+    min-height: 1.95rem;
+    padding: 0.4rem 0.55rem;
   }
 }

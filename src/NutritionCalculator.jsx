@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
+import { FoodIcon } from "./FoodIcons.jsx";
 import "./nutrition-calculator.css";
 
 /** kcal de référence pour 100 g (ou 100 ml pour le lait) */
@@ -140,62 +141,6 @@ function useAnimatedKcal(target, durationMs = 480) {
   }, [target, durationMs]);
 
   return value;
-}
-
-function FoodIcon({ name }) {
-  const c = { fill: "none", stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round", strokeLinejoin: "round" };
-  switch (name) {
-    case "broccoli":
-      return (
-        <svg viewBox="0 0 32 32" aria-hidden>
-          <path d="M16 6v4M12 10c-2 2-3 5-2 8h12c1-3 0-6-2-8" {...c} />
-          <path d="M10 18h12v6H10z" {...c} />
-          <path d="M14 24v4M18 24v4" {...c} />
-        </svg>
-      );
-    case "chicken":
-      return (
-        <svg viewBox="0 0 32 32" aria-hidden>
-          <path d="M10 22c-2-4 0-10 6-12 4-1 8 1 10 5 2 5-1 11-7 13-3 1-6 0-9-2" {...c} />
-          <path d="M22 10l4-4M24 8l2 2" {...c} />
-        </svg>
-      );
-    case "rice":
-      return (
-        <svg viewBox="0 0 32 32" aria-hidden>
-          <ellipse cx="16" cy="20" rx="10" ry="6" {...c} />
-          <path d="M10 18c2-4 4-6 6-6s4 2 6 6" {...c} />
-        </svg>
-      );
-    case "milk":
-      return (
-        <svg viewBox="0 0 32 32" aria-hidden>
-          <path d="M12 8h8l2 4v14H10V12l2-4z" {...c} />
-          <path d="M14 8V6h4v2" {...c} />
-        </svg>
-      );
-    case "egg":
-      return (
-        <svg viewBox="0 0 32 32" aria-hidden>
-          <ellipse cx="16" cy="17" rx="7" ry="9" {...c} />
-        </svg>
-      );
-    case "banana":
-      return (
-        <svg viewBox="0 0 32 32" aria-hidden>
-          <path d="M10 22c4-6 8-14 10-18 2 2 3 5 2 8-1 4-5 8-10 10-3 1-5 0-2 0z" {...c} />
-        </svg>
-      );
-    case "steak":
-      return (
-        <svg viewBox="0 0 32 32" aria-hidden>
-          <ellipse cx="16" cy="17" rx="11" ry="7" {...c} />
-          <path d="M8 17h16M11 14h10M11 20h10" {...c} />
-        </svg>
-      );
-    default:
-      return null;
-  }
 }
 
 export function NutritionCalculator() {
