@@ -377,7 +377,6 @@ export function NutritionCalculator() {
 
       <div className="nc-picker-premium" role="region" aria-label="Choisir des aliments par catégorie">
         <div className="nc-picker-premium__head">
-          <p className="nc-picker-premium__eyebrow">Bibliothèque</p>
           <div className="nc-cat-tabs" role="tablist" aria-label="Catégories d’aliments">
             {FOOD_ROWS.map((row, i) => (
               <button
@@ -411,7 +410,7 @@ export function NutritionCalculator() {
                 className="nc-picker-page"
                 aria-hidden={categoryIndex !== i}
               >
-                <p className="nc-picker-page__title">{row.label}</p>
+                <p className="nc-plate-sr">{row.label}</p>
                 <div className="nc-picker-page__grid">
                   {row.ids.map((fid) => {
                     const f = foodById(fid);
@@ -449,12 +448,6 @@ export function NutritionCalculator() {
             />
           ))}
         </div>
-        <p className="nc-picker-swipe-hint">
-          <span className="nc-picker-swipe-hint__icon" aria-hidden="true">
-            ‹ ›
-          </span>
-          Glissez ou touchez un onglet
-        </p>
       </div>
 
       <div className="nc-row-units" role="group" aria-label="Unité de mesure">
