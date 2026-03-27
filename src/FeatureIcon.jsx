@@ -1,15 +1,15 @@
 import React from "react";
 
 /**
- * Icônes stroke 24×24 — dégradé orange → rouge (défaut) ou or (section fonctionnalités).
+ * Icônes stroke 24×24 — tons orange charte (#FF8A2B), section fonctionnalités incluse.
  */
 export function FeatureIcon({ name, tone = "coral" }) {
   const uid = React.useId().replace(/:/g, "");
   const gradId = `ftg${uid}`;
   const grad =
     tone === "gold"
-      ? { a: "#ffc83d", b: "#e6a800" }
-      : { a: "#ff8a00", b: "#e56f00" };
+      ? { a: "#ff8a2b", b: "#e67316" }
+      : { a: "#ff8a2b", b: "#e67316" };
 
   const common = {
     fill: "none",
