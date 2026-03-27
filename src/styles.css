@@ -277,7 +277,8 @@ select {
     padding-bottom: 0.5rem;
   }
 
-  .lp-theme span {
+  .lp-theme span,
+  .lp-theme button {
     min-width: 3.5rem;
   }
 
@@ -372,43 +373,63 @@ select {
 
 .lp-theme {
   display: inline-flex;
-  gap: 2px;
-  padding: 3px;
-  border: 1px solid #e5e5e5;
+  gap: 4px;
+  padding: 5px;
+  border: 1px solid rgba(26, 26, 24, 0.1);
   border-radius: 999px;
-  background: #f5f2ee;
+  background: #fafaf9;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.07);
   cursor: pointer;
 }
 
 .lp-theme span,
 .lp-theme button {
-  min-width: 4.25rem;
-  padding: 0.4rem 0.65rem;
+  min-width: 4.75rem;
+  padding: 0.52rem 0.95rem;
   border-radius: 999px;
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: #1a1a18;
-  transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+  transition:
+    background 0.22s ease,
+    color 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease,
+    transform 0.18s ease;
 }
 
 .lp-theme button {
-  border: 1px solid #e5e5e5;
-  background: #f5f2ee;
+  border: 1px solid #e3e3e1;
+  background: #ffffff;
+  color: rgba(26, 26, 24, 0.42);
   cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 .lp-theme span.is-on,
 .lp-theme button.is-on {
-  background: #f0b429;
-  color: #ffffff;
-  border-color: #f0b429;
-  box-shadow: 0 6px 14px rgba(240, 180, 41, 0.32);
+  border-color: transparent;
+  background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+  color: #1a1a18;
+  box-shadow:
+    0 0 0 1px rgba(249, 115, 22, 0.35),
+    0 10px 26px rgba(239, 68, 68, 0.38),
+    0 4px 12px rgba(249, 115, 22, 0.22);
 }
 
-.lp-theme button:hover {
+.lp-theme button:hover:not(.is-on) {
+  border-color: rgba(249, 115, 22, 0.35);
+  color: rgba(26, 26, 24, 0.62);
   transform: translateY(-1px);
+}
+
+.lp-theme button:hover.is-on {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px rgba(249, 115, 22, 0.45),
+    0 12px 30px rgba(239, 68, 68, 0.45),
+    0 4px 14px rgba(249, 115, 22, 0.28);
 }
 
 .lp-theme button:active {
@@ -722,7 +743,7 @@ select {
 .lp-sub--wow strong {
   display: block;
   margin-bottom: 0.5rem;
-  color: var(--gold);
+  color: var(--orange);
   font-weight: 800;
   font-size: 1.05em;
   letter-spacing: -0.02em;
@@ -731,115 +752,64 @@ select {
 /* Showcase « une fonctionnalité à la fois » — durée alignée avec SHOWCASE_INTERVAL_MS dans App.jsx */
 .lp-showcase {
   --showcase-dur: 4200ms;
-  /* Durée d’un cycle complet du ticker des onglets (plus bas = plus rapide) */
-  --showcase-ticker-dur: 18s;
   margin-top: 0.5rem;
 }
 
-.lp-showcase__persona-ticker {
-  position: relative;
+.lp-showcase__persona-row {
   margin-bottom: 1.25rem;
-  overflow: hidden;
-  min-height: 42px;
-}
-
-.lp-showcase__persona-ticker::before,
-.lp-showcase__persona-ticker::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 2.25rem;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.lp-showcase__persona-ticker::before {
-  left: 0;
-  background: linear-gradient(90deg, var(--bg), transparent);
-}
-
-.lp-showcase__persona-ticker::after {
-  right: 0;
-  background: linear-gradient(270deg, var(--bg), transparent);
-}
-
-.lp-showcase__persona-track {
   display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  width: max-content;
-  gap: 0.5rem;
-  animation: lp-showcase-ticker var(--showcase-ticker-dur) linear infinite;
-  will-change: transform;
-}
-
-.lp-showcase__persona-track.is-paused {
-  animation-play-state: paused;
-}
-
-@keyframes lp-showcase-ticker {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(calc(-50% - 0.25rem), 0, 0);
-  }
+  justify-content: flex-start;
 }
 
 .lp-showcase__persona {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 0.5rem;
-  flex-shrink: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .lp-showcase__persona-track {
-    animation: none;
-    transform: none;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-    max-width: 100%;
-    will-change: auto;
-  }
-
-  .lp-showcase__persona-ticker {
-    overflow: visible;
-    -webkit-mask-image: none;
-    mask-image: none;
-  }
-
-  .lp-showcase__persona--clone {
-    display: none;
-  }
-
-  .lp-showcase__persona {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+  align-items: center;
 }
 
 .lp-showcase__persona button {
-  min-height: 42px;
-  padding: 0 1.1rem;
+  min-height: 44px;
+  padding: 0 1.15rem;
   border-radius: 999px;
-  border: 1px solid var(--border);
-  background: var(--bg);
+  border: 1px solid #e3e3e1;
+  background: #ffffff;
   font-size: 0.8125rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(26, 26, 24, 0.42);
   cursor: pointer;
-  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.18s ease;
 }
 
 .lp-showcase__persona button.is-active {
-  border-color: var(--gold);
-  background: var(--gold-dim);
-  color: var(--gold);
+  border-color: transparent;
+  background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+  color: #1a1a18;
+  box-shadow:
+    0 0 0 1px rgba(249, 115, 22, 0.35),
+    0 8px 22px rgba(239, 68, 68, 0.32),
+    0 3px 10px rgba(249, 115, 22, 0.2);
+}
+
+.lp-showcase__persona button:hover:not(.is-active) {
+  border-color: rgba(249, 115, 22, 0.35);
+  color: rgba(26, 26, 24, 0.58);
+}
+
+.lp-showcase__persona button:hover.is-active {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px rgba(249, 115, 22, 0.45),
+    0 12px 28px rgba(239, 68, 68, 0.4),
+    0 4px 12px rgba(249, 115, 22, 0.25);
 }
 
 .lp-showcase__stage {
@@ -856,36 +826,20 @@ select {
   position: absolute;
   inset: -40% -20% auto;
   height: 120%;
-  background: radial-gradient(ellipse at 50% 0%, var(--gold-dim), transparent 55%),
-    radial-gradient(ellipse at 80% 40%, var(--orange-dim), transparent 45%);
+  background:
+    radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--orange) 22%, transparent), transparent 58%),
+    radial-gradient(ellipse at 80% 40%, color-mix(in srgb, var(--red) 14%, transparent), transparent 48%),
+    radial-gradient(ellipse at 20% 60%, color-mix(in srgb, var(--gold) 12%, transparent), transparent 50%);
   pointer-events: none;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 .lp-showcase__card {
   position: relative;
   z-index: 1;
-  animation: lp-showcase-card-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@keyframes lp-showcase-card-in {
-  from {
-    opacity: 0;
-    transform: translateY(18px) scale(0.98);
-    filter: blur(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lp-showcase__card {
-    animation: none;
-  }
-
   .lp-showcase__progress-bar {
     animation: none !important;
     width: 100% !important;
@@ -932,18 +886,9 @@ select {
 
 .lp-showcase__progress-bar {
   height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, var(--orange), var(--gold));
-  animation: lp-showcase-progress var(--showcase-dur) linear forwards;
-}
-
-@keyframes lp-showcase-progress {
-  from {
-    width: 0%;
-  }
-  to {
-    width: 100%;
-  }
+  width: 100%;
+  background: linear-gradient(90deg, #f97316, #ef4444);
+  opacity: 0.9;
 }
 
 .lp-showcase__nav {
@@ -970,8 +915,9 @@ select {
 }
 
 .lp-showcase__arrow:hover {
-  border-color: var(--gold);
-  background: var(--gold-dim);
+  border-color: color-mix(in srgb, var(--orange) 45%, var(--border));
+  background: color-mix(in srgb, var(--orange-dim) 55%, var(--surface));
+  color: var(--orange);
 }
 
 .lp-showcase__arrow:active {
@@ -982,29 +928,32 @@ select {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.45rem;
-  margin-top: 1.25rem;
+  align-items: center;
+  gap: 0.62rem;
+  margin-top: 1.35rem;
 }
 
 .lp-showcase__dot {
-  width: 9px;
-  height: 9px;
+  width: 11px;
+  height: 11px;
   padding: 0;
   border: none;
   border-radius: 50%;
-  background: var(--border);
+  background: #d6d4d0;
   cursor: pointer;
   transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 
 .lp-showcase__dot:hover {
-  background: var(--muted);
+  background: #c4c2bd;
 }
 
 .lp-showcase__dot.is-active {
-  background: var(--gold);
-  transform: scale(1.35);
-  box-shadow: 0 0 14px var(--gold-dim);
+  background: linear-gradient(135deg, #f97316, #ef4444);
+  transform: scale(1.28);
+  box-shadow:
+    0 0 0 1px rgba(249, 115, 22, 0.45),
+    0 4px 14px rgba(239, 68, 68, 0.35);
 }
 
 .lp-showcase__hint {

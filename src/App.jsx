@@ -388,7 +388,6 @@ export default function App() {
   const [showcasePersona, setShowcasePersona] = useState("sportif");
   const [showcaseIdx, setShowcaseIdx] = useState(0);
   const [showcasePaused, setShowcasePaused] = useState(false);
-  const [showcaseTickerPaused, setShowcaseTickerPaused] = useState(false);
 
   const [billingCycle, setBillingCycle] = useState("monthly");
   const [coachPlanIdx, setCoachPlanIdx] = useState(1);
@@ -573,41 +572,20 @@ export default function App() {
             </p>
 
             <div className="lp-showcase">
-              <div
-                className="lp-showcase__persona-ticker"
-                onMouseEnter={() => setShowcaseTickerPaused(true)}
-                onMouseLeave={() => setShowcaseTickerPaused(false)}
-              >
-                <div
-                  className={`lp-showcase__persona-track${showcaseTickerPaused ? " is-paused" : ""}`}
-                >
-                  <div className="lp-showcase__persona" role="tablist" aria-label="Aperçu par univers">
-                    {SHOWCASE_PERSONA_TABS.filter((p) => p.id === role).map((p) => (
-                      <button
-                        key={p.id}
-                        type="button"
-                        role="tab"
-                        aria-selected={showcasePersona === p.id}
-                        className={showcasePersona === p.id ? "is-active" : ""}
-                        onClick={() => setShowcasePersona(p.id)}
-                      >
-                        {p.label}
-                      </button>
-                    ))}
-                  </div>
-                  <div className="lp-showcase__persona lp-showcase__persona--clone" role="presentation">
-                    {SHOWCASE_PERSONA_TABS.filter((p) => p.id === role).map((p) => (
-                      <button
-                        key={`clone-${p.id}`}
-                        type="button"
-                        tabIndex={-1}
-                        className={showcasePersona === p.id ? "is-active" : ""}
-                        onClick={() => setShowcasePersona(p.id)}
-                      >
-                        {p.label}
-                      </button>
-                    ))}
-                  </div>
+              <div className="lp-showcase__persona-row">
+                <div className="lp-showcase__persona" role="tablist" aria-label="Aperçu par univers">
+                  {SHOWCASE_PERSONA_TABS.filter((p) => p.id === role).map((p) => (
+                    <button
+                      key={p.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={showcasePersona === p.id}
+                      className={showcasePersona === p.id ? "is-active" : ""}
+                      onClick={() => setShowcasePersona(p.id)}
+                    >
+                      {p.label}
+                    </button>
+                  ))}
                 </div>
               </div>
 
