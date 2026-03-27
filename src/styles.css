@@ -1102,6 +1102,7 @@ select {
 
 .lp-focus--wow {
   position: relative;
+  border-radius: var(--radius);
   margin-bottom: 1.1rem;
   padding: 0.95rem 1rem 0.9rem;
   overflow: hidden;
@@ -1383,7 +1384,8 @@ select {
   }
 }
 
-.lp-focus {
+/* Exclure --wow : sinon .lp-focus écrase padding/marges/fond du bloc compact */
+.lp-focus:not(.lp-focus--wow) {
   margin-bottom: 2rem;
   padding: 1.25rem 1.35rem;
   border-radius: var(--radius);

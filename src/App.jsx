@@ -338,6 +338,8 @@ export default function App() {
   const [role, setRole] = useState("sportif");
   const [goal, setGoal] = useState("Tout");
   const [formRole, setFormRole] = useState("sportif");
+  const [city, setCity] = useState("");
+  const [detectedCountry, setDetectedCountry] = useState("");
   const [specialties, setSpecialties] = useState(() =>
     Object.fromEntries(COACH_SPECIALTIES.map((s) => [s, false]))
   );
@@ -438,6 +440,26 @@ export default function App() {
 
   const toggleSpecialty = (label) => {
     setSpecialties((prev) => ({ ...prev, [label]: !prev[label] }));
+  };
+
+  const detectCountryFromCity = async (cityValue) => {
+    const cleanCity = cityValue.trim();
+    if (!cleanCity) {
+      setDetectedCountry("");
+      return "";
+    }
+
+    try {
+      const url = `https://nominatim.openstreetmap.org/search?city=${encodeURIComponent(cleanCity)}&format=json&addressdetails=1&limit=1`;
+      const res = await fetch(url, { headers: { Accept: "application/json" } });
+      if (!res.ok) return "";
+      const data = await res.json();
+      const country = data?.[0]?.address?.country ?? "";
+      setDetectedCountry(country);
+      return country;
+    } catch {
+      return "";
+    }
   };
 
   return (
@@ -896,8 +918,13 @@ export default function App() {
 
             <form
               className="lp-form"
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
+                const country = await detectCountryFromCity(city);
+                const form = e.currentTarget;
+                const payload = new FormData(form);
+                payload.set("ville", city.trim());
+                payload.set("pays", country || detectedCountry || "");
               }}
             >
               <div className="lp-form__grid">
@@ -925,6 +952,32 @@ export default function App() {
                 Email *
                 <input type="email" name="email" required placeholder="vous@email.com" autoComplete="email" />
               </label>
+
+              <label className="lp-label">
+                De quelle plateforme êtes-vous inscrit ?
+                <input
+                  type="text"
+                  name="plateforme_actuelle"
+                  placeholder="Ex : Instagram, Basic-Fit, autre"
+                  autoComplete="off"
+                />
+              </label>
+
+              <label className="lp-label">
+                Ville
+                <input
+                  type="text"
+                  name="ville"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  onBlur={(e) => {
+                    void detectCountryFromCity(e.target.value);
+                  }}
+                  placeholder="Votre ville"
+                  autoComplete="address-level2"
+                />
+              </label>
+              <input type="hidden" name="pays" value={detectedCountry} />
 
               {formRole === "sportif" && (
                 <>
