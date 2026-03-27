@@ -719,6 +719,9 @@ export default function App() {
           aria-labelledby="nutri-calc-title"
         >
           <div className="lp-wrap">
+            <h2 className="lp-h2 lp-nutri-calc__title" id="nutri-calc-title">
+              Reprends le <span className="lp-hero__accent">contrôle</span> jusqu’à dans ton assiette
+            </h2>
             <NutritionCalculator />
           </div>
         </section>

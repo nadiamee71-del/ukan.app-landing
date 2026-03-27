@@ -1074,6 +1074,14 @@ select {
   background: var(--bg);
 }
 
+.lp-nutri-calc__title {
+  text-align: center;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: clamp(1rem, 3vw, 1.5rem);
+}
+
 @media (max-width: 767px) {
   .lp-section--nutri-calc {
     padding: clamp(0.45rem, 2vw, 0.85rem) 0;

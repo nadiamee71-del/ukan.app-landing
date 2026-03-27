@@ -82,25 +82,10 @@
   height: 100%;
 }
 
-.nc__title {
-  margin: 0 0 0.38rem;
-  max-width: 30ch;
-  margin-left: auto;
-  margin-right: auto;
-  font-family: "Sora", "Inter", system-ui, sans-serif;
-  font-size: clamp(0.8rem, 2.85vw, 1.05rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.22;
-  text-align: center;
-  text-wrap: balance;
-  color: #fff6e9;
-}
-
 /* —— Carte repas : carte ludique premium —— */
 .nc-plate-card {
   position: relative;
-  padding: 0.55rem 0.55rem 0.6rem;
+  padding: 0.78rem 0.68rem 0.82rem;
   border-radius: 20px;
   background: var(--nc-plate-card-bg);
   box-shadow:
@@ -151,16 +136,16 @@
 .nc-meal-stage {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.35rem;
+  gap: 0.42rem;
   align-items: end;
-  margin-bottom: 0.15rem;
+  margin-bottom: 0.22rem;
 }
 
 /* 3 zones côte à côte dès les petits mobiles — moins de hauteur qu’en colonne */
 @media (min-width: 300px) {
   .nc-meal-stage {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.42fr) minmax(0, 1fr);
-    gap: 0.22rem 0.28rem;
+    gap: 0.32rem 0.4rem;
   }
 }
 
@@ -248,8 +233,8 @@
 /* Zone dessert — plateau cartoon */
 .nc-dessert-zone {
   --nc-dessert-fill: 0;
-  width: min(100%, 4.35rem);
-  min-height: 4.35rem;
+  width: min(100%, 4.85rem);
+  min-height: 4.85rem;
   border-radius: 14px;
   background: linear-gradient(165deg, #fffaf3 0%, #fdebd3 48%, #f5e6d4 100%);
   border: 2px solid rgba(255, 200, 61, 0.35);
@@ -271,7 +256,7 @@
   justify-content: center;
   gap: 0.15rem;
   width: 100%;
-  min-height: 2.85rem;
+  min-height: 3.25rem;
 }
 
 .nc-slot-chip {
@@ -609,7 +594,7 @@
 
 .nc-slot--plate .nc-plate {
   margin: 0 auto;
-  width: min(100%, 10.25rem);
+  width: min(100%, 11.25rem);
 }
 
 /* Assiette — forme ovale façon plat en porcelaine (bord relevé + creux) */
@@ -617,7 +602,7 @@
   --nc-plate-fill: 0;
   position: relative;
   margin: 0 auto 0.45rem;
-  width: min(100%, 10.75rem);
+  width: min(100%, 11.5rem);
   aspect-ratio: 1.52 / 1;
   display: flex;
   align-items: center;
@@ -1127,24 +1112,18 @@
     --nc-radius-md: 10px;
   }
 
-  .nc__title {
-    margin-bottom: 0.25rem;
-    font-size: clamp(0.72rem, 3.2vw, 0.88rem);
-    max-width: 32ch;
-  }
-
   .nc-plate-card {
-    padding: 0.32rem 0.35rem 0.4rem;
+    padding: 0.48rem 0.42rem 0.52rem;
   }
 
   .nc-plate-card__total {
-    margin-bottom: 0.22rem;
-    font-size: 0.7rem;
+    margin-bottom: 0.32rem;
+    font-size: 0.74rem;
   }
 
   .nc-meal-stage {
-    gap: 0.18rem 0.22rem;
-    margin-bottom: 0.1rem;
+    gap: 0.24rem 0.3rem;
+    margin-bottom: 0.14rem;
   }
 
   .nc-slot__label {
@@ -1153,17 +1132,17 @@
   }
 
   .nc-glass {
-    width: min(100%, 3rem);
-    height: 3.85rem;
+    width: min(100%, 3.45rem);
+    height: 4.35rem;
   }
 
   .nc-dessert-zone {
-    width: min(100%, 3.65rem);
-    min-height: 3.75rem;
+    width: min(100%, 4.1rem);
+    min-height: 4.15rem;
   }
 
   .nc-dessert-zone__inner {
-    min-height: 2.45rem;
+    min-height: 2.75rem;
   }
 
   .nc-slot-chip--glass {
@@ -1188,11 +1167,11 @@
   }
 
   .nc-slot--plate .nc-plate {
-    width: min(100%, 8.5rem);
+    width: min(100%, 9.35rem);
   }
 
   .nc-plate {
-    width: min(100%, 8.5rem);
+    width: min(100%, 9.35rem);
     margin-bottom: 0;
   }
 
@@ -1201,8 +1180,8 @@
   }
 
   .nc-plate-chips {
-    max-height: 4.5rem;
-    gap: 0.24rem 0.28rem;
+    max-height: 5.1rem;
+    gap: 0.28rem 0.3rem;
   }
 
   .nc-plate-chip {
