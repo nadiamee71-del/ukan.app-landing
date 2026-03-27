@@ -2070,6 +2070,60 @@ select {
   gap: 0.65rem 1rem;
 }
 
+.lp-footer__social {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.65rem 1rem;
+  width: 100%;
+  margin-top: 0.15rem;
+}
+
+.lp-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  color: rgba(26, 26, 24, 0.55);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  border: 1px solid rgba(26, 26, 24, 0.1);
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.lp-social-link:hover {
+  color: #f97316;
+  border-color: color-mix(in srgb, var(--orange) 35%, rgba(26, 26, 24, 0.1));
+  background: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(249, 115, 22, 0.12);
+}
+
+.lp-social-link:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+.lp-social__svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-social-link:hover {
+    transform: none;
+  }
+}
+
 .lp-footer__copy {
   display: block;
   max-width: 36rem;

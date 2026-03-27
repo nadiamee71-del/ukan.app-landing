@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { FeatureIcon } from "./FeatureIcon.jsx";
+import { SocialLinks } from "./SocialLinks.jsx";
 import logoLight from "./assets/logo2.png";
 import badgeAppStore from "./assets/badge-app-store.svg?url";
 import badgeGooglePlay from "./assets/badge-google-play.svg?url";
@@ -9,6 +10,14 @@ import "./styles.css";
 /** À la publication : remplacez par vos fiches App Store et Play Store. */
 const APP_STORE_URL = "#inscription";
 const GOOGLE_PLAY_URL = "#inscription";
+
+/** Réseaux & contact — à mettre à jour avec les URLs officielles UKAN */
+const SOCIAL_LINKS = {
+  instagram: "https://www.instagram.com/ukan.app/",
+  linkedin: "https://www.linkedin.com/company/ukan",
+  tiktok: "https://www.tiktok.com/@ukan.app",
+  email: "mailto:contact@ukan.app",
+};
 
 function storeLinkProps(url) {
   return url.startsWith("http")
@@ -1074,6 +1083,7 @@ export default function App() {
               </a>
             </div>
           </div>
+          <SocialLinks links={SOCIAL_LINKS} />
           <span className="lp-footer__copy">
             © {new Date().getFullYear()} UKAN —{" "}
             {role === "coach" ? "Coaching, nutrition & activité pro." : "Sport, nutrition & progression."}
