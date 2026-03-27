@@ -181,9 +181,14 @@ select {
   font-weight: 600;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--muted);
   text-decoration: none;
-  transition: color 0.2s ease;
+  /* Même charte que « Liste d’attente » : texte en dégradé orange → rouge */
+  background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  transition: filter 0.2s ease, opacity 0.2s ease;
 }
 
 .lp-nav a::after {
@@ -194,7 +199,7 @@ select {
   bottom: 0;
   height: 2px;
   border-radius: 2px;
-  background: var(--gold);
+  background: linear-gradient(90deg, #f97316, #ef4444);
   transform: scaleX(0);
   transform-origin: center;
   transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
@@ -202,7 +207,7 @@ select {
 
 .lp-nav a:hover,
 .lp-nav a:focus-visible {
-  color: var(--gold);
+  filter: brightness(1.05);
 }
 
 .lp-nav a:hover::after,
