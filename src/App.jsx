@@ -43,6 +43,16 @@ const COACH_SPECIALTIES = [
   "Préparation physique",
 ];
 
+const SPORTIF_OBJECTIFS = [
+  "Perte de poids",
+  "Prise de masse",
+  "Remise en forme",
+  "Performance sportive",
+  "Bien-être général",
+];
+
+const SPORTIF_NIVEAUX = ["Débutant", "Intermédiaire", "Avancé"];
+
 /** Riche : filtres sportif/coach + objectif */
 const FEATURES = [
   { role: "sportif", goals: ["Tout", "Progresser"], title: "Séances guidées", text: "Entraînements structurés, vidéos et progressions claires." },
@@ -161,6 +171,39 @@ const ROLE_COPY = {
     title: "Pour les coachs",
     text: "Développer ta visibilité, structurer tes élèves et monétiser tes offres — sur une plateforme qui valorise les profils certifiés.",
     bullets: ["Visibilité qualifiée", "Tarifs adaptés au volume d’élèves", "Image pro renforcée"],
+  },
+};
+
+const HERO_COPY = {
+  sportif: {
+    title: (
+      <>
+        Reprends le <span className="lp-txt-green">contrôle</span> de ton{" "}
+        <span className="lp-txt-gold">corps</span>, tu n’es plus seul.
+      </>
+    ),
+    lead: (
+      <>
+        UKAN arrive pour ceux qui en ont assez des apps jetables : une expérience premium, pensée
+        pour durer — et{" "}
+        <strong>la seule en France à n’accepter que des coachs certifiés</strong>, pour que chaque
+        accompagnement soit digne de confiance.
+      </>
+    ),
+  },
+  coach: {
+    title: (
+      <>
+        Développe ton activité de <span className="lp-txt-green">coach</span> avec une base{" "}
+        <span className="lp-txt-gold">élèves</span> engagée.
+      </>
+    ),
+    lead: (
+      <>
+        UKAN centralise ta visibilité, le suivi de tes élèves et la monétisation de tes offres dans
+        un environnement premium réservé aux profils certifiés.
+      </>
+    ),
   },
 };
 
@@ -347,6 +390,12 @@ export default function App() {
     setGoal("Tout");
   }, [role]);
 
+  useEffect(() => {
+    // Le switch Sportif/Coach pilote l'ensemble de la landing sans rechargement.
+    setShowcasePersona(role);
+    setFormRole(role);
+  }, [role]);
+
   const activePricingPlan = useMemo(
     () => getPlanForStudentCount(studentCount),
     [studentCount]
@@ -360,6 +409,7 @@ export default function App() {
 
   const goals = role === "sportif" ? SPORTIF_GOALS : COACH_GOALS;
   const currentCopy = ROLE_COPY[role];
+  const heroCopy = HERO_COPY[role];
 
   const filteredFeatures = useMemo(() => {
     return FEATURES.filter((item) => {
@@ -415,16 +465,8 @@ export default function App() {
         <section className="lp-hero">
           <div className="lp-wrap">
             <p className="lp-eyebrow lp-eyebrow--gold">Lancement — rejoignez l’avant-première</p>
-            <h1 className="lp-hero__title">
-              Reprends le <span className="lp-txt-green">contrôle</span> de ton{" "}
-              <span className="lp-txt-gold">corps</span>, tu n’es plus seul.
-            </h1>
-            <p className="lp-hero__lead">
-              UKAN arrive pour ceux qui en ont assez des apps jetables : une expérience premium,
-              pensée pour durer — et{" "}
-              <strong>la seule en France à n’accepter que des coachs certifiés</strong>, pour que
-              chaque accompagnement soit digne de confiance.
-            </p>
+            <h1 className="lp-hero__title">{heroCopy.title}</h1>
+            <p className="lp-hero__lead">{heroCopy.lead}</p>
             <p className="lp-hero__quote">
               « On ne vous vend pas un écran de plus. On vous ouvre l’accès à un écosystème où votre
               progression et votre métier comptent vraiment. »
@@ -771,8 +813,9 @@ export default function App() {
           <div className="lp-wrap lp-wrap--narrow">
             <h2 className="lp-h2">Fiche d’inscription — liste d’attente</h2>
             <p className="lp-sub">
-              Nom, prénom, rôle et, si vous êtes coach, vos spécialités : nous préparons une expérience
-              sur mesure pour le jour J.
+              {formRole === "coach"
+                ? "Informations coach : nous préparons un espace pro adapté à votre activité."
+                : "Informations sportif : nous préparons un accompagnement adapté à votre profil."}
             </p>
 
             <form
@@ -792,27 +835,13 @@ export default function App() {
                 </label>
               </div>
 
+              <input type="hidden" name="role" value={formRole} />
+
               <fieldset className="lp-fieldset">
                 <legend>Vous êtes *</legend>
                 <label className="lp-radio">
-                  <input
-                    type="radio"
-                    name="role"
-                    value="sportif"
-                    checked={formRole === "sportif"}
-                    onChange={() => setFormRole("sportif")}
-                  />
-                  Sportif
-                </label>
-                <label className="lp-radio">
-                  <input
-                    type="radio"
-                    name="role"
-                    value="coach"
-                    checked={formRole === "coach"}
-                    onChange={() => setFormRole("coach")}
-                  />
-                  Coach certifié
+                  <input type="radio" checked readOnly />
+                  {formRole === "coach" ? "Coach certifié" : "Sportif"}
                 </label>
               </fieldset>
 
@@ -820,6 +849,34 @@ export default function App() {
                 Email *
                 <input type="email" name="email" required placeholder="vous@email.com" autoComplete="email" />
               </label>
+
+              {formRole === "sportif" && (
+                <>
+                  <label className="lp-label">
+                    Objectif principal *
+                    <select name="objectif" defaultValue="" required>
+                      <option value="" disabled>
+                        Sélectionnez votre objectif
+                      </option>
+                      {SPORTIF_OBJECTIFS.map((o) => (
+                        <option key={o} value={o}>
+                          {o}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+
+                  <fieldset className="lp-fieldset">
+                    <legend>Niveau *</legend>
+                    {SPORTIF_NIVEAUX.map((n) => (
+                      <label key={n} className="lp-radio">
+                        <input type="radio" name="niveau" value={n} required />
+                        {n}
+                      </label>
+                    ))}
+                  </fieldset>
+                </>
+              )}
 
               {formRole === "coach" && (
                 <fieldset className="lp-fieldset lp-fieldset--checks">
