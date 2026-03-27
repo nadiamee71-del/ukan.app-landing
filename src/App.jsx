@@ -216,9 +216,9 @@ const HERO_COPY = {
   sportif: {
     title: (
       <>
-        Reprends le <span className="lp-txt-green">contrôle</span>.
+        Reprends le <span className="lp-hero__accent">contrôle</span>.
         <br />
-        Transforme ton <span className="lp-txt-gold">corps</span>.
+        Transforme ton corps.
       </>
     ),
     lead: <>Une app premium pour t’entraîner, manger mieux et tenir le rythme.</>,
@@ -226,9 +226,9 @@ const HERO_COPY = {
   coach: {
     title: (
       <>
-        Scale ton <span className="lp-txt-green">coaching</span>.
+        Scale ton <span className="lp-hero__accent">coaching</span>.
         <br />
-        Plus d’<span className="lp-txt-gold">élèves</span>, moins d’outils.
+        Plus d’élèves, moins d’outils.
       </>
     ),
     lead: <>Gagne du temps, structure ton suivi et monétise mieux.</>,
@@ -541,7 +541,7 @@ export default function App() {
       <main id="top">
         <section className="lp-hero">
           <div className="lp-wrap">
-            <p className="lp-eyebrow lp-eyebrow--gold">Lancement — rejoignez l’avant-première</p>
+            <p className="lp-eyebrow lp-eyebrow--hero">Lancement — rejoignez l’avant-première</p>
             <h1 className="lp-hero__title">{heroCopy.title}</h1>
             <p className="lp-hero__lead">{heroCopy.lead}</p>
             <div className="lp-hero__cta">
