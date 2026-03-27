@@ -156,6 +156,7 @@ export function FoodIcon({ name, size = "md" }) {
         </svg>
       );
 
+    case "soda":
     case "coca":
       return (
         <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
@@ -374,6 +375,7 @@ export function FoodIcon({ name, size = "md" }) {
         </svg>
       );
 
+    case "cake":
     case "gateau":
       return (
         <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
@@ -408,6 +410,301 @@ export function FoodIcon({ name, size = "md" }) {
           <path d="M7 22l9-8 9 8" fill={`url(#${gid("icing")})`} />
           <circle cx="16" cy="12" r="2" fill="#f472b6" />
           <ellipse cx="16" cy="14" rx="8" ry="3" fill="#fbcfe8" opacity="0.9" />
+        </svg>
+      );
+
+    case "potato":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <radialGradient id={gid("pot")} cx="38%" cy="32%" r="65%">
+              <stop offset="0%" stopColor="#fde68a" />
+              <stop offset="100%" stopColor="#a16207" />
+            </radialGradient>
+          </defs>
+          <ellipse cx="16" cy="17" rx="9" ry="7" fill={`url(#${gid("pot")})`} />
+          <ellipse cx="12" cy="15" rx="2" ry="1.2" fill="#713f12" opacity="0.25" />
+          <ellipse cx="19" cy="18" rx="1.5" ry="1" fill="#713f12" opacity="0.2" />
+        </svg>
+      );
+
+    case "quinoa":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("bowlq")} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#e7e5e4" />
+              <stop offset="100%" stopColor="#a8a29e" />
+            </linearGradient>
+          </defs>
+          <path d="M6 20c0-4.5 4-8 10-8s10 3.5 10 8c0 2-12 3.5-20 0z" fill={`url(#${gid("bowlq")})`} />
+          <circle cx="11" cy="16" r="1.1" fill="#fef3c7" />
+          <circle cx="14" cy="15" r="1" fill="#e7e5e4" />
+          <circle cx="17" cy="16" r="1.1" fill="#d6d3d1" />
+          <circle cx="20" cy="15" r="1" fill="#fef3c7" />
+          <circle cx="13" cy="18" r="1" fill="#d6d3d1" />
+          <circle cx="19" cy="18" r="1.1" fill="#e7e5e4" />
+        </svg>
+      );
+
+    case "semoule":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <path d="M7 22h18l-1.5-12H8.5L7 22z" fill="#d6d3d1" />
+          <path d="M9 12h14" stroke="#a8a29e" strokeWidth="1" />
+          <ellipse cx="16" cy="17" rx="7" ry="3.5" fill="#fef9c3" />
+          <circle cx="12" cy="16" r="0.9" fill="#fde047" opacity="0.8" />
+          <circle cx="16" cy="15.5" r="0.85" fill="#fde047" opacity="0.75" />
+          <circle cx="20" cy="16" r="0.9" fill="#fde047" opacity="0.8" />
+        </svg>
+      );
+
+    case "bread":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("loaf")} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#fde68a" />
+              <stop offset="100%" stopColor="#ca8a04" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M10 20c0-5 2.5-9 6-9s6 4 6 9v4H10v-4z"
+            fill={`url(#${gid("loaf")})`}
+          />
+          <path d="M12 14c2-2 6-2 8 0" fill="none" stroke="#a16207" strokeWidth="0.8" opacity="0.4" />
+        </svg>
+      );
+
+    case "sweet_potato":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("sp")} x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#fdba74" />
+              <stop offset="100%" stopColor="#c2410c" />
+            </linearGradient>
+          </defs>
+          <ellipse cx="16" cy="17" rx="10" ry="6" fill={`url(#${gid("sp")})`} transform="rotate(-8 16 17)" />
+          <path d="M10 12c2-2 5-2.5 8-1" stroke="#7c2d12" strokeWidth="0.6" fill="none" opacity="0.35" />
+        </svg>
+      );
+
+    case "pepper":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("bell")} x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#86efac" />
+              <stop offset="100%" stopColor="#15803d" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M16 7c3 0 6 3 6 8 0 6-2.5 11-6 11s-6-5-6-11c0-5 3-8 6-8z"
+            fill={`url(#${gid("bell")})`}
+          />
+          <path d="M14 7v-2h4v2" fill="#166534" />
+        </svg>
+      );
+
+    case "green_beans":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <path d="M10 8c2 4 3 10 3 16" stroke="#22c55e" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+          <path d="M14 7c1.5 5 2 11 1.5 17" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" fill="none" />
+          <path d="M18 9c0.5 5 0.5 10-0.5 15" stroke="#15803d" strokeWidth="1.8" strokeLinecap="round" fill="none" />
+        </svg>
+      );
+
+    case "eggplant":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("eggpl")} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#c084fc" />
+              <stop offset="100%" stopColor="#6b21a8" />
+            </linearGradient>
+          </defs>
+          <ellipse cx="16" cy="17" rx="6" ry="10" fill={`url(#${gid("eggpl")})`} transform="rotate(8 16 17)" />
+          <path d="M14 7h4l1 3h-6l1-3z" fill="#166534" />
+        </svg>
+      );
+
+    case "cucumber":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <ellipse cx="16" cy="17" rx="5" ry="11" fill="#86efac" transform="rotate(-6 16 17)" />
+          <path
+            d="M13 10c0.5 2 0.5 4 0 6M16 9c0.5 2.5 0.5 5 0 7.5M19 10c0.5 2 0.5 4 0 6"
+            stroke="#166534"
+            strokeWidth="0.45"
+            opacity="0.35"
+            fill="none"
+          />
+        </svg>
+      );
+
+    case "turkey":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("turk")} x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#e7e5e4" />
+              <stop offset="50%" stopColor="#d6d3d1" />
+              <stop offset="100%" stopColor="#78716c" />
+            </linearGradient>
+          </defs>
+          <ellipse cx="16" cy="17" rx="10" ry="7" fill={`url(#${gid("turk")})`} />
+          <ellipse cx="12" cy="15" rx="2" ry="1.5" fill="#a8a29e" opacity="0.5" />
+        </svg>
+      );
+
+    case "salmon":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("sal")} x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#fda4af" />
+              <stop offset="50%" stopColor="#fb7185" />
+              <stop offset="100%" stopColor="#be123c" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M4 16c4-5 12-8 20-6 2 0.5 3.5 2 4 4-0.5 2-2 3.5-4 4-8 2-16-1-20-6z"
+            fill={`url(#${gid("sal")})`}
+          />
+          <path d="M8 14h10" stroke="#fecdd3" strokeWidth="0.5" opacity="0.7" />
+        </svg>
+      );
+
+    case "tuna":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <rect x="9" y="10" width="14" height="14" rx="2" fill="#1e3a5f" />
+          <ellipse cx="16" cy="11" rx="6" ry="1.5" fill="#334155" />
+          <path d="M11 16h10M11 19h8M12 22h8" stroke="#64748b" strokeWidth="0.75" />
+          <circle cx="16" cy="16" r="2.5" fill="#0f172a" opacity="0.35" />
+        </svg>
+      );
+
+    case "tofu":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("tof")} x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#fefce8" />
+              <stop offset="100%" stopColor="#fde047" />
+            </linearGradient>
+          </defs>
+          <path d="M10 12l6-3 6 3v10l-6 3-6-3V12z" fill={`url(#${gid("tof")})`} />
+          <path d="M10 12l6 3 6-3" fill="none" stroke="#eab308" strokeWidth="0.6" opacity="0.5" />
+        </svg>
+      );
+
+    case "juice":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("jus")} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#fdba74" />
+              <stop offset="100%" stopColor="#ea580c" />
+            </linearGradient>
+          </defs>
+          <path d="M11 8h10l1 3v15H10V11l1-3z" fill={`url(#${gid("jus")})`} opacity="0.9" />
+          <ellipse cx="16" cy="10" rx="5" ry="1.5" fill="#fb923c" />
+          <path d="M13 14h6" stroke="#fff7ed" strokeWidth="0.6" opacity="0.5" />
+        </svg>
+      );
+
+    case "tea":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <path d="M10 12h9v10c0 2-1.5 3.5-3.5 3.5h-2C11.5 25.5 10 24 10 22V12z" fill="#78716c" />
+          <path d="M19 14h3c1.5 0 2.5 1 2.5 2.5S23.5 19 22 19h-2" fill="none" stroke="#57534e" strokeWidth="1.2" />
+          <ellipse cx="14.5" cy="11" rx="4" ry="1.2" fill="#86efac" opacity="0.6" />
+        </svg>
+      );
+
+    case "smoothie":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("sm")} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#f9a8d4" />
+              <stop offset="50%" stopColor="#a855f7" />
+              <stop offset="100%" stopColor="#7c3aed" />
+            </linearGradient>
+          </defs>
+          <path d="M11 9h10l-1 14c0 1.5-1 2.5-2.5 2.5h-3c-1.5 0-2.5-1-2.5-2.5L11 9z" fill={`url(#${gid("sm")})`} />
+          <ellipse cx="16" cy="9" rx="5" ry="1.5" fill="#e9d5ff" />
+        </svg>
+      );
+
+    case "energy_drink":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("en")} x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#22d3ee" />
+              <stop offset="100%" stopColor="#0369a1" />
+            </linearGradient>
+          </defs>
+          <rect x="10" y="7" width="12" height="18" rx="2" fill={`url(#${gid("en")})`} />
+          <path d="M13 11h6M13 15h6M14 19l2 3 2-3" stroke="#ecfeff" strokeWidth="0.9" fill="none" opacity="0.85" />
+        </svg>
+      );
+
+    case "chocolate_bar":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <rect x="9" y="11" width="14" height="10" rx="1.5" fill="#451a03" />
+          <path d="M9 14h14M12 11v10M16 11v10M20 11v10" stroke="#78350f" strokeWidth="0.8" />
+          <rect x="11" y="13" width="3.5" height="2.5" rx="0.3" fill="#92400e" opacity="0.6" />
+          <rect x="15.5" y="13" width="3.5" height="2.5" rx="0.3" fill="#92400e" opacity="0.6" />
+        </svg>
+      );
+
+    case "ice_cream":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <path d="M11 22l5-14 5 14H11z" fill="#fde68a" />
+          <circle cx="16" cy="10" r="5" fill="#fce7f3" />
+          <circle cx="13" cy="9" r="2.5" fill="#fbcfe8" />
+          <circle cx="19" cy="9" r="2.2" fill="#f9a8d4" />
+          <path d="M13 22h6l-1 3h-4l-1-3z" fill="#d6d3d1" />
+        </svg>
+      );
+
+    case "biscuit":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <circle cx="16" cy="16" r="8" fill="#d97706" />
+          <circle cx="16" cy="16" r="5.5" fill="#fde68a" />
+          <circle cx="16" cy="16" r="1.8" fill="#92400e" opacity="0.35" />
+        </svg>
+      );
+
+    case "pancake":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <ellipse cx="16" cy="20" rx="9" ry="3" fill="#ca8a04" />
+          <ellipse cx="16" cy="17" rx="9" ry="3" fill="#fde68a" />
+          <ellipse cx="16" cy="14" rx="8.5" ry="2.8" fill="#fef3c7" />
+          <ellipse cx="16" cy="11" rx="1.8" ry="0.8" fill="#fbbf24" />
+        </svg>
+      );
+
+    case "muffin":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <path d="M10 20h12v3c0 1-1 2-2 2H12c-1 0-2-1-2-2v-3z" fill="#92400e" />
+          <path
+            d="M10 20c0-4 2.5-8 6-8s6 4 6 8"
+            fill="#d97706"
+          />
+          <circle cx="12" cy="14" r="1.5" fill="#78350f" />
+          <circle cx="16" cy="12" r="1.8" fill="#78350f" />
+          <circle cx="20" cy="14" r="1.4" fill="#78350f" />
         </svg>
       );
 

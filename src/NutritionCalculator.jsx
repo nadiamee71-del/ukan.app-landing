@@ -2,38 +2,92 @@ import React, { useCallback, useEffect, useMemo, useReducer, useRef, useState } 
 import { FoodIcon } from "./FoodIcons.jsx";
 import "./nutrition-calculator.css";
 
-/** zone: plate = assiette, drink = verre, dessert = zone dessert */
+/** zone: plate = assiette, drink = verre, dessert = zone dessert — kcal pour le calcul final uniquement */
 const FOODS = [
+  /* Féculents */
   { id: "rice", name: "Riz", shortLabel: "Riz", kcalPer100: 130, zone: "plate" },
-  { id: "spaghetti", name: "Spaghettis", shortLabel: "Spaghettis", kcalPer100: 158, zone: "plate" },
+  { id: "spaghetti", name: "Pâtes", shortLabel: "Pâtes", kcalPer100: 158, zone: "plate" },
   { id: "fries", name: "Frites", shortLabel: "Frites", kcalPer100: 312, zone: "plate" },
+  { id: "potato", name: "Pommes de terre", shortLabel: "Pommes de terre", kcalPer100: 77, zone: "plate" },
+  { id: "quinoa", name: "Quinoa", shortLabel: "Quinoa", kcalPer100: 120, zone: "plate" },
+  { id: "semoule", name: "Semoule", shortLabel: "Semoule", kcalPer100: 360, zone: "plate" },
+  { id: "bread", name: "Pain", shortLabel: "Pain", kcalPer100: 265, zone: "plate" },
+  { id: "sweet_potato", name: "Patate douce", shortLabel: "Patate douce", kcalPer100: 86, zone: "plate" },
+  /* Légumes */
+  { id: "broccoli", name: "Brocoli", shortLabel: "Brocoli", kcalPer100: 34, zone: "plate" },
   { id: "carrot", name: "Carotte", shortLabel: "Carotte", kcalPer100: 41, zone: "plate" },
   { id: "tomato", name: "Tomate", shortLabel: "Tomate", kcalPer100: 18, zone: "plate" },
   { id: "zucchini", name: "Courgette", shortLabel: "Courgette", kcalPer100: 17, zone: "plate" },
-  { id: "broccoli", name: "Brocoli", shortLabel: "Brocoli", kcalPer100: 34, zone: "plate" },
-  { id: "egg", name: "Œuf", shortLabel: "Œuf", kcalPer100: 155, zone: "plate" },
-  { id: "fish", name: "Poisson", shortLabel: "Poisson", kcalPer100: 150, zone: "plate" },
-  { id: "chicken", name: "Cuisse de poulet", shortLabel: "Poulet", kcalPer100: 165, zone: "plate" },
+  { id: "pepper", name: "Poivron", shortLabel: "Poivron", kcalPer100: 31, zone: "plate" },
+  { id: "green_beans", name: "Haricots verts", shortLabel: "Haricots verts", kcalPer100: 31, zone: "plate" },
+  { id: "eggplant", name: "Aubergine", shortLabel: "Aubergine", kcalPer100: 25, zone: "plate" },
+  { id: "cucumber", name: "Concombre", shortLabel: "Concombre", kcalPer100: 16, zone: "plate" },
+  /* Protéines */
+  { id: "chicken", name: "Poulet", shortLabel: "Poulet", kcalPer100: 165, zone: "plate" },
   { id: "steak", name: "Steak", shortLabel: "Steak", kcalPer100: 250, zone: "plate" },
-  { id: "milk", name: "Lait", shortLabel: "Lait", kcalPer100: 42, perVolume: true, zone: "drink" },
-  { id: "coca", name: "Coca", shortLabel: "Coca", kcalPer100: 42, perVolume: true, zone: "drink" },
-  { id: "chocolate", name: "Chocolat chaud", shortLabel: "Chocolat", kcalPer100: 77, perVolume: true, zone: "drink" },
+  { id: "fish", name: "Poisson", shortLabel: "Poisson", kcalPer100: 150, zone: "plate" },
+  { id: "egg", name: "Œuf", shortLabel: "Œuf", kcalPer100: 155, zone: "plate" },
+  { id: "turkey", name: "Dinde", shortLabel: "Dinde", kcalPer100: 135, zone: "plate" },
+  { id: "salmon", name: "Saumon", shortLabel: "Saumon", kcalPer100: 208, zone: "plate" },
+  { id: "tuna", name: "Thon", shortLabel: "Thon", kcalPer100: 130, zone: "plate" },
+  { id: "tofu", name: "Tofu", shortLabel: "Tofu", kcalPer100: 76, zone: "plate" },
+  /* Boissons */
   { id: "water", name: "Eau", shortLabel: "Eau", kcalPer100: 0, perVolume: true, zone: "drink" },
+  { id: "milk", name: "Lait", shortLabel: "Lait", kcalPer100: 42, perVolume: true, zone: "drink" },
+  { id: "juice", name: "Jus", shortLabel: "Jus", kcalPer100: 45, perVolume: true, zone: "drink" },
+  { id: "soda", name: "Soda", shortLabel: "Soda", kcalPer100: 42, perVolume: true, zone: "drink" },
   { id: "coffee", name: "Café", shortLabel: "Café", kcalPer100: 2, perVolume: true, zone: "drink" },
-  { id: "yogurt", name: "Yaourt", shortLabel: "Yaourt", kcalPer100: 59, zone: "dessert" },
+  { id: "tea", name: "Thé", shortLabel: "Thé", kcalPer100: 1, perVolume: true, zone: "drink" },
+  { id: "smoothie", name: "Smoothie", shortLabel: "Smoothie", kcalPer100: 60, perVolume: true, zone: "drink" },
+  { id: "energy_drink", name: "Boisson énergétique", shortLabel: "Boisson énergétique", kcalPer100: 45, perVolume: true, zone: "drink" },
+  /* Desserts */
+  { id: "cake", name: "Gâteau", shortLabel: "Gâteau", kcalPer100: 320, zone: "dessert" },
   { id: "fruit", name: "Fruit", shortLabel: "Fruit", kcalPer100: 52, zone: "dessert" },
-  { id: "gateau", name: "Gâteau", shortLabel: "Gâteau", kcalPer100: 320, zone: "dessert" },
-  { id: "dessert", name: "Dessert", shortLabel: "Dessert", kcalPer100: 320, zone: "dessert" },
+  { id: "yogurt", name: "Yaourt", shortLabel: "Yaourt", kcalPer100: 59, zone: "dessert" },
+  { id: "chocolate_bar", name: "Chocolat", shortLabel: "Chocolat", kcalPer100: 545, zone: "dessert" },
+  { id: "ice_cream", name: "Glace", shortLabel: "Glace", kcalPer100: 207, zone: "dessert" },
+  { id: "biscuit", name: "Biscuit", shortLabel: "Biscuit", kcalPer100: 480, zone: "dessert" },
+  { id: "pancake", name: "Pancake", shortLabel: "Pancake", kcalPer100: 227, zone: "dessert" },
+  { id: "muffin", name: "Muffin", shortLabel: "Muffin", kcalPer100: 377, zone: "dessert" },
 ];
 
-/** Catégories : une page swipe par entrée (tabs + carrousel) */
+/** Catégories : 8 aliments chacune ; carrousel interne 4+4 */
 const FOOD_ROWS = [
-  { key: "starches", label: "Féculents", tabLabel: "Féculents", ids: ["rice", "spaghetti", "fries"] },
-  { key: "vegetables", label: "Légumes", tabLabel: "Légumes", ids: ["carrot", "tomato", "zucchini", "broccoli"] },
-  { key: "protein", label: "Protéines", tabLabel: "Protéines", ids: ["egg", "fish", "chicken", "steak"] },
-  { key: "drinks", label: "Boissons", tabLabel: "Boissons", ids: ["milk", "coca", "chocolate", "water", "coffee"] },
-  { key: "sweet", label: "Dessert", tabLabel: "Dessert", ids: ["yogurt", "fruit", "gateau", "dessert"] },
+  {
+    key: "starches",
+    label: "Féculents",
+    tabLabel: "Féculents",
+    ids: ["rice", "spaghetti", "fries", "potato", "quinoa", "semoule", "bread", "sweet_potato"],
+  },
+  {
+    key: "vegetables",
+    label: "Légumes",
+    tabLabel: "Légumes",
+    ids: ["broccoli", "carrot", "tomato", "zucchini", "pepper", "green_beans", "eggplant", "cucumber"],
+  },
+  {
+    key: "protein",
+    label: "Protéines",
+    tabLabel: "Protéines",
+    ids: ["chicken", "steak", "fish", "egg", "turkey", "salmon", "tuna", "tofu"],
+  },
+  {
+    key: "drinks",
+    label: "Boissons",
+    tabLabel: "Boissons",
+    ids: ["water", "milk", "juice", "soda", "coffee", "tea", "smoothie", "energy_drink"],
+  },
+  {
+    key: "sweet",
+    label: "Desserts",
+    tabLabel: "Desserts",
+    ids: ["cake", "fruit", "yogurt", "chocolate_bar", "ice_cream", "biscuit", "pancake", "muffin"],
+  },
 ];
+
+function chunkFoodIds(ids) {
+  return [ids.slice(0, 4), ids.slice(4, 8)];
+}
 
 const UNITS = [
   { id: "g", label: "g", toGrams: (q) => q },
@@ -174,7 +228,10 @@ export function NutritionCalculator() {
   const [lastAddedId, setLastAddedId] = useState(null);
   const [calc, dispatch] = useReducer(calcReducer, calcInitial);
   const [categoryIndex, setCategoryIndex] = useState(0);
+  const [foodPageByCategory, setFoodPageByCategory] = useState(() => FOOD_ROWS.map(() => 0));
   const pickerScrollRef = useRef(null);
+  const stripRefs = useRef([]);
+  const foodStripScrollTimerRef = useRef(null);
   const scrollSettleRef = useRef(null);
   const landTimerRef = useRef(null);
 
@@ -198,7 +255,7 @@ export function NutritionCalculator() {
 
   const plateFill = useMemo(() => Math.min(1, plateKcalSum / 500), [plateKcalSum]);
   const drinkFill = useMemo(() => Math.min(1, drinkKcalSum / 250), [drinkKcalSum]);
-  const dessertFill = useMemo(() => Math.min(1, dessertItems.length / 4), [dessertItems.length]);
+  const dessertFill = useMemo(() => Math.min(1, dessertItems.length / 8), [dessertItems.length]);
 
   const quantity = useMemo(() => parseQuantityFromDisplay(calc.display), [calc.display]);
   const canAdd = Boolean(selectedFood && quantity !== null);
@@ -233,6 +290,7 @@ export function NutritionCalculator() {
   useEffect(() => {
     return () => {
       if (landTimerRef.current) window.clearTimeout(landTimerRef.current);
+      if (foodStripScrollTimerRef.current) window.clearTimeout(foodStripScrollTimerRef.current);
     };
   }, []);
 
@@ -251,12 +309,49 @@ export function NutritionCalculator() {
     return () => ro.disconnect();
   }, [categoryIndex]);
 
+  const onFoodStripScroll = useCallback((catIdx) => {
+    if (foodStripScrollTimerRef.current) window.clearTimeout(foodStripScrollTimerRef.current);
+    foodStripScrollTimerRef.current = window.setTimeout(() => {
+      const strip = stripRefs.current[catIdx];
+      if (!strip || strip.clientWidth <= 0) return;
+      const page = Math.round(strip.scrollLeft / strip.clientWidth);
+      const clamped = Math.max(0, Math.min(1, page));
+      setFoodPageByCategory((prev) => {
+        if (prev[catIdx] === clamped) return prev;
+        const next = [...prev];
+        next[catIdx] = clamped;
+        return next;
+      });
+    }, 48);
+  }, []);
+
+  const scrollFoodStripToPage = useCallback((catIdx, page) => {
+    const strip = stripRefs.current[catIdx];
+    if (!strip) return;
+    const w = strip.clientWidth;
+    strip.scrollTo({ left: page * w, behavior: "smooth" });
+    setFoodPageByCategory((prev) => {
+      const next = [...prev];
+      next[catIdx] = page;
+      return next;
+    });
+  }, []);
+
   const goToCategory = useCallback((i) => {
     const el = pickerScrollRef.current;
     if (!el) return;
     const w = el.clientWidth;
     el.scrollTo({ left: i * w, behavior: "smooth" });
     setCategoryIndex(i);
+    setFoodPageByCategory((prev) => {
+      const next = [...prev];
+      next[i] = 0;
+      return next;
+    });
+    requestAnimationFrame(() => {
+      const strip = stripRefs.current[i];
+      if (strip) strip.scrollTo({ left: 0, behavior: "auto" });
+    });
   }, []);
 
   const clearAll = useCallback(() => {
@@ -396,7 +491,7 @@ export function NutritionCalculator() {
                         title={item.label}
                       >
                         <span className="nc-slot-chip__icon nc-slot-chip__icon--lg nc-food-icon-3d">
-                          <FoodIcon name={item.foodId ?? "dessert"} size="lg" />
+                          <FoodIcon name={item.foodId ?? "cake"} size="lg" />
                         </span>
                         <span className="nc-slot-chip__name">{dlabel}</span>
                       </div>
@@ -457,42 +552,53 @@ export function NutritionCalculator() {
                 aria-hidden={categoryIndex !== i}
               >
                 <p className="nc-plate-sr">{row.label}</p>
-                <div className="nc-picker-page__grid">
-                  {row.ids.map((fid) => {
-                    const f = foodById(fid);
-                    if (!f) return null;
-                    return (
-                      <button
-                        key={f.id}
-                        type="button"
-                        className={`nc-food ${selectedId === f.id ? "is-selected" : ""}`}
-                        onClick={() => setSelectedId(f.id)}
-                        aria-pressed={selectedId === f.id}
-                        aria-label={f.name}
-                      >
-                        <span className="nc-food__icon nc-food-icon-3d">
-                          <FoodIcon name={f.id} />
-                        </span>
-                        <span className="nc-food__name">{f.shortLabel}</span>
-                      </button>
-                    );
-                  })}
+                <div
+                  ref={(el) => {
+                    stripRefs.current[i] = el;
+                  }}
+                  className="nc-food-strip"
+                  onScroll={() => onFoodStripScroll(i)}
+                >
+                  {chunkFoodIds(row.ids).map((group, pageIdx) => (
+                    <div key={pageIdx} className="nc-food-strip__page">
+                      {group.map((fid) => {
+                        const f = foodById(fid);
+                        if (!f) return null;
+                        return (
+                          <button
+                            key={f.id}
+                            type="button"
+                            className={`nc-food nc-food--picker ${selectedId === f.id ? "is-selected" : ""}`}
+                            onClick={() => setSelectedId(f.id)}
+                            aria-pressed={selectedId === f.id}
+                            aria-label={f.name}
+                          >
+                            <span className="nc-food__icon nc-food__icon--picker">
+                              <FoodIcon name={f.id} />
+                            </span>
+                            <span className="nc-food__name">{f.shortLabel}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  ))}
+                </div>
+                <div className="nc-food-strip-dots" role="tablist" aria-label={`Pages ${row.label}`}>
+                  {[0, 1].map((p) => (
+                    <button
+                      key={p}
+                      type="button"
+                      role="tab"
+                      aria-selected={foodPageByCategory[i] === p}
+                      className={`nc-food-strip-dot ${foodPageByCategory[i] === p ? "is-active" : ""}`}
+                      onClick={() => scrollFoodStripToPage(i, p)}
+                      aria-label={p === 0 ? "Aliments 1 à 4" : "Aliments 5 à 8"}
+                    />
+                  ))}
                 </div>
               </div>
             ))}
           </div>
-        </div>
-
-        <div className="nc-picker-dots" aria-hidden="true">
-          {FOOD_ROWS.map((row, i) => (
-            <button
-              key={row.key}
-              type="button"
-              className={`nc-picker-dot ${categoryIndex === i ? "is-active" : ""}`}
-              onClick={() => goToCategory(i)}
-              aria-label={`Catégorie ${row.label}`}
-            />
-          ))}
         </div>
       </div>
 
