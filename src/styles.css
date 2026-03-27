@@ -523,29 +523,27 @@ select {
   content: "";
   position: absolute;
   top: 50%;
-  right: clamp(0.48rem, 1.5vw, 0.62rem);
-  width: 0.45rem;
-  height: 2rem;
+  right: clamp(-0.12rem, -0.25vw, -0.06rem);
+  width: 0.16rem;
+  height: 24%;
   transform: translateY(-50%);
   border-radius: 999px;
-  background:
-    radial-gradient(circle at 35% 35%, rgba(70, 73, 83, 0.65), rgba(10, 10, 13, 0.95) 72%),
-    #0a0b0f;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
-    0 0 8px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(180deg, #30343b, #171a20);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
 }
 
 .lp-hero__device::after {
   content: "";
   position: absolute;
-  left: clamp(-0.14rem, -0.3vw, -0.08rem);
-  top: 34%;
+  left: clamp(-0.13rem, -0.3vw, -0.08rem);
+  top: 42%;
   width: 0.14rem;
-  height: 22%;
+  height: 13%;
   border-radius: 999px;
-  background: linear-gradient(180deg, #2c2f35, #181a1f);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+  background: linear-gradient(180deg, #2f333a, #191b21);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+    0 -1.05rem 0 0 #2b2f36;
 }
 
 .lp-hero__device-screen {
@@ -564,13 +562,13 @@ select {
   content: "";
   position: absolute;
   z-index: 3;
-  left: clamp(0.32rem, 1vw, 0.45rem);
+  right: clamp(0.5rem, 1.4vw, 0.72rem);
   top: 50%;
-  width: 0.18rem;
-  height: 1.1rem;
+  width: 1.8rem;
+  height: 0.35rem;
   transform: translateY(-50%);
   border-radius: 999px;
-  background: rgba(9, 9, 12, 0.75);
+  background: rgba(9, 9, 12, 0.86);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
 }
 
@@ -578,14 +576,14 @@ select {
   content: "";
   position: absolute;
   z-index: 3;
-  left: clamp(0.58rem, 1.6vw, 0.76rem);
+  right: clamp(2.45rem, 6.2vw, 2.75rem);
   top: 50%;
-  width: 0.14rem;
-  height: 0.72rem;
+  width: 0.26rem;
+  height: 0.26rem;
   transform: translateY(-50%);
-  border-radius: 999px;
-  background: rgba(9, 9, 12, 0.72);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(106, 178, 255, 0.45), rgba(11, 12, 15, 0.95) 70%);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
 }
 
 .lp-hero__device-screen video {
