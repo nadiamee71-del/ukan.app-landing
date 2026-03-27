@@ -948,15 +948,19 @@ export default function App() {
                     </select>
                   </label>
 
-                  <fieldset className="lp-fieldset">
-                    <legend>Niveau *</legend>
-                    {SPORTIF_NIVEAUX.map((n) => (
-                      <label key={n} className="lp-radio">
-                        <input type="radio" name="niveau" value={n} required />
-                        {n}
-                      </label>
-                    ))}
-                  </fieldset>
+                  <label className="lp-label">
+                    Niveau *
+                    <select name="niveau" defaultValue="" required>
+                      <option value="" disabled>
+                        Sélectionnez votre niveau
+                      </option>
+                      {SPORTIF_NIVEAUX.map((n) => (
+                        <option key={n} value={n}>
+                          {n}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
                 </>
               )}
 
