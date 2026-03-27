@@ -156,8 +156,6 @@ const SHOWCASE_PERSONA_TABS = [
   { id: "systeme", label: "Côté système" },
 ];
 
-const PRICING_STUDENT_MAX = 120;
-
 const ROLE_COPY = {
   sportif: {
     title: "Pour les sportifs",
@@ -334,15 +332,6 @@ function pricingPerStudent(plan, billing, studentsFollowed) {
   return per.toFixed(2).replace(".", ",");
 }
 
-/** Palier actif selon le nombre d’élèves suivis (bornes alignées sur PRICING_PLANS) */
-function getPlanForStudentCount(n) {
-  if (n <= 5) return PRICING_PLANS[0];
-  if (n <= 20) return PRICING_PLANS[1];
-  if (n <= 50) return PRICING_PLANS[2];
-  if (n <= 100) return PRICING_PLANS[3];
-  return PRICING_PLANS[4];
-}
-
 /** Largeurs relatives des segments sur la barre (1–120 élèves) */
 const PRICING_BAR_SEGMENTS = [
   { id: "starter", flex: 5 },
@@ -366,7 +355,7 @@ export default function App() {
   const [showcaseTickerPaused, setShowcaseTickerPaused] = useState(false);
 
   const [billingCycle, setBillingCycle] = useState("monthly");
-  const [studentCount, setStudentCount] = useState(12);
+  const [coachPlanIdx, setCoachPlanIdx] = useState(1);
   const [sportifPlanIdx, setSportifPlanIdx] = useState(0);
 
   const showcaseSlides = useMemo(() => {
@@ -430,16 +419,14 @@ export default function App() {
     setFormRole(role);
   }, [role]);
 
-  const activePricingPlan = useMemo(
-    () => getPlanForStudentCount(studentCount),
-    [studentCount]
-  );
+  const activePricingPlan = PRICING_PLANS[coachPlanIdx] ?? PRICING_PLANS[0];
+  const activeCoachStudentThreshold = activePricingPlan.studentCount;
   const activeSportifPlan = PRICING_SPORTIF_PLANS[sportifPlanIdx] ?? PRICING_SPORTIF_PLANS[0];
 
   const pricingPerDisplay = pricingPerStudent(
     activePricingPlan,
     billingCycle,
-    studentCount
+    activeCoachStudentThreshold
   );
 
   const goals = role === "sportif" ? SPORTIF_GOALS : COACH_GOALS;
@@ -757,24 +744,28 @@ export default function App() {
                   </p>
                   <div className="lp-pricing-bar__value-row">
                     <output className="lp-pricing-bar__value" htmlFor="pricing-students-range">
-                      {studentCount}
-                      {studentCount >= PRICING_STUDENT_MAX ? "+" : ""}
+                      {activeCoachStudentThreshold ?? "Illimité"}
                     </output>
-                    <span className="lp-pricing-bar__hint">élève{studentCount > 1 ? "s" : ""}</span>
+                    <span className="lp-pricing-bar__hint">
+                      {activeCoachStudentThreshold ? "élèves max" : "sans limite"}
+                    </span>
                   </div>
 
                   <input
                     id="pricing-students-range"
                     className="lp-pricing-range"
                     type="range"
-                    min={1}
-                    max={PRICING_STUDENT_MAX}
-                    value={studentCount}
-                    onChange={(e) => setStudentCount(Number(e.target.value))}
-                    aria-valuemin={1}
-                    aria-valuemax={PRICING_STUDENT_MAX}
-                    aria-valuenow={studentCount}
-                    aria-valuetext={`${studentCount} élèves — formule ${activePricingPlan.name}`}
+                    min={0}
+                    max={PRICING_PLANS.length - 1}
+                    step={1}
+                    value={coachPlanIdx}
+                    onChange={(e) => setCoachPlanIdx(Number(e.target.value))}
+                    aria-valuemin={0}
+                    aria-valuemax={PRICING_PLANS.length - 1}
+                    aria-valuenow={coachPlanIdx}
+                    aria-valuetext={`${activePricingPlan.name} — ${activeCoachStudentThreshold ?? "illimité"} élève${
+                      activeCoachStudentThreshold && activeCoachStudentThreshold > 1 ? "s" : ""
+                    }`}
                   />
 
                   <div className="lp-pricing-bar__segments" aria-hidden="true">
@@ -804,8 +795,8 @@ export default function App() {
                     </p>
                     {pricingPerDisplay && (
                       <p className="lp-pricing-card__per">
-                        ≈ {pricingPerDisplay}€ / élève / mois (à {studentCount} élève
-                        {studentCount > 1 ? "s" : ""})
+                        ≈ {pricingPerDisplay}€ / élève / mois (à {activeCoachStudentThreshold} élève
+                        {activeCoachStudentThreshold > 1 ? "s" : ""})
                       </p>
                     )}
                     {activePricingPlan.eliteSubline && (
