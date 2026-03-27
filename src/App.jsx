@@ -868,27 +868,6 @@ export default function App() {
                     Choisissez votre palier
                   </p>
 
-                  <div
-                    className="lp-pricing-pills"
-                    role="tablist"
-                    aria-label="Paliers d’abonnement sportif"
-                  >
-                    {PRICING_SPORTIF_PLANS.map((plan, i) => (
-                      <button
-                        key={plan.id}
-                        type="button"
-                        role="tab"
-                        id={`sportif-tier-tab-${i}`}
-                        aria-selected={sportifPlanIdx === i}
-                        aria-controls="sportif-pricing-panel"
-                        className={`lp-pricing-pill ${sportifPlanIdx === i ? "is-active" : ""}`}
-                        onClick={() => setSportifPlanIdx(i)}
-                      >
-                        {plan.name}
-                      </button>
-                    ))}
-                  </div>
-
                   <div className="lp-pricing-premium-track">
                     <input
                       id="pricing-sportif-range"
@@ -907,15 +886,25 @@ export default function App() {
                     />
                   </div>
 
-                  <div className="lp-pricing-bar__segments lp-pricing-bar__segments--premium" aria-hidden="true">
-                    {PRICING_SPORTIF_PLANS.map((plan) => (
-                      <div
+                  <div
+                    className="lp-pricing-bar__segments lp-pricing-bar__segments--premium lp-pricing-bar__segments--sportif"
+                    role="tablist"
+                    aria-label="Paliers d’abonnement sportif"
+                  >
+                    {PRICING_SPORTIF_PLANS.map((plan, i) => (
+                      <button
                         key={plan.id}
-                        className={`lp-pricing-bar__segment ${activeSportifPlan.id === plan.id ? "is-active" : ""}`}
+                        type="button"
+                        role="tab"
+                        id={`sportif-tier-${i}`}
+                        aria-selected={sportifPlanIdx === i}
+                        aria-controls="sportif-pricing-panel"
+                        className={`lp-pricing-bar__segment ${sportifPlanIdx === i ? "is-active" : ""}`}
                         style={{ flex: 1 }}
+                        onClick={() => setSportifPlanIdx(i)}
                       >
                         <span className="lp-pricing-bar__segment-name">{plan.name}</span>
-                      </div>
+                      </button>
                     ))}
                   </div>
 
@@ -924,7 +913,7 @@ export default function App() {
                       key={sportifPlanIdx}
                       id="sportif-pricing-panel"
                       role="tabpanel"
-                      aria-labelledby={`sportif-tier-tab-${sportifPlanIdx}`}
+                      aria-labelledby={`sportif-tier-${sportifPlanIdx}`}
                       className="lp-pricing-dynamic lp-pricing-card lp-pricing-card--premium"
                     >
                       <h3 className="lp-pricing-card__name lp-pricing-card__name--premium">
