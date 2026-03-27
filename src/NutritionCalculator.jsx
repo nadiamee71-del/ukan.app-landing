@@ -171,10 +171,12 @@ export function NutritionCalculator() {
   const [selectedId, setSelectedId] = useState(null);
   const [unitId, setUnitId] = useState("g");
   const [items, setItems] = useState([]);
+  const [lastAddedId, setLastAddedId] = useState(null);
   const [calc, dispatch] = useReducer(calcReducer, calcInitial);
   const [categoryIndex, setCategoryIndex] = useState(0);
   const pickerScrollRef = useRef(null);
   const scrollSettleRef = useRef(null);
+  const landTimerRef = useRef(null);
 
   const selectedFood = useMemo(() => (selectedId ? foodById(selectedId) : null), [selectedId]);
   const unit = useMemo(() => UNITS.find((u) => u.id === unitId) ?? UNITS[0], [unitId]);
@@ -229,6 +231,12 @@ export function NutritionCalculator() {
   }, [syncCategoryFromScroll]);
 
   useEffect(() => {
+    return () => {
+      if (landTimerRef.current) window.clearTimeout(landTimerRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
     const el = pickerScrollRef.current;
     if (!el || typeof ResizeObserver === "undefined") return;
     const ro = new ResizeObserver(() => {
@@ -252,6 +260,9 @@ export function NutritionCalculator() {
   }, []);
 
   const clearAll = useCallback(() => {
+    if (landTimerRef.current) window.clearTimeout(landTimerRef.current);
+    landTimerRef.current = null;
+    setLastAddedId(null);
     setItems([]);
     setSelectedId(null);
     setUnitId("g");
@@ -266,16 +277,23 @@ export function NutritionCalculator() {
     const kcal = (selectedFood.kcalPer100 * baseAmount) / 100;
     const rounded = Math.round(kcal * 10) / 10;
     const label = `${selectedFood.name} · ${qty} ${unit.label}`;
+    const newId = `meal-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
     setItems((p) => [
       ...p,
       {
-        id: `${Date.now()}-${p.length}`,
+        id: newId,
         foodId: selectedFood.id,
         zone: selectedFood.zone,
         label,
         kcal: rounded,
       },
     ]);
+    if (landTimerRef.current) window.clearTimeout(landTimerRef.current);
+    setLastAddedId(newId);
+    landTimerRef.current = window.setTimeout(() => {
+      setLastAddedId(null);
+      landTimerRef.current = null;
+    }, 720);
     dispatch({ type: "clear" });
   }, [calc.display, selectedFood, unit]);
 
@@ -292,7 +310,7 @@ export function NutritionCalculator() {
         Reprends le contrôle jusqu’à dans ton assiette
       </h2>
 
-      <div className="nc-plate-card">
+      <div className={`nc-plate-card${lastAddedId ? " nc-plate-card--bump" : ""}`}>
         <p className="nc-plate-card__total">
           Total : <strong className="nc-total-kcal">{Math.round(animatedTotal * 10) / 10}</strong> kcal
         </p>
@@ -311,8 +329,12 @@ export function NutritionCalculator() {
                   <span className="nc-slot__empty">Boisson</span>
                 ) : (
                   drinkItems.map((item) => (
-                    <div key={item.id} className="nc-slot-chip nc-slot-chip--glass" title={item.label}>
-                      <span className="nc-slot-chip__icon nc-slot-chip__icon--lg">
+                    <div
+                      key={item.id}
+                      className={`nc-slot-chip nc-slot-chip--glass${item.id === lastAddedId ? " nc-slot-chip--land" : ""}`}
+                      title={item.label}
+                    >
+                      <span className="nc-slot-chip__icon nc-slot-chip__icon--lg nc-food-icon-3d">
                         <FoodIcon name={item.foodId ?? "milk"} size="lg" />
                       </span>
                     </div>
@@ -339,8 +361,13 @@ export function NutritionCalculator() {
                     role="list"
                   >
                     {plateItems.map((item) => (
-                      <div key={item.id} className="nc-plate-chip" role="listitem" title={item.label}>
-                        <span className="nc-plate-chip__icon" aria-hidden>
+                      <div
+                        key={item.id}
+                        className={`nc-plate-chip${item.id === lastAddedId ? " nc-plate-chip--land" : ""}`}
+                        role="listitem"
+                        title={item.label}
+                      >
+                        <span className="nc-plate-chip__icon nc-food-icon-3d" aria-hidden>
                           <FoodIcon name={item.foodId ?? "broccoli"} size="lg" />
                         </span>
                       </div>
@@ -363,8 +390,12 @@ export function NutritionCalculator() {
                     const df = foodById(item.foodId);
                     const dlabel = df?.shortLabel ?? "Dessert";
                     return (
-                      <div key={item.id} className="nc-slot-chip nc-slot-chip--dessert" title={item.label}>
-                        <span className="nc-slot-chip__icon nc-slot-chip__icon--lg">
+                      <div
+                        key={item.id}
+                        className={`nc-slot-chip nc-slot-chip--dessert${item.id === lastAddedId ? " nc-slot-chip--land" : ""}`}
+                        title={item.label}
+                      >
+                        <span className="nc-slot-chip__icon nc-slot-chip__icon--lg nc-food-icon-3d">
                           <FoodIcon name={item.foodId ?? "dessert"} size="lg" />
                         </span>
                         <span className="nc-slot-chip__name">{dlabel}</span>
@@ -439,7 +470,7 @@ export function NutritionCalculator() {
                         aria-pressed={selectedId === f.id}
                         aria-label={f.name}
                       >
-                        <span className="nc-food__icon">
+                        <span className="nc-food__icon nc-food-icon-3d">
                           <FoodIcon name={f.id} />
                         </span>
                         <span className="nc-food__name">{f.shortLabel}</span>
