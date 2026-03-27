@@ -4,25 +4,35 @@ import "./nutrition-calculator.css";
 
 /** zone: plate = assiette, drink = verre, dessert = zone dessert */
 const FOODS = [
-  { id: "broccoli", name: "Brocoli", shortLabel: "Brocoli", kcalPer100: 34, zone: "plate" },
-  { id: "chicken", name: "Cuisse de poulet", shortLabel: "Poulet", kcalPer100: 165, zone: "plate" },
   { id: "rice", name: "Riz", shortLabel: "Riz", kcalPer100: 130, zone: "plate" },
-  { id: "egg", name: "Œuf", shortLabel: "Œuf", kcalPer100: 155, zone: "plate" },
-  { id: "banana", name: "Banane", shortLabel: "Banane", kcalPer100: 89, zone: "plate" },
-  { id: "steak", name: "Steak", shortLabel: "Steak", kcalPer100: 250, zone: "plate" },
   { id: "spaghetti", name: "Spaghettis", shortLabel: "Spaghettis", kcalPer100: 158, zone: "plate" },
   { id: "fries", name: "Frites", shortLabel: "Frites", kcalPer100: 312, zone: "plate" },
+  { id: "carrot", name: "Carotte", shortLabel: "Carotte", kcalPer100: 41, zone: "plate" },
+  { id: "tomato", name: "Tomate", shortLabel: "Tomate", kcalPer100: 18, zone: "plate" },
+  { id: "zucchini", name: "Courgette", shortLabel: "Courgette", kcalPer100: 17, zone: "plate" },
+  { id: "broccoli", name: "Brocoli", shortLabel: "Brocoli", kcalPer100: 34, zone: "plate" },
+  { id: "egg", name: "Œuf", shortLabel: "Œuf", kcalPer100: 155, zone: "plate" },
+  { id: "fish", name: "Poisson", shortLabel: "Poisson", kcalPer100: 150, zone: "plate" },
+  { id: "chicken", name: "Cuisse de poulet", shortLabel: "Poulet", kcalPer100: 165, zone: "plate" },
+  { id: "steak", name: "Steak", shortLabel: "Steak", kcalPer100: 250, zone: "plate" },
   { id: "milk", name: "Lait", shortLabel: "Lait", kcalPer100: 42, perVolume: true, zone: "drink" },
   { id: "coca", name: "Coca", shortLabel: "Coca", kcalPer100: 42, perVolume: true, zone: "drink" },
+  { id: "chocolate", name: "Chocolat chaud", shortLabel: "Chocolat", kcalPer100: 77, perVolume: true, zone: "drink" },
+  { id: "water", name: "Eau", shortLabel: "Eau", kcalPer100: 0, perVolume: true, zone: "drink" },
+  { id: "coffee", name: "Café", shortLabel: "Café", kcalPer100: 2, perVolume: true, zone: "drink" },
+  { id: "yogurt", name: "Yaourt", shortLabel: "Yaourt", kcalPer100: 59, zone: "dessert" },
+  { id: "fruit", name: "Fruit", shortLabel: "Fruit", kcalPer100: 52, zone: "dessert" },
+  { id: "gateau", name: "Gâteau", shortLabel: "Gâteau", kcalPer100: 320, zone: "dessert" },
   { id: "dessert", name: "Dessert", shortLabel: "Dessert", kcalPer100: 320, zone: "dessert" },
 ];
 
 /** Catégories : une page swipe par entrée (tabs + carrousel) */
 const FOOD_ROWS = [
   { key: "starches", label: "Féculents", tabLabel: "Féculents", ids: ["rice", "spaghetti", "fries"] },
-  { key: "mains", label: "Au menu", tabLabel: "Menu", ids: ["broccoli", "chicken", "steak", "egg", "banana"] },
-  { key: "drinks", label: "Boissons", tabLabel: "Boissons", ids: ["milk", "coca"] },
-  { key: "sweet", label: "Dessert", tabLabel: "Dessert", ids: ["dessert"] },
+  { key: "vegetables", label: "Légumes", tabLabel: "Légumes", ids: ["carrot", "tomato", "zucchini", "broccoli"] },
+  { key: "protein", label: "Protéines", tabLabel: "Protéines", ids: ["egg", "fish", "chicken", "steak"] },
+  { key: "drinks", label: "Boissons", tabLabel: "Boissons", ids: ["milk", "coca", "chocolate", "water", "coffee"] },
+  { key: "sweet", label: "Dessert", tabLabel: "Dessert", ids: ["yogurt", "fruit", "gateau", "dessert"] },
 ];
 
 const UNITS = [
@@ -349,13 +359,18 @@ export function NutritionCalculator() {
                 {dessertItems.length === 0 ? (
                   <span className="nc-slot__empty">Dessert</span>
                 ) : (
-                  dessertItems.map((item) => (
-                    <div key={item.id} className="nc-slot-chip nc-slot-chip--dessert" title={item.label}>
-                      <span className="nc-slot-chip__icon nc-slot-chip__icon--lg">
-                        <FoodIcon name={item.foodId ?? "dessert"} size="lg" />
-                      </span>
-                    </div>
-                  ))
+                  dessertItems.map((item) => {
+                    const df = foodById(item.foodId);
+                    const dlabel = df?.shortLabel ?? "Dessert";
+                    return (
+                      <div key={item.id} className="nc-slot-chip nc-slot-chip--dessert" title={item.label}>
+                        <span className="nc-slot-chip__icon nc-slot-chip__icon--lg">
+                          <FoodIcon name={item.foodId ?? "dessert"} size="lg" />
+                        </span>
+                        <span className="nc-slot-chip__name">{dlabel}</span>
+                      </div>
+                    );
+                  })
                 )}
               </div>
             </div>

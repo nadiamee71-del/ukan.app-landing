@@ -240,6 +240,156 @@ export function FoodIcon({ name, size = "md" }) {
         </svg>
       );
 
+    case "fish":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("fish")} x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#7dd3fc" />
+              <stop offset="50%" stopColor="#38bdf8" />
+              <stop offset="100%" stopColor="#0369a1" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M4 16c4-5 12-8 20-6 2 0.5 3.5 2 4 4-0.5 2-2 3.5-4 4-8 2-16-1-20-6z"
+            fill={`url(#${gid("fish")})`}
+          />
+          <circle cx="22" cy="14" r="1.8" fill="#0c4a6e" />
+          <path d="M6 15l-2 1.5 2 1.5" fill="#bae6fd" opacity="0.9" />
+        </svg>
+      );
+
+    case "carrot":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("carrot")} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#fb923c" />
+              <stop offset="100%" stopColor="#ea580c" />
+            </linearGradient>
+          </defs>
+          <path d="M15 6c2 1 3.5 3 4 5.5L18 28c-0.5 1.5-2 2-3.5 1.5L10 8c0.5-2 2.5-3.5 5-2z" fill={`url(#${gid("carrot")})`} />
+          <path d="M14 6l-1.5-3 2 1.5M16 5.5l0.5-3 1.5 2.5M18 6.5l2-2.5-1 3" stroke="#16a34a" strokeWidth="1" fill="none" strokeLinecap="round" />
+        </svg>
+      );
+
+    case "tomato":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <radialGradient id={gid("tom")} cx="40%" cy="35%" r="65%">
+              <stop offset="0%" stopColor="#f87171" />
+              <stop offset="100%" stopColor="#b91c1c" />
+            </radialGradient>
+          </defs>
+          <ellipse cx="16" cy="18" rx="8" ry="7.5" fill={`url(#${gid("tom")})`} />
+          <path d="M12 10c1.5-1 4-1 8 0 1 2-2 4-4 3-4-1-4-3-4-3z" fill="#15803d" />
+        </svg>
+      );
+
+    case "zucchini":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("zuc")} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#86efac" />
+              <stop offset="100%" stopColor="#16a34a" />
+            </linearGradient>
+          </defs>
+          <ellipse cx="16" cy="17" rx="5" ry="11" fill={`url(#${gid("zuc")})`} transform="rotate(-12 16 17)" />
+          <ellipse cx="16" cy="8" rx="2" ry="1.5" fill="#166534" />
+        </svg>
+      );
+
+    case "chocolate":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("choc")} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#78350f" />
+              <stop offset="100%" stopColor="#451a03" />
+            </linearGradient>
+          </defs>
+          <path d="M10 8h12l1 4v14H9V12l1-4z" fill={`url(#${gid("choc")})`} />
+          <ellipse cx="16" cy="10" rx="6" ry="2" fill="#92400e" />
+          <rect x="11" y="14" width="10" height="10" rx="1" fill="#3f2e1a" opacity="0.5" />
+        </svg>
+      );
+
+    case "water":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("h2o")} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#e0f2fe" />
+              <stop offset="100%" stopColor="#38bdf8" />
+            </linearGradient>
+          </defs>
+          <path d="M11 6h10c1 0 2 1 2 2v16c0 2-1.5 3.5-3.5 3.5h-7C10.5 27.5 9 26 9 24V8c0-1 1-2 2-2z" fill={`url(#${gid("h2o")})`} opacity="0.85" />
+          <path d="M12 10h8" stroke="#0ea5e9" strokeWidth="0.8" opacity="0.5" />
+        </svg>
+      );
+
+    case "coffee":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("caf")} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#57534e" />
+              <stop offset="100%" stopColor="#292524" />
+            </linearGradient>
+          </defs>
+          <path d="M9 10h11v2c0 6-2 10-5.5 10S9 18 9 12v-2z" fill={`url(#${gid("caf")})`} />
+          <path d="M20 12h3c2 0 3.5 1.5 3.5 3.5S25 19 23 19h-2" fill="none" stroke="#78716c" strokeWidth="1.5" />
+          <ellipse cx="14.5" cy="9" rx="5" ry="1" fill="#d6d3d1" opacity="0.6" />
+        </svg>
+      );
+
+    case "yogurt":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("yog")} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ffffff" />
+              <stop offset="100%" stopColor="#e2e8f0" />
+            </linearGradient>
+          </defs>
+          <rect x="10" y="10" width="12" height="14" rx="2" fill={`url(#${gid("yog")})`} />
+          <ellipse cx="16" cy="10" rx="6" ry="2" fill="#f8fafc" />
+          <ellipse cx="16" cy="15" rx="4" ry="2" fill="#fef08a" opacity="0.5" />
+        </svg>
+      );
+
+    case "fruit":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <radialGradient id={gid("ap")} cx="35%" cy="30%" r="70%">
+              <stop offset="0%" stopColor="#86efac" />
+              <stop offset="100%" stopColor="#16a34a" />
+            </radialGradient>
+          </defs>
+          <circle cx="16" cy="18" r="8" fill={`url(#${gid("ap")})`} />
+          <path d="M16 10v-4M14 6c2-1 4-1 6 0" stroke="#166534" strokeWidth="1.2" fill="none" strokeLinecap="round" />
+        </svg>
+      );
+
+    case "gateau":
+      return (
+        <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
+          <defs>
+            <linearGradient id={gid("gat")} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#fde68a" />
+              <stop offset="50%" stopColor="#d97706" />
+              <stop offset="100%" stopColor="#92400e" />
+            </linearGradient>
+          </defs>
+          <rect x="8" y="18" width="16" height="8" rx="1" fill={`url(#${gid("gat")})`} />
+          <rect x="10" y="12" width="12" height="7" rx="1" fill="#fcd34d" />
+          <ellipse cx="16" cy="12" rx="6" ry="2" fill="#fef3c7" />
+        </svg>
+      );
+
     case "dessert":
       return (
         <svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden className={`nc-food-icon-svg ${lg ? "nc-food-icon-svg--lg" : ""}`}>
