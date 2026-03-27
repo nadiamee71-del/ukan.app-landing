@@ -697,7 +697,7 @@ export default function App() {
                       <span className="lp-ft-card__accent" aria-hidden="true" />
                       <div className="lp-ft-card__head">
                         <span className="lp-ft-card__icon" aria-hidden="true">
-                          <FeatureIcon name={f.iconKey} />
+                          <FeatureIcon name={f.iconKey} tone="gold" />
                         </span>
                         <h4 className="lp-ft-card__title">{f.title}</h4>
                       </div>
@@ -1029,7 +1029,7 @@ export default function App() {
 
                 {formRole === "sportif" && (
                   <div className="lp-form__block">
-                    <p className="lp-form__legend">Votre profil sportif</p>
+                    <p className="lp-form__legend lp-form__legend--sport">Votre profil sportif</p>
                     <label className="lp-label">
                       Objectif principal <span className="lp-label__req">*</span>
                       <select name="objectif" defaultValue="" required>

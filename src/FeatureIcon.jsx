@@ -1,12 +1,15 @@
 import React from "react";
 
 /**
- * Icônes stroke 24×24, dégradé orange → rouge (charte UKAN).
- * Style proche Lucide / SF Symbols, sans emoji.
+ * Icônes stroke 24×24 — dégradé orange → rouge (défaut) ou or (section fonctionnalités).
  */
-export function FeatureIcon({ name }) {
+export function FeatureIcon({ name, tone = "coral" }) {
   const uid = React.useId().replace(/:/g, "");
   const gradId = `ftg${uid}`;
+  const grad =
+    tone === "gold"
+      ? { a: "#f0b429", b: "#d4a20a" }
+      : { a: "#f97316", b: "#ef4444" };
 
   const common = {
     fill: "none",
@@ -150,8 +153,8 @@ export function FeatureIcon({ name }) {
     >
       <defs>
         <linearGradient id={gradId} x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#F97316" />
-          <stop offset="1" stopColor="#EF4444" />
+          <stop stopColor={grad.a} />
+          <stop offset="1" stopColor={grad.b} />
         </linearGradient>
       </defs>
       {content}
