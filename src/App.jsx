@@ -568,7 +568,9 @@ export default function App() {
 
         <section className="lp-band" id="pourquoi">
           <div className="lp-wrap">
-            <h2 className="lp-h2">Pourquoi UKAN change la donne</h2>
+            <h2 className="lp-h2">
+              Pourquoi UKAN change la <span className="lp-txt-green">donne</span>
+            </h2>
             <p className="lp-sub lp-sub--wow">
               <strong>Une app claire.</strong> Une expérience simple, fluide et efficace.
             </p>
@@ -725,9 +727,15 @@ export default function App() {
           <div className="lp-wrap">
             <div className="lp-pricing-header">
               <h2 className="lp-h2 lp-h2--pricing-main">
-                {role === "sportif"
-                  ? "Abonnement qui évolue avec votre progrès"
-                  : "Un abonnement qui évolue avec votre succès."}
+                {role === "sportif" ? (
+                  <>
+                    Abonnement qui évolue avec votre <span className="lp-txt-gold">progrès</span>
+                  </>
+                ) : (
+                  <>
+                    Un abonnement qui évolue avec votre <span className="lp-txt-gold">succès</span>.
+                  </>
+                )}
               </h2>
               {role === "coach" ? (
                 <>
@@ -955,7 +963,9 @@ export default function App() {
 
         <section className="lp-cta-block">
           <div className="lp-wrap">
-            <h2 className="lp-h2 lp-h2--light">Prêt à faire partie de l’histoire UKAN ?</h2>
+            <h2 className="lp-h2 lp-h2--light">
+              Prêt à faire partie de l’<span className="lp-txt-red">histoire</span> UKAN ?
+            </h2>
             <p className="lp-cta-block__text">Rejoignez la liste et accédez en priorité au lancement.</p>
           </div>
         </section>
@@ -963,7 +973,9 @@ export default function App() {
         <section className="lp-section lp-section--form" id="inscription">
           <div className="lp-wrap lp-wrap--narrow lp-wrap--form">
             <header className="lp-form-intro">
-              <h2 className="lp-h2 lp-form-intro__title">Liste d’attente</h2>
+              <h2 className="lp-h2 lp-form-intro__title">
+                Liste <span className="lp-hero__accent">d’attente</span>
+              </h2>
               <p className="lp-form-intro__lead">
                 Quelques infos pour vous prévenir en priorité au lancement.
               </p>

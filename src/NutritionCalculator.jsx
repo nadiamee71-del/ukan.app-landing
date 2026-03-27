@@ -402,7 +402,7 @@ export function NutritionCalculator() {
   return (
     <div className="nc">
       <h2 className="nc__title" id="nutri-calc-title">
-        Reprends le contrôle jusqu’à dans ton assiette
+        Reprends le <span className="lp-hero__accent">contrôle</span> jusqu’à dans ton assiette
       </h2>
 
       <div className={`nc-plate-card${lastAddedId ? " nc-plate-card--bump" : ""}`}>
