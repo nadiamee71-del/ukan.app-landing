@@ -1,5 +1,5 @@
 /**
- * Calculatrice nutritionnelle UKAN — bloc anthracite, assiette crème, compact mobile
+ * Calculatrice nutritionnelle UKAN — bloc anthracite, carte repas gris clair, compact mobile
  */
 
 .nc {
@@ -14,6 +14,9 @@
   --nc-gold-glow: rgba(253, 230, 138, 0.45);
   --nc-cream: #f5f0e8;
   --nc-cream-soft: #faf6f0;
+  /* Carte repas — fond gris doux */
+  --nc-plate-card-bg: linear-gradient(165deg, #e9ecef 0%, #dfe3e8 48%, #d4d9e0 100%);
+  --nc-plate-card-border: rgba(26, 26, 24, 0.07);
   /* Texte sur fond anthracite */
   --nc-text: #f0ede8;
   --nc-text-muted: rgba(240, 237, 232, 0.62);
@@ -53,16 +56,16 @@
   color: #faf8f5;
 }
 
-/* —— Carte assiette (crème) —— */
+/* —— Carte repas (fond gris léger) —— */
 .nc-plate-card {
   position: relative;
   padding: 0.45rem 0.5rem 0.55rem;
   border-radius: var(--nc-radius-lg);
-  background: linear-gradient(180deg, var(--nc-cream-soft) 0%, var(--nc-cream) 100%);
+  background: var(--nc-plate-card-bg);
   box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(26, 26, 24, 0.06);
+    0 6px 20px rgba(15, 23, 42, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  border: 1px solid var(--nc-plate-card-border);
 }
 
 .nc-plate-card__total {
@@ -186,9 +189,11 @@
   width: min(100%, 4.15rem);
   min-height: 4.2rem;
   border-radius: var(--nc-radius-md);
-  background: linear-gradient(165deg, #fffefb 0%, #f3ebe4 100%);
-  border: 2px dashed color-mix(in srgb, var(--nc-gold) 42%, transparent);
-  box-shadow: inset 0 2px 10px rgba(255, 255, 255, 0.85);
+  background: linear-gradient(165deg, #f4f5f7 0%, #e8eaee 100%);
+  border: 1.5px solid color-mix(in srgb, var(--nc-gold) 38%, rgba(100, 116, 139, 0.35));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 -2px 8px rgba(15, 23, 42, 0.05);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -465,32 +470,62 @@
   width: min(100%, 10.25rem);
 }
 
+/* Assiette — forme ovale façon plat en porcelaine (bord relevé + creux) */
 .nc-plate {
   --nc-plate-fill: 0;
   position: relative;
   margin: 0 auto 0.45rem;
   width: min(100%, 10.75rem);
-  aspect-ratio: 1.35 / 1;
+  aspect-ratio: 1.52 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: radial-gradient(ellipse 85% 75% at 50% 42%, #ffffff 0%, #ebe4da 55%, #ddd5c8 100%);
-  box-shadow:
-    0 12px 28px rgba(15, 23, 42, 0.12),
-    inset 0 3px 12px rgba(255, 255, 255, 0.65),
-    inset 0 -4px 16px rgba(0, 0, 0, 0.06);
-  border: 2px solid rgba(255, 255, 255, 0.5);
+  isolation: isolate;
   overflow: hidden;
+  background:
+    radial-gradient(ellipse 100% 96% at 50% 88%, #cbd5e1 0%, transparent 38%),
+    radial-gradient(ellipse 92% 78% at 50% 36%, #ffffff 0%, #f1f5f9 42%, #e2e8f0 78%, #cbd5e1 100%);
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  box-shadow:
+    0 10px 22px rgba(15, 23, 42, 0.14),
+    0 3px 8px rgba(15, 23, 42, 0.06),
+    inset 0 3px 10px rgba(255, 255, 255, 0.95),
+    inset 0 -8px 18px rgba(71, 85, 105, 0.12);
+}
+
+.nc-plate::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(ellipse 105% 90% at 50% 6%, rgba(255, 255, 255, 0.75) 0%, transparent 38%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Creux intérieur (cercle central légèrement enfoncé) */
+.nc-plate::after {
+  content: "";
+  position: absolute;
+  inset: 11% 13% 13% 13%;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(ellipse 92% 88% at 50% 40%, rgba(255, 255, 255, 0.55) 0%, transparent 55%);
+  box-shadow:
+    inset 0 4px 14px rgba(15, 23, 42, 0.08),
+    inset 0 -2px 8px rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(148, 163, 184, 0.2);
 }
 
 /* Remplissage progressif discret (reflet doré léger vers le bas) */
 .nc-plate__fill {
   position: absolute;
-  inset: 12% 14% 14% 14%;
+  inset: 14% 16% 16% 16%;
   border-radius: 50%;
   pointer-events: none;
-  z-index: 0;
+  z-index: 2;
   opacity: calc(0.15 + var(--nc-plate-fill) * 0.55);
   background: radial-gradient(
     ellipse 90% 85% at 50% 100%,
@@ -505,19 +540,9 @@
     transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.nc-plate::after {
-  content: "";
-  position: absolute;
-  inset: 10% 12%;
-  border-radius: 50%;
-  border: 1px solid rgba(26, 26, 24, 0.06);
-  pointer-events: none;
-  z-index: 1;
-}
-
 .nc-plate__inner {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   padding: 0.38rem 0.5rem 0.42rem;
   text-align: center;
   width: 88%;
