@@ -15,22 +15,7 @@ function storeLinkProps(url) {
     : {};
 }
 
-const SPORTIF_GOALS = [
-  "Tout",
-  "Progresser",
-  "Rester motivé",
-  "Mieux manger",
-  "Partager",
-];
-
-const COACH_GOALS = [
-  "Tout",
-  "Trouver des clients",
-  "Gérer mes élèves",
-  "Monétiser",
-  "Animer",
-  "Suivre la progression",
-];
+const FEATURE_CATEGORIES = ["Tout", "Progresser", "Motivation", "Nutrition", "Social"];
 
 const COACH_SPECIALTIES = [
   "Musculation & force",
@@ -53,24 +38,93 @@ const SPORTIF_OBJECTIFS = [
 
 const SPORTIF_NIVEAUX = ["Débutant", "Intermédiaire", "Avancé"];
 
-/** Riche : filtres sportif/coach + objectif */
 const FEATURES = [
-  { role: "sportif", goals: ["Tout", "Progresser"], title: "Séances guidées", text: "Entraînements structurés, vidéos et progressions claires." },
-  { role: "sportif", goals: ["Tout", "Rester motivé"], title: "Défis & objectifs", text: "Défis collectifs, rappels et fil d’énergie pour ne pas lâcher." },
-  { role: "sportif", goals: ["Tout", "Mieux manger"], title: "Nutrition", text: "Suivi des apports et habitudes, sans tableur ni prise de tête." },
-  { role: "sportif", goals: ["Tout", "Partager"], title: "Communauté", text: "Publications, entraide et profils — un vrai réseau sportif." },
-  { role: "sportif", goals: ["Tout", "Rester motivé"], title: "Avant / après", text: "Visualise ton évolution et célèbre chaque étape." },
-  { role: "sportif", goals: ["Tout", "Progresser"], title: "Bibliothèque d’exercices", text: "Mouvements expliqués pour t’entraîner partout." },
-  { role: "coach", goals: ["Tout", "Trouver des clients"], title: "Visibilité", text: "Ton profil mis en avant auprès de clients motivés." },
-  { role: "coach", goals: ["Tout", "Gérer mes élèves"], title: "Espace élèves", text: "Messagerie, planning et suivi — centralisés." },
-  { role: "coach", goals: ["Tout", "Monétiser"], title: "Lives & contenus", text: "Monétise tes séances et tes formats premium." },
-  { role: "coach", goals: ["Tout", "Animer"], title: "Communauté", text: "Anime ton audience et crée de l’engagement durable." },
-  { role: "coach", goals: ["Tout", "Suivre la progression"], title: "Tableau de bord", text: "Lis les progrès de tes élèves en un coup d’œil." },
-  { role: "coach", goals: ["Tout", "Gérer mes élèves"], title: "Outils pro", text: "Moins d’outils éparpillés, plus de temps pour coacher." },
-  { role: "coach", goals: ["Tout", "Trouver des clients"], title: "Certification", text: "Mise en avant réservée aux coachs certifiés — crédibilité immédiate." },
+  {
+    role: "sportif",
+    goals: ["Tout", "Motivation"],
+    icon: "🔥",
+    title: "Défis",
+    text: "Motivation quotidienne",
+  },
+  {
+    role: "sportif",
+    goals: ["Tout", "Nutrition"],
+    icon: "🥗",
+    title: "Nutrition",
+    text: "Suivi simple",
+  },
+  {
+    role: "sportif",
+    goals: ["Tout", "Progresser"],
+    icon: "🏋️",
+    title: "Séances",
+    text: "Programmes guidés",
+  },
+  {
+    role: "sportif",
+    goals: ["Tout", "Social"],
+    icon: "👥",
+    title: "Communauté",
+    text: "Réseau sportif",
+  },
+  {
+    role: "sportif",
+    goals: ["Tout", "Progresser"],
+    icon: "📈",
+    title: "Suivi",
+    text: "Stats et progrès",
+  },
+  {
+    role: "sportif",
+    goals: ["Tout", "Motivation"],
+    icon: "🧍",
+    title: "Avant / après",
+    text: "Évolution visuelle",
+  },
+  {
+    role: "coach",
+    goals: ["Tout", "Social"],
+    icon: "📣",
+    title: "Visibilité",
+    text: "Attire des sportifs qualifiés",
+  },
+  {
+    role: "coach",
+    goals: ["Tout", "Progresser"],
+    icon: "📋",
+    title: "Suivi élèves",
+    text: "Programmes et progrès centralisés",
+  },
+  {
+    role: "coach",
+    goals: ["Tout", "Nutrition"],
+    icon: "🥣",
+    title: "Nutrition",
+    text: "Plans alimentaires simples",
+  },
+  {
+    role: "coach",
+    goals: ["Tout", "Social"],
+    icon: "💬",
+    title: "Communauté",
+    text: "Anime ton audience",
+  },
+  {
+    role: "coach",
+    goals: ["Tout", "Motivation"],
+    icon: "🎯",
+    title: "Challenges",
+    text: "Garde tes élèves engagés",
+  },
+  {
+    role: "coach",
+    goals: ["Tout", "Progresser"],
+    icon: "📊",
+    title: "Tableau de bord",
+    text: "Pilotage en un coup d'oeil",
+  },
 ];
 
-/** Aperçu « une fonctionnalité à la fois » — section Pourquoi UKAN */
 const SHOWCASE_SPORTIF = [
   { title: "Séances guidées", text: "Entraînements structurés, vidéos et progressions claires." },
   { title: "Défis & objectifs", text: "Défis collectifs, rappels et fil d’énergie pour ne pas lâcher." },
@@ -156,19 +210,6 @@ const SHOWCASE_PERSONA_TABS = [
   { id: "seances", label: "Côté séances" },
   { id: "systeme", label: "Côté système" },
 ];
-
-const ROLE_COPY = {
-  sportif: {
-    title: "Pour les sportifs",
-    text: "Progresse chaque jour avec une app claire.",
-    bullets: ["Routine claire", "Nutrition & entraînement réunis", "Motivation qui dure"],
-  },
-  coach: {
-    title: "Pour les coachs",
-    text: "Développe ton activité sur une seule plateforme.",
-    bullets: ["Visibilité qualifiée", "Tarifs adaptés au volume d’élèves", "Image pro renforcée"],
-  },
-};
 
 const HERO_COPY = {
   sportif: {
@@ -424,8 +465,7 @@ export default function App() {
     activeCoachStudentThreshold
   );
 
-  const goals = role === "sportif" ? SPORTIF_GOALS : COACH_GOALS;
-  const currentCopy = ROLE_COPY[role];
+  const goals = FEATURE_CATEGORIES;
   const heroCopy = HERO_COPY[role];
 
   const filteredFeatures = useMemo(() => {
@@ -645,11 +685,7 @@ export default function App() {
               </p>
             </header>
 
-            <div className="lp-features-toolbar-glass">
-              <p className="lp-features-profile-chip" role="status" aria-live="polite">
-                {role === "coach" ? "Profil coach" : "Profil sportif"}
-              </p>
-              <div className="lp-goals lp-goals--glass" role="group" aria-label="Objectif">
+            <div className="lp-goals lp-goals--glass" role="group" aria-label="Catégories fonctionnalités">
                 {goals.map((g) => (
                   <button
                     key={g}
@@ -660,31 +696,9 @@ export default function App() {
                     {g}
                   </button>
                 ))}
-              </div>
-            </div>
-
-            <div className="lp-focus lp-focus--wow">
-              <div className="lp-focus--wow__shine" aria-hidden="true" />
-              <h3 className="lp-focus__title">{currentCopy.title}</h3>
-              <p className="lp-focus__text">{currentCopy.text}</p>
-              <ul className="lp-focus__bullets">
-                {currentCopy.bullets.map((b) => (
-                  <li key={b}>{b}</li>
-                ))}
-              </ul>
             </div>
 
             <div className="lp-ft-bento-wrap">
-              <p className="lp-ft-bento__label" id="features-list-label">
-                Ce qui vous attend dans l’app
-                {filteredFeatures.length > 0 ? (
-                  <span className="lp-ft-bento__count">
-                    {" "}
-                    · {filteredFeatures.length} point
-                    {filteredFeatures.length > 1 ? "s" : ""}
-                  </span>
-                ) : null}
-              </p>
               {filteredFeatures.length === 0 ? (
                 <p className="lp-features-empty" role="status">
                   Aucun point pour cette combinaison — choisissez « Tout » ou un autre objectif.
@@ -702,7 +716,10 @@ export default function App() {
                       style={{ "--ft-i": i }}
                     >
                       <span className="lp-ft-card__accent" aria-hidden="true" />
-                      <h4 className="lp-ft-card__title">{f.title}</h4>
+                      <div className="lp-ft-card__head">
+                        <span className="lp-ft-card__icon" aria-hidden="true">{f.icon}</span>
+                        <h4 className="lp-ft-card__title">{f.title}</h4>
+                      </div>
                       <p className="lp-ft-card__text">{f.text}</p>
                     </li>
                   ))}
