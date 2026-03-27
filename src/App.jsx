@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import logoDark from "./assets/logo.png";
 import logoLight from "./assets/logo2.png";
 import badgeAppStore from "./assets/badge-app-store.svg?url";
 import badgeGooglePlay from "./assets/badge-google-play.svg?url";
@@ -285,7 +284,6 @@ const PRICING_BAR_SEGMENTS = [
 ];
 
 export default function App() {
-  const [theme, setTheme] = useState("dark");
   const [role, setRole] = useState("sportif");
   const [goal, setGoal] = useState("Tout");
   const [formRole, setFormRole] = useState("sportif");
@@ -322,10 +320,6 @@ export default function App() {
     }
   }, [showcasePersona]);
   const showcaseActive = showcaseSlides[showcaseIdx] ?? showcaseSlides[0];
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-  }, [theme]);
 
   useEffect(() => {
     setShowcaseIdx(0);
@@ -375,7 +369,7 @@ export default function App() {
     });
   }, [role, goal]);
 
-  const logoSrc = theme === "dark" ? logoDark : logoLight;
+  const logoSrc = logoLight;
 
   const toggleSpecialty = (label) => {
     setSpecialties((prev) => ({ ...prev, [label]: !prev[label] }));
@@ -398,15 +392,22 @@ export default function App() {
             <a href="#tarifs">Tarifs coach</a>
             <a href="#inscription">S’inscrire</a>
           </nav>
-          <button
-            type="button"
-            className="lp-theme"
-            onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
-            aria-label={theme === "dark" ? "Activer le thème clair" : "Activer le thème sombre"}
-          >
-            <span className={theme === "dark" ? "is-on" : ""}>Sombre</span>
-            <span className={theme === "light" ? "is-on" : ""}>Clair</span>
-          </button>
+          <div className="lp-theme" role="group" aria-label="Profil">
+            <button
+              type="button"
+              className={role === "sportif" ? "is-on" : ""}
+              onClick={() => setRole("sportif")}
+            >
+              Sportif
+            </button>
+            <button
+              type="button"
+              className={role === "coach" ? "is-on" : ""}
+              onClick={() => setRole("coach")}
+            >
+              Coach
+            </button>
+          </div>
         </div>
       </header>
 

@@ -252,6 +252,114 @@ select {
   }
 }
 
+/* Ajustements mobile uniquement (ne touche pas au desktop) */
+@media (max-width: 767px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .lp {
+    overflow-x: hidden;
+  }
+
+  .lp-wrap,
+  .lp-wrap--narrow {
+    width: calc(100% - var(--pad) * 2);
+    max-width: 100%;
+  }
+
+  .lp-header__inner {
+    min-height: auto;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .lp-theme span {
+    min-width: 3.5rem;
+  }
+
+  .lp-hero {
+    padding: 2rem 0 2.8rem;
+  }
+
+  .lp-hero__title {
+    font-size: clamp(1.2rem, 7vw, 1.6rem);
+    max-width: 18ch;
+    line-height: 1.14;
+  }
+
+  .lp-hero__lead {
+    font-size: 1rem;
+    line-height: 1.58;
+  }
+
+  .lp-hero__quote {
+    margin-bottom: 1.6rem;
+    font-size: 0.9rem;
+  }
+
+  .lp-hero__cta .lp-btn {
+    width: 100%;
+  }
+
+  .lp-sub {
+    margin-bottom: 1.45rem;
+    font-size: 0.95rem;
+  }
+
+  .lp-sub--wow {
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+
+  .lp-showcase__persona button {
+    font-size: 0.75rem;
+    padding: 0 0.95rem;
+  }
+
+  .lp-showcase__stage {
+    min-height: 204px;
+    padding: 1.2rem 1rem 3rem;
+  }
+
+  .lp-showcase__title {
+    font-size: clamp(1.25rem, 6.5vw, 1.6rem);
+  }
+
+  .lp-showcase__text {
+    font-size: 0.96rem;
+    line-height: 1.5;
+  }
+
+  .lp-showcase__arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+  }
+
+  .lp-ft-bento {
+    grid-template-columns: 1fr;
+  }
+
+  .lp-toggle button {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .lp-pricing-billing {
+    display: flex;
+    width: 100%;
+    max-width: 22rem;
+  }
+
+  .lp-pricing-billing__btn {
+    flex: 1 1 0;
+  }
+}
+
 .lp-theme {
   display: inline-flex;
   gap: 2px;
@@ -262,7 +370,8 @@ select {
   cursor: pointer;
 }
 
-.lp-theme span {
+.lp-theme span,
+.lp-theme button {
   min-width: 4.25rem;
   padding: 0.4rem 0.65rem;
   border-radius: 999px;
@@ -274,7 +383,14 @@ select {
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-.lp-theme span.is-on {
+.lp-theme button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.lp-theme span.is-on,
+.lp-theme button.is-on {
   background: var(--gold-dim);
   color: var(--gold);
 }
