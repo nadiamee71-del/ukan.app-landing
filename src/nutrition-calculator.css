@@ -1,5 +1,5 @@
 /**
- * Calculatrice nutritionnelle UKAN — fond bleu nuit cartoon, crème + accents charte
+ * Calculatrice nutritionnelle UKAN — enveloppe noire ; contenu crème + accents charte
  */
 
 .nc {
@@ -36,8 +36,8 @@
   margin: 0 auto;
   padding: clamp(0.45rem, 2vw, 0.95rem);
   border-radius: var(--nc-radius-xl);
-  background: linear-gradient(165deg, #253659 0%, #1e2a44 42%, #182038 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: var(--nc-shadow-soft), var(--nc-shadow-inset);
   color: var(--nc-text);
   font-family: "Inter", system-ui, sans-serif;
