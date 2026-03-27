@@ -51,7 +51,7 @@ const FOODS = [
   { id: "muffin", name: "Muffin", shortLabel: "Muffin", kcalPer100: 377, zone: "dessert" },
 ];
 
-/** Catégories : 8 aliments chacune ; carrousel interne 4+4 */
+/** Catégories : 8 aliments chacune, grille unique (pas de carrousel interne) */
 const FOOD_ROWS = [
   {
     key: "starches",
@@ -84,10 +84,6 @@ const FOOD_ROWS = [
     ids: ["cake", "fruit", "yogurt", "chocolate_bar", "ice_cream", "biscuit", "pancake", "muffin"],
   },
 ];
-
-function chunkFoodIds(ids) {
-  return [ids.slice(0, 4), ids.slice(4, 8)];
-}
 
 const UNITS = [
   { id: "g", label: "g", toGrams: (q) => q },
@@ -228,10 +224,7 @@ export function NutritionCalculator() {
   const [lastAddedId, setLastAddedId] = useState(null);
   const [calc, dispatch] = useReducer(calcReducer, calcInitial);
   const [categoryIndex, setCategoryIndex] = useState(0);
-  const [foodPageByCategory, setFoodPageByCategory] = useState(() => FOOD_ROWS.map(() => 0));
   const pickerScrollRef = useRef(null);
-  const stripRefs = useRef([]);
-  const foodStripScrollTimerRef = useRef(null);
   const scrollSettleRef = useRef(null);
   const landTimerRef = useRef(null);
 
@@ -290,7 +283,6 @@ export function NutritionCalculator() {
   useEffect(() => {
     return () => {
       if (landTimerRef.current) window.clearTimeout(landTimerRef.current);
-      if (foodStripScrollTimerRef.current) window.clearTimeout(foodStripScrollTimerRef.current);
     };
   }, []);
 
@@ -309,49 +301,12 @@ export function NutritionCalculator() {
     return () => ro.disconnect();
   }, [categoryIndex]);
 
-  const onFoodStripScroll = useCallback((catIdx) => {
-    if (foodStripScrollTimerRef.current) window.clearTimeout(foodStripScrollTimerRef.current);
-    foodStripScrollTimerRef.current = window.setTimeout(() => {
-      const strip = stripRefs.current[catIdx];
-      if (!strip || strip.clientWidth <= 0) return;
-      const page = Math.round(strip.scrollLeft / strip.clientWidth);
-      const clamped = Math.max(0, Math.min(1, page));
-      setFoodPageByCategory((prev) => {
-        if (prev[catIdx] === clamped) return prev;
-        const next = [...prev];
-        next[catIdx] = clamped;
-        return next;
-      });
-    }, 48);
-  }, []);
-
-  const scrollFoodStripToPage = useCallback((catIdx, page) => {
-    const strip = stripRefs.current[catIdx];
-    if (!strip) return;
-    const w = strip.clientWidth;
-    strip.scrollTo({ left: page * w, behavior: "smooth" });
-    setFoodPageByCategory((prev) => {
-      const next = [...prev];
-      next[catIdx] = page;
-      return next;
-    });
-  }, []);
-
   const goToCategory = useCallback((i) => {
     const el = pickerScrollRef.current;
     if (!el) return;
     const w = el.clientWidth;
     el.scrollTo({ left: i * w, behavior: "smooth" });
     setCategoryIndex(i);
-    setFoodPageByCategory((prev) => {
-      const next = [...prev];
-      next[i] = 0;
-      return next;
-    });
-    requestAnimationFrame(() => {
-      const strip = stripRefs.current[i];
-      if (strip) strip.scrollTo({ left: 0, behavior: "auto" });
-    });
   }, []);
 
   const clearAll = useCallback(() => {
@@ -552,49 +507,26 @@ export function NutritionCalculator() {
                 aria-hidden={categoryIndex !== i}
               >
                 <p className="nc-plate-sr">{row.label}</p>
-                <div
-                  ref={(el) => {
-                    stripRefs.current[i] = el;
-                  }}
-                  className="nc-food-strip"
-                  onScroll={() => onFoodStripScroll(i)}
-                >
-                  {chunkFoodIds(row.ids).map((group, pageIdx) => (
-                    <div key={pageIdx} className="nc-food-strip__page">
-                      {group.map((fid) => {
-                        const f = foodById(fid);
-                        if (!f) return null;
-                        return (
-                          <button
-                            key={f.id}
-                            type="button"
-                            className={`nc-food nc-food--picker ${selectedId === f.id ? "is-selected" : ""}`}
-                            onClick={() => setSelectedId(f.id)}
-                            aria-pressed={selectedId === f.id}
-                            aria-label={f.name}
-                          >
-                            <span className="nc-food__icon nc-food__icon--picker">
-                              <FoodIcon name={f.id} />
-                            </span>
-                            <span className="nc-food__name">{f.shortLabel}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  ))}
-                </div>
-                <div className="nc-food-strip-dots" role="tablist" aria-label={`Pages ${row.label}`}>
-                  {[0, 1].map((p) => (
-                    <button
-                      key={p}
-                      type="button"
-                      role="tab"
-                      aria-selected={foodPageByCategory[i] === p}
-                      className={`nc-food-strip-dot ${foodPageByCategory[i] === p ? "is-active" : ""}`}
-                      onClick={() => scrollFoodStripToPage(i, p)}
-                      aria-label={p === 0 ? "Aliments 1 à 4" : "Aliments 5 à 8"}
-                    />
-                  ))}
+                <div className="nc-food-strip">
+                  {row.ids.map((fid) => {
+                    const f = foodById(fid);
+                    if (!f) return null;
+                    return (
+                      <button
+                        key={f.id}
+                        type="button"
+                        className={`nc-food nc-food--picker ${selectedId === f.id ? "is-selected" : ""}`}
+                        onClick={() => setSelectedId(f.id)}
+                        aria-pressed={selectedId === f.id}
+                        aria-label={f.name}
+                      >
+                        <span className="nc-food__icon nc-food__icon--picker">
+                          <FoodIcon name={f.id} />
+                        </span>
+                        <span className="nc-food__name">{f.shortLabel}</span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             ))}
