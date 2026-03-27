@@ -1079,6 +1079,12 @@ select {
   border-bottom: 1px solid var(--border);
 }
 
+/* Bloc calculatrice nutritionnelle — fond marine (composant .nc) */
+.lp-section--nutri-calc {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: radial-gradient(ellipse 100% 90% at 50% 0%, #132338 0%, #0a1628 42%, #060d18 100%);
+}
+
 /* Section fonctionnalités — design mobile premium compact */
 .lp-section--features {
   position: relative;

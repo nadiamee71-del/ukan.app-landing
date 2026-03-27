@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { FeatureIcon } from "./FeatureIcon.jsx";
 import { SocialLinks } from "./SocialLinks.jsx";
+import { NutritionCalculator } from "./NutritionCalculator.jsx";
 import logoLight from "./assets/logo2.png";
 import badgeAppStore from "./assets/badge-app-store.svg?url";
 import badgeGooglePlay from "./assets/badge-google-play.svg?url";
@@ -707,6 +708,16 @@ export default function App() {
                 </ul>
               )}
             </div>
+          </div>
+        </section>
+
+        <section
+          className="lp-section lp-section--nutri-calc"
+          id="calculatrice-nutrition"
+          aria-labelledby="nutri-calc-title"
+        >
+          <div className="lp-wrap">
+            <NutritionCalculator />
           </div>
         </section>
 
