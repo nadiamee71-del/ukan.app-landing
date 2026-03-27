@@ -661,7 +661,9 @@ export default function App() {
           <div className="lp-wrap">
             <header className="lp-features-hero">
               <p className="lp-features-hero__eyebrow">Personnalisation live</p>
-              <h2 className="lp-h2 lp-features-hero__title">Fonctionnalités qui s’adaptent à vous</h2>
+              <h2 className="lp-h2 lp-features-hero__title">
+                Fonctionnalités qui <span className="lp-hero__accent">s’adaptent</span> à vous
+              </h2>
               <p className="lp-sub lp-sub--features-intro">
                 Votre profil change. Les fonctionnalités s’adaptent.
               </p>
@@ -967,7 +969,7 @@ export default function App() {
         <section className="lp-cta-block">
           <div className="lp-wrap">
             <h2 className="lp-h2 lp-h2--light">
-              Prêt à faire partie de l’<span className="lp-txt-red">histoire</span> UKAN ?
+              Prêt à faire partie de l’<span className="lp-hero__accent">histoire</span> UKAN ?
             </h2>
             <p className="lp-cta-block__text">Rejoignez la liste et accédez en priorité au lancement.</p>
           </div>
