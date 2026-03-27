@@ -337,28 +337,24 @@ const PRICING_SPORTIF_PLANS = [
   {
     id: "non-coaches",
     name: "NON COACHES",
-    accent: "blue",
     monthlyLabel: "4,99€",
     features: ["Accès de base UKAN", "Suivi personnel essentiel"],
   },
   {
     id: "basic",
     name: "BASIC",
-    accent: "gold",
     monthlyLabel: "14,99€",
     features: ["Fonctionnalités de progression", "Suivi nutrition simplifié"],
   },
   {
     id: "premium",
     name: "PREMIUM",
-    accent: "purple",
     monthlyLabel: "37€",
     features: ["Expérience avancée", "Outils premium inclus"],
   },
   {
     id: "illimite",
     name: "ILLIMITÉ",
-    accent: "green",
     monthlyLabel: "70€",
     features: ["Accès illimité", "Toutes les fonctionnalités sportives"],
   },
@@ -719,7 +715,10 @@ export default function App() {
           </div>
         </section>
 
-        <section className="lp-section lp-section--pricing" id="tarifs">
+        <section
+          className={`lp-section lp-section--pricing ${role === "sportif" ? "lp-section--pricing-sportif" : ""}`}
+          id="tarifs"
+        >
           <div className="lp-wrap">
             <div className="lp-pricing-header">
               <h2 className="lp-h2 lp-h2--pricing-main">
@@ -844,35 +843,50 @@ export default function App() {
                 </>
               ) : (
                 <>
-                  <p className="lp-pricing-bar__label" id="pricing-bar-label">
-                    Choisissez votre palier SPORTIF
+                  <p className="lp-pricing-bar__label lp-pricing-bar__label--sportif" id="pricing-bar-label">
+                    Choisissez votre palier
                   </p>
-                  <div className="lp-pricing-bar__value-row">
-                    <output
-                      className="lp-pricing-bar__value lp-pricing-bar__value--compact"
-                      htmlFor="pricing-sportif-range"
-                    >
-                      {activeSportifPlan.name}
-                    </output>
-                    <span className="lp-pricing-bar__hint">palier fixe</span>
+
+                  <div
+                    className="lp-pricing-pills"
+                    role="tablist"
+                    aria-label="Paliers d’abonnement sportif"
+                  >
+                    {PRICING_SPORTIF_PLANS.map((plan, i) => (
+                      <button
+                        key={plan.id}
+                        type="button"
+                        role="tab"
+                        id={`sportif-tier-tab-${i}`}
+                        aria-selected={sportifPlanIdx === i}
+                        aria-controls="sportif-pricing-panel"
+                        className={`lp-pricing-pill ${sportifPlanIdx === i ? "is-active" : ""}`}
+                        onClick={() => setSportifPlanIdx(i)}
+                      >
+                        {plan.name}
+                      </button>
+                    ))}
                   </div>
 
-                  <input
-                    id="pricing-sportif-range"
-                    className="lp-pricing-range"
-                    type="range"
-                    min={0}
-                    max={PRICING_SPORTIF_PLANS.length - 1}
-                    step={1}
-                    value={sportifPlanIdx}
-                    onChange={(e) => setSportifPlanIdx(Number(e.target.value))}
-                    aria-valuemin={0}
-                    aria-valuemax={PRICING_SPORTIF_PLANS.length - 1}
-                    aria-valuenow={sportifPlanIdx}
-                    aria-valuetext={`${activeSportifPlan.name} — ${activeSportifPlan.monthlyLabel} par mois`}
-                  />
+                  <div className="lp-pricing-sportif-track">
+                    <input
+                      id="pricing-sportif-range"
+                      className="lp-pricing-range lp-pricing-range--sportif"
+                      type="range"
+                      min={0}
+                      max={PRICING_SPORTIF_PLANS.length - 1}
+                      step={1}
+                      value={sportifPlanIdx}
+                      onChange={(e) => setSportifPlanIdx(Number(e.target.value))}
+                      aria-valuemin={0}
+                      aria-valuemax={PRICING_SPORTIF_PLANS.length - 1}
+                      aria-valuenow={sportifPlanIdx}
+                      aria-valuetext={`${activeSportifPlan.name} — ${activeSportifPlan.monthlyLabel} par mois`}
+                      aria-labelledby="pricing-bar-label"
+                    />
+                  </div>
 
-                  <div className="lp-pricing-bar__segments" aria-hidden="true">
+                  <div className="lp-pricing-bar__segments lp-pricing-bar__segments--sportif" aria-hidden="true">
                     {PRICING_SPORTIF_PLANS.map((plan) => (
                       <div
                         key={plan.id}
@@ -884,23 +898,34 @@ export default function App() {
                     ))}
                   </div>
 
-                  <article
-                    className={`lp-pricing-dynamic lp-pricing-card lp-pricing-card--${activeSportifPlan.accent}`}
-                  >
-                    <h3 className="lp-pricing-card__name">{activeSportifPlan.name}</h3>
-                    <p className="lp-pricing-card__price">
-                      {activeSportifPlan.monthlyLabel}
-                      <span className="lp-pricing-card__period">/mois</span>
-                    </p>
-                    <ul className="lp-pricing-card__features">
-                      {activeSportifPlan.features.map((f) => (
-                        <li key={f}>{f}</li>
-                      ))}
-                    </ul>
-                    <a href="#inscription" className="lp-pricing-card__cta lp-pricing-card__cta--primary">
-                      Choisir ce plan
-                    </a>
-                  </article>
+                  <div className="lp-pricing-sportif-card-shell">
+                    <article
+                      key={sportifPlanIdx}
+                      id="sportif-pricing-panel"
+                      role="tabpanel"
+                      aria-labelledby={`sportif-tier-tab-${sportifPlanIdx}`}
+                      className="lp-pricing-dynamic lp-pricing-card lp-pricing-card--sportif"
+                    >
+                      <h3 className="lp-pricing-card__name lp-pricing-card__name--sportif">
+                        {activeSportifPlan.name}
+                      </h3>
+                      <p className="lp-pricing-card__price lp-pricing-card__price--sportif">
+                        {activeSportifPlan.monthlyLabel}
+                        <span className="lp-pricing-card__period lp-pricing-card__period--sportif">/mois</span>
+                      </p>
+                      <ul className="lp-pricing-card__features lp-pricing-card__features--sportif">
+                        {activeSportifPlan.features.map((f) => (
+                          <li key={f}>{f}</li>
+                        ))}
+                      </ul>
+                      <a
+                        href="#inscription"
+                        className="lp-pricing-card__cta lp-pricing-card__cta--sportif"
+                      >
+                        Choisir ce plan
+                      </a>
+                    </article>
+                  </div>
                 </>
               )}
             </div>
@@ -924,7 +949,6 @@ export default function App() {
             </header>
 
             <div className="lp-form-card">
-              <span className="lp-form-card__accent" aria-hidden="true" />
               <form
                 className="lp-form lp-form--premium"
                 onSubmit={async (e) => {
