@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap");
 
 /* Charte graphique UKAN (officielle — palette validée)
-   Fond sombre #2E2E2C–#343432 · Crème #F5F2EE · Or #F0B429 · Orange #F97316 · Rouge #EF4444 · Succès #4ADE80
-   Texte clair #F0EDE8 · Texte sombre #1A1A18 */
+   Fond sombre #2E2E2C–#343432 · Crème #F5F2EE · Or #F0B429 · Orange #F97316 · Rouge #EF4444
+   Texte clair #F0EDE8 · Texte sombre #1A1A18 · Succès #4ADE80 */
 
 :root {
   --bg: #1a1a18;
@@ -11,10 +11,6 @@
   --text: #f0ede8;
   --muted: rgba(240, 237, 232, 0.62);
   --text-on-gold: #1a1a18;
-  /* Succès (touches de vert) */
-  --green: #4ade80;
-  --green-dim: rgba(74, 222, 128, 0.16);
-  --green-hover: #5ee68f;
   --gold: #f0b429;
   --gold-dim: rgba(240, 180, 41, 0.14);
   --gold-hover: #f5c040;
@@ -22,21 +18,21 @@
   --orange-dim: rgba(249, 115, 22, 0.14);
   --red: #ef4444;
   --red-dim: rgba(239, 68, 68, 0.16);
+  --success: #4ade80;
+  --success-dim: rgba(74, 222, 128, 0.2);
   --border: rgba(240, 237, 232, 0.1);
-  /* Vert UKAN — forêt / sauge (identité premium, sans mélange vert citron + orange) */
-  --ukan-forest: #152a22;
-  --ukan-wood: #2d4a3c;
-  --ukan-sage: #3d6654;
-  --ukan-leaf: #4f8064;
-  --hero-green: var(--ukan-wood);
-  --hero-green-bright: var(--ukan-leaf);
-  --hero-green-soft: rgba(45, 74, 60, 0.07);
+  /* Anthracite UKAN — structure (remplace l’ancien vert forêt) */
+  --ukan-anthracite: #2e2e2c;
+  --ukan-anthracite-mid: #343432;
+  --ukan-anthracite-deep: #1a1a18;
+  --hero-accent: var(--ukan-anthracite);
+  --hero-accent-bright: #3d3d38;
+  --hero-accent-soft: rgba(46, 46, 44, 0.12);
   --hero-orange: #f97316;
   --hero-orange-deep: #ea580c;
-  /* UI header / hero : verts uniquement */
-  --gradient-hero: linear-gradient(135deg, #243d32 0%, #2d5040 44%, #3d6654 100%);
-  --gradient-hero-text: linear-gradient(135deg, #152a22 0%, #2d4a3c 42%, #3d6654 92%);
-  /* CTA principal : or UKAN → orange (charte, séparé du vert) */
+  /* Fonds & texte : anthracite → or / orange (charte) */
+  --gradient-hero: linear-gradient(135deg, #252524 0%, #2e2e2c 45%, #3a3a36 100%);
+  --gradient-hero-text: linear-gradient(135deg, #f0ede8 0%, #e8e2d9 38%, #f0b429 78%, #f97316 100%);
   --gradient-hero-cta: linear-gradient(135deg, #f0b429 0%, #e8a820 32%, #f97316 96%);
   --font-head: "Sora", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
@@ -55,10 +51,6 @@
   --text: #1a1a18;
   --muted: rgba(26, 26, 24, 0.62);
   --text-on-gold: #1a1a18;
-  /* Succès (touches de vert) */
-  --green: #4ade80;
-  --green-dim: rgba(74, 222, 128, 0.2);
-  --green-hover: #3aca6c;
   --gold: #f0b429;
   --gold-dim: rgba(240, 180, 41, 0.22);
   --gold-hover: #d9a020;
@@ -66,7 +58,12 @@
   --orange-dim: rgba(249, 115, 22, 0.16);
   --red: #ef4444;
   --red-dim: rgba(239, 68, 68, 0.12);
+  --success: #4ade80;
+  --success-dim: rgba(74, 222, 128, 0.22);
   --border: rgba(26, 26, 24, 0.1);
+  --hero-accent-soft: rgba(46, 46, 44, 0.08);
+  --gradient-hero: linear-gradient(135deg, #2e2e2c 0%, #343432 52%, #3d3d38 100%);
+  --gradient-hero-text: linear-gradient(135deg, #1a1a18 0%, #2e2e2c 32%, #c9a017 82%, #ea580c 100%);
 }
 
 *,
@@ -122,7 +119,7 @@ select {
   z-index: 50;
   background: color-mix(in srgb, var(--bg) 88%, transparent);
   backdrop-filter: blur(16px);
-  border-bottom: 1px solid color-mix(in srgb, var(--hero-green) 12%, var(--border));
+  border-bottom: 1px solid color-mix(in srgb, var(--hero-accent) 12%, var(--border));
 }
 
 .lp-header__inner {
@@ -160,11 +157,7 @@ select {
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.1;
-  background: var(--gradient-hero-text);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  color: #1a1a18;
 }
 
 .lp-brand__tag {
@@ -174,12 +167,7 @@ select {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  /* Texte seul — dégradé vert UKAN */
-  background: var(--gradient-hero-text);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  color: rgba(26, 26, 24, 0.55);
 }
 
 .lp-nav {
@@ -202,11 +190,7 @@ select {
   letter-spacing: 0.07em;
   text-transform: uppercase;
   text-decoration: none;
-  background: var(--gradient-hero-text);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  color: #1a1a18;
   transition: filter 0.2s ease, opacity 0.2s ease;
 }
 
@@ -218,7 +202,7 @@ select {
   bottom: 0;
   height: 2px;
   border-radius: 2px;
-  background: linear-gradient(90deg, #2d4a3c, #4f8064);
+  background: linear-gradient(90deg, #f0b429, #f97316);
   transform: scaleX(0);
   transform-origin: center;
   transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
@@ -430,9 +414,9 @@ select {
 }
 
 .lp-theme button {
-  border: 1px solid color-mix(in srgb, var(--ukan-wood) 18%, #e3e3e1);
+  border: 1px solid color-mix(in srgb, var(--ukan-anthracite) 14%, #e3e3e1);
   background: #ffffff;
-  color: rgba(29, 58, 48, 0.52);
+  color: rgba(26, 26, 24, 0.45);
   cursor: pointer;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
@@ -440,26 +424,26 @@ select {
 .lp-theme span.is-on,
 .lp-theme button.is-on {
   border-color: transparent;
-  background: var(--gradient-hero);
-  color: #f8faf9;
+  background: var(--success);
+  color: #1a1a18;
   box-shadow:
-    0 0 0 1px rgba(45, 74, 60, 0.35),
-    0 10px 26px rgba(36, 61, 50, 0.22),
-    0 4px 14px rgba(45, 74, 60, 0.18);
+    0 0 0 1px rgba(26, 26, 24, 0.12),
+    0 10px 26px rgba(74, 222, 128, 0.35),
+    0 4px 14px rgba(26, 26, 24, 0.1);
 }
 
 .lp-theme button:hover:not(.is-on) {
-  border-color: rgba(45, 74, 60, 0.35);
-  color: rgba(21, 42, 35, 0.88);
+  border-color: rgba(46, 46, 44, 0.3);
+  color: rgba(26, 26, 24, 0.88);
   transform: translateY(-1px);
 }
 
 .lp-theme button:hover.is-on {
   transform: translateY(-1px);
   box-shadow:
-    0 0 0 1px rgba(45, 74, 60, 0.42),
-    0 12px 30px rgba(36, 61, 50, 0.26),
-    0 4px 14px rgba(45, 74, 60, 0.2);
+    0 0 0 1px rgba(26, 26, 24, 0.16),
+    0 12px 30px rgba(74, 222, 128, 0.4),
+    0 4px 14px rgba(26, 26, 24, 0.12);
 }
 
 .lp-theme button:active {
@@ -469,8 +453,8 @@ select {
 /* Hero */
 .lp-hero {
   padding: clamp(2.5rem, 8vw, 5rem) 0 clamp(3rem, 10vw, 6rem);
-  background: radial-gradient(120% 85% at 50% -15%, rgba(45, 74, 60, 0.06), transparent 58%),
-    linear-gradient(180deg, rgba(240, 245, 242, 0.85) 0%, transparent 48%);
+  background: radial-gradient(120% 85% at 50% -15%, rgba(240, 180, 41, 0.07), transparent 58%),
+    linear-gradient(180deg, rgba(245, 242, 238, 0.92) 0%, transparent 48%);
 }
 
 .lp-eyebrow {
@@ -486,7 +470,7 @@ select {
   color: var(--gold);
 }
 
-/* Hero : pastille lancement — vert UKAN */
+/* Hero : pastille lancement — anthracite charte */
 .lp-eyebrow--hero {
   display: inline-block;
   margin-bottom: 1.1rem;
@@ -494,9 +478,9 @@ select {
   border-radius: 999px;
   font-weight: 700;
   letter-spacing: 0.14em;
-  color: #f6f9f7;
-  background: linear-gradient(135deg, #1c3329 0%, #2d4a3c 55%, #355c4a 100%);
-  box-shadow: 0 2px 12px rgba(28, 51, 41, 0.18), 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+  color: #f0ede8;
+  background: linear-gradient(135deg, #1a1a18 0%, #2e2e2c 52%, #343432 100%);
+  box-shadow: 0 2px 12px rgba(26, 26, 24, 0.2), 0 1px 0 rgba(255, 255, 255, 0.06) inset;
 }
 
 .lp-hero__title {
@@ -510,17 +494,13 @@ select {
   color: #1a1a18;
 }
 
-/* Accent titre : vert UKAN (tons forêt / sauge) */
+/* Accent titre : vert Succès charte (#4ADE80) */
 .lp-hero__accent {
-  background: var(--gradient-hero-text);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  color: var(--success);
 }
 
 .lp-txt-green {
-  color: var(--orange);
+  color: var(--success);
 }
 
 .lp-txt-gold {
@@ -528,7 +508,7 @@ select {
 }
 
 .lp-txt-success {
-  color: var(--green);
+  color: var(--success);
 }
 
 .lp-hero__lead {
@@ -590,15 +570,15 @@ select {
 
 .lp-hero .lp-btn--ghost {
   background: #ffffff;
-  color: #243d32;
-  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ukan-wood) 32%, rgba(26, 26, 24, 0.08));
+  color: #1a1a18;
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ukan-anthracite) 22%, rgba(26, 26, 24, 0.08));
 }
 
 .lp-hero .lp-btn--ghost:hover {
-  color: #152a22;
+  color: #1a1a18;
   border-color: transparent;
-  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ukan-sage) 55%, rgba(26, 26, 24, 0.1));
-  background: color-mix(in srgb, var(--hero-green-soft) 65%, #ffffff);
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--gold) 45%, rgba(26, 26, 24, 0.12));
+  background: color-mix(in srgb, var(--hero-accent-soft) 55%, #ffffff);
 }
 
 .lp-hero__device-wrap {
@@ -616,8 +596,8 @@ select {
   border-radius: 999px;
   background: radial-gradient(
     ellipse at center,
-    color-mix(in srgb, var(--ukan-sage) 22%, transparent),
-    color-mix(in srgb, var(--ukan-wood) 14%, transparent),
+    color-mix(in srgb, var(--orange) 18%, transparent),
+    color-mix(in srgb, var(--gold) 12%, transparent),
     transparent 70%
   );
   filter: blur(22px);
@@ -708,8 +688,8 @@ select {
   border-radius: 50%;
   background: radial-gradient(
     circle at 35% 35%,
-    rgba(79, 128, 100, 0.42),
-    rgba(45, 74, 60, 0.2),
+    rgba(240, 180, 41, 0.35),
+    rgba(249, 115, 22, 0.18),
     rgba(11, 12, 15, 0.95) 72%
   );
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
@@ -1435,7 +1415,7 @@ select {
 .lp-pricing-billing--premium .lp-pricing-billing__btn--active {
   background: linear-gradient(135deg, #fbbf24 0%, #f97316 52%, #ea580c 100%);
   color: #0a0a0a;
-  box-shadow: 0 2px 12px rgba(251, 146, 60, 0.28);
+  box-shadow: none;
 }
 
 .lp-pricing-header {
@@ -1856,9 +1836,7 @@ select {
   color: #0a0a0a;
   border-color: transparent;
   background: linear-gradient(135deg, #fbbf24 0%, #f97316 52%, #ea580c 100%);
-  box-shadow:
-    0 2px 14px rgba(251, 146, 60, 0.38),
-    0 0 24px rgba(251, 191, 36, 0.22);
+  box-shadow: none;
 }
 
 .lp-pricing-pill.is-active:hover {
@@ -1891,10 +1869,7 @@ select {
   border-radius: 999px;
   border: none;
   background: linear-gradient(90deg, #fde047 0%, #fbbf24 28%, #f97316 72%, #ea580c 100%);
-  box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.45),
-    inset 0 -1px 2px rgba(120, 53, 15, 0.18),
-    0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: none;
 }
 
 .lp-pricing-range--premium::-webkit-slider-thumb {
@@ -1905,11 +1880,7 @@ select {
   border-radius: 50%;
   background: radial-gradient(circle at 32% 28%, #fff 0%, #fef9c3 38%, #fbbf24 72%, #f97316 100%);
   border: 2px solid rgba(255, 255, 255, 0.95);
-  box-shadow:
-    0 0 0 1px rgba(251, 146, 60, 0.35),
-    0 0 20px rgba(251, 191, 36, 0.55),
-    0 4px 14px rgba(234, 88, 12, 0.35),
-    0 2px 6px rgba(0, 0, 0, 0.12);
+  box-shadow: none;
   cursor: grab;
 }
 
@@ -1922,10 +1893,7 @@ select {
   border-radius: 999px;
   border: none;
   background: linear-gradient(90deg, #fde047 0%, #fbbf24 28%, #f97316 72%, #ea580c 100%);
-  box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.45),
-    inset 0 -1px 2px rgba(120, 53, 15, 0.18),
-    0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: none;
 }
 
 .lp-pricing-range--premium::-moz-range-thumb {
@@ -1934,11 +1902,7 @@ select {
   border-radius: 50%;
   background: radial-gradient(circle at 32% 28%, #fff 0%, #fef9c3 38%, #fbbf24 72%, #f97316 100%);
   border: 2px solid rgba(255, 255, 255, 0.95);
-  box-shadow:
-    0 0 0 1px rgba(251, 146, 60, 0.35),
-    0 0 20px rgba(251, 191, 36, 0.55),
-    0 4px 14px rgba(234, 88, 12, 0.35),
-    0 2px 6px rgba(0, 0, 0, 0.12);
+  box-shadow: none;
   cursor: grab;
 }
 
@@ -1949,7 +1913,7 @@ select {
   border: 1px solid #ececee;
   background: #fafafa;
   overflow: hidden;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+  box-shadow: none;
 }
 
 .lp-pricing-bar__segments--premium .lp-pricing-bar__segment {
@@ -1960,7 +1924,7 @@ select {
 
 .lp-pricing-bar__segments--premium .lp-pricing-bar__segment.is-active {
   background: linear-gradient(180deg, rgba(254, 243, 199, 0.55) 0%, rgba(255, 237, 213, 0.4) 100%);
-  box-shadow: inset 0 0 0 1px rgba(251, 146, 60, 0.22);
+  box-shadow: none;
 }
 
 .lp-pricing-bar__segments--premium .lp-pricing-bar__segment-name {
@@ -1987,7 +1951,7 @@ select {
   border-radius: 14px;
   border: 1px solid #ececee;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
+  box-shadow: none;
   overflow: visible;
 }
 
@@ -2026,10 +1990,8 @@ select {
     linear-gradient(135deg, #fde047 0%, #fbbf24 42%, #f97316 100%);
   background-origin: border-box;
   background-clip: padding-box, border-box;
-  box-shadow:
-    0 2px 10px rgba(251, 146, 60, 0.12),
-    0 0 22px rgba(251, 191, 36, 0.08);
-  transform: translateY(-0.5px);
+  box-shadow: none;
+  transform: none;
 }
 
 .lp-pricing-bar__segments--sportif .lp-pricing-bar__segment:focus-visible {
@@ -2066,10 +2028,7 @@ select {
   padding: 2px;
   border-radius: 22px;
   background: linear-gradient(145deg, #fde047 0%, #fbbf24 35%, #f97316 70%, #ea580c 100%);
-  box-shadow:
-    0 0 0 1px rgba(251, 146, 60, 0.12),
-    0 20px 48px rgba(15, 23, 42, 0.08),
-    0 8px 24px rgba(251, 146, 60, 0.12);
+  box-shadow: none;
 }
 
 .lp-pricing-card.lp-pricing-card--premium {
@@ -2080,9 +2039,7 @@ select {
   border-radius: 20px;
   border: none;
   background: #fff;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 12px 40px rgba(0, 0, 0, 0.06);
+  box-shadow: none;
   animation: lpPremiumCardReveal 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
@@ -2090,7 +2047,7 @@ select {
   background: linear-gradient(135deg, #fde047 0%, #fbbf24 45%, #f97316 100%);
   color: #0a0a0a;
   border-radius: 999px;
-  box-shadow: 0 2px 8px rgba(251, 146, 60, 0.25);
+  box-shadow: none;
 }
 
 @keyframes lpPremiumCardReveal {
@@ -2127,7 +2084,7 @@ select {
 
 .lp-pricing-card__features--premium li::before {
   background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
-  box-shadow: 0 0 0 1px rgba(251, 146, 60, 0.25);
+  box-shadow: none;
 }
 
 .lp-pricing-card__per--premium,
@@ -2141,22 +2098,14 @@ select {
   font-weight: 800;
   letter-spacing: 0.04em;
   background: linear-gradient(135deg, #fde047 0%, #fbbf24 38%, #f97316 92%);
-  box-shadow:
-    0 2px 0 rgba(255, 255, 255, 0.35) inset,
-    0 4px 16px rgba(251, 146, 60, 0.35),
-    0 2px 8px rgba(234, 88, 12, 0.2);
+  box-shadow: none;
   transition:
     transform 0.2s ease,
-    box-shadow 0.2s ease,
     filter 0.2s ease;
 }
 
 .lp-pricing-card__cta--premium:hover {
   filter: brightness(1.03);
-  box-shadow:
-    0 2px 0 rgba(255, 255, 255, 0.4) inset,
-    0 6px 22px rgba(251, 146, 60, 0.45),
-    0 2px 10px rgba(234, 88, 12, 0.25);
   transform: translateY(-1px);
 }
 
@@ -2171,16 +2120,14 @@ select {
     linear-gradient(135deg, #fde047 0%, #fbbf24 40%, #f97316 100%) border-box;
   color: #0a0a0a;
   font-weight: 700;
-  box-shadow: 0 2px 12px rgba(251, 146, 60, 0.12);
+  box-shadow: none;
   transition:
     transform 0.2s ease,
-    box-shadow 0.2s ease,
     filter 0.2s ease;
 }
 
 .lp-pricing-card__cta--premium-outline:hover {
   filter: brightness(1.02);
-  box-shadow: 0 4px 18px rgba(251, 146, 60, 0.22);
   transform: translateY(-1px);
 }
 
