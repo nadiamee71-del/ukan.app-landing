@@ -1088,7 +1088,7 @@ select {
 
 @media (max-width: 767px) {
   .lp-section--nutri-calc {
-    padding: clamp(1rem, 3vw, 1.5rem) 0;
+    padding: clamp(0.65rem, 2.5vw, 1.1rem) 0;
   }
 
   .lp-section--nutri-calc .lp-wrap {
