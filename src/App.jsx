@@ -934,7 +934,7 @@ export default function App() {
               <input type="hidden" name="role" value={formRole} />
 
               <fieldset className="lp-fieldset">
-                <legend>Vous êtes *</legend>
+                <p className="lp-fieldset__title">Vous êtes *</p>
                 <label className="lp-radio">
                   <input type="radio" checked readOnly />
                   {formRole === "coach" ? "Coach certifié" : "Sportif"}
@@ -980,7 +980,7 @@ export default function App() {
 
               {formRole === "coach" && (
                 <fieldset className="lp-fieldset lp-fieldset--checks">
-                  <legend>Vos spécialités (cochez tout ce qui vous correspond)</legend>
+                  <p className="lp-fieldset__title">Vos spécialités (cochez tout ce qui vous correspond)</p>
                   <div className="lp-checks">
                     {COACH_SPECIALTIES.map((s) => (
                       <label key={s} className="lp-check">
