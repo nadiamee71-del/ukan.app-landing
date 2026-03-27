@@ -17,12 +17,12 @@ const FOODS = [
   { id: "dessert", name: "Dessert", shortLabel: "Dessert", kcalPer100: 320, zone: "dessert" },
 ];
 
-/** Rangées défilantes : féculents, plat, boissons, dessert */
+/** Catégories : une page swipe par entrée (tabs + carrousel) */
 const FOOD_ROWS = [
-  { key: "starches", label: "Féculents", ids: ["rice", "spaghetti", "fries"] },
-  { key: "mains", label: "Au menu", ids: ["broccoli", "chicken", "steak", "egg", "banana"] },
-  { key: "drinks", label: "Boissons", ids: ["milk", "coca"] },
-  { key: "sweet", label: "Dessert", ids: ["dessert"] },
+  { key: "starches", label: "Féculents", tabLabel: "Féculents", ids: ["rice", "spaghetti", "fries"] },
+  { key: "mains", label: "Au menu", tabLabel: "Menu", ids: ["broccoli", "chicken", "steak", "egg", "banana"] },
+  { key: "drinks", label: "Boissons", tabLabel: "Boissons", ids: ["milk", "coca"] },
+  { key: "sweet", label: "Dessert", tabLabel: "Dessert", ids: ["dessert"] },
 ];
 
 const UNITS = [
@@ -162,6 +162,9 @@ export function NutritionCalculator() {
   const [unitId, setUnitId] = useState("g");
   const [items, setItems] = useState([]);
   const [calc, dispatch] = useReducer(calcReducer, calcInitial);
+  const [categoryIndex, setCategoryIndex] = useState(0);
+  const pickerScrollRef = useRef(null);
+  const scrollSettleRef = useRef(null);
 
   const selectedFood = useMemo(() => (selectedId ? foodById(selectedId) : null), [selectedId]);
   const unit = useMemo(() => UNITS.find((u) => u.id === unitId) ?? UNITS[0], [unitId]);
@@ -187,6 +190,56 @@ export function NutritionCalculator() {
 
   const quantity = useMemo(() => parseQuantityFromDisplay(calc.display), [calc.display]);
   const canAdd = Boolean(selectedFood && quantity !== null);
+
+  const syncCategoryFromScroll = useCallback(() => {
+    const el = pickerScrollRef.current;
+    if (!el) return;
+    const w = el.clientWidth;
+    if (w <= 0) return;
+    const idx = Math.round(el.scrollLeft / w);
+    const next = Math.max(0, Math.min(FOOD_ROWS.length - 1, idx));
+    setCategoryIndex((c) => (c !== next ? next : c));
+  }, []);
+
+  useEffect(() => {
+    const el = pickerScrollRef.current;
+    if (!el) return;
+    const onScrollEnd = () => syncCategoryFromScroll();
+    const onScroll = () => {
+      if (scrollSettleRef.current) clearTimeout(scrollSettleRef.current);
+      scrollSettleRef.current = setTimeout(onScrollEnd, 72);
+    };
+    el.addEventListener("scrollend", onScrollEnd);
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      el.removeEventListener("scrollend", onScrollEnd);
+      el.removeEventListener("scroll", onScroll);
+      if (scrollSettleRef.current) clearTimeout(scrollSettleRef.current);
+    };
+  }, [syncCategoryFromScroll]);
+
+  useEffect(() => {
+    const el = pickerScrollRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(() => {
+      const w = el.clientWidth;
+      if (w <= 0) return;
+      const target = categoryIndex * w;
+      if (Math.abs(el.scrollLeft - target) > 2) {
+        el.scrollTo({ left: target, behavior: "auto" });
+      }
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [categoryIndex]);
+
+  const goToCategory = useCallback((i) => {
+    const el = pickerScrollRef.current;
+    if (!el) return;
+    const w = el.clientWidth;
+    el.scrollTo({ left: i * w, behavior: "smooth" });
+    setCategoryIndex(i);
+  }, []);
 
   const clearAll = useCallback(() => {
     setItems([]);
@@ -322,33 +375,86 @@ export function NutritionCalculator() {
         </button>
       </div>
 
-      <div className="nc-food-pickers" role="region" aria-label="Choisir des aliments">
-        {FOOD_ROWS.map((row) => (
-          <div key={row.key} className="nc-food-row">
-            <p className="nc-food-row__label">{row.label}</p>
-            <div className="nc-food-row__scroll" role="group" aria-label={row.label}>
-              {row.ids.map((fid) => {
-                const f = foodById(fid);
-                if (!f) return null;
-                return (
-                  <button
-                    key={f.id}
-                    type="button"
-                    className={`nc-food ${selectedId === f.id ? "is-selected" : ""}`}
-                    onClick={() => setSelectedId(f.id)}
-                    aria-pressed={selectedId === f.id}
-                    aria-label={`${f.name}`}
-                  >
-                    <span className="nc-food__icon">
-                      <FoodIcon name={f.id} />
-                    </span>
-                    <span className="nc-food__name">{f.shortLabel}</span>
-                  </button>
-                );
-              })}
-            </div>
+      <div className="nc-picker-premium" role="region" aria-label="Choisir des aliments par catégorie">
+        <div className="nc-picker-premium__head">
+          <p className="nc-picker-premium__eyebrow">Bibliothèque</p>
+          <div className="nc-cat-tabs" role="tablist" aria-label="Catégories d’aliments">
+            {FOOD_ROWS.map((row, i) => (
+              <button
+                key={row.key}
+                type="button"
+                role="tab"
+                id={`nc-tab-${row.key}`}
+                aria-selected={categoryIndex === i}
+                aria-controls={`nc-panel-${row.key}`}
+                className={`nc-cat-tab ${categoryIndex === i ? "is-active" : ""}`}
+                onClick={() => goToCategory(i)}
+              >
+                {row.tabLabel}
+              </button>
+            ))}
           </div>
-        ))}
+        </div>
+
+        <div className="nc-picker-premium__viewport">
+          <div
+            ref={pickerScrollRef}
+            className="nc-picker-carousel"
+            aria-label="Glisser pour changer de catégorie"
+          >
+            {FOOD_ROWS.map((row, i) => (
+              <div
+                key={row.key}
+                id={`nc-panel-${row.key}`}
+                role="tabpanel"
+                aria-labelledby={`nc-tab-${row.key}`}
+                className="nc-picker-page"
+                aria-hidden={categoryIndex !== i}
+              >
+                <p className="nc-picker-page__title">{row.label}</p>
+                <div className="nc-picker-page__grid">
+                  {row.ids.map((fid) => {
+                    const f = foodById(fid);
+                    if (!f) return null;
+                    return (
+                      <button
+                        key={f.id}
+                        type="button"
+                        className={`nc-food ${selectedId === f.id ? "is-selected" : ""}`}
+                        onClick={() => setSelectedId(f.id)}
+                        aria-pressed={selectedId === f.id}
+                        aria-label={f.name}
+                      >
+                        <span className="nc-food__icon">
+                          <FoodIcon name={f.id} />
+                        </span>
+                        <span className="nc-food__name">{f.shortLabel}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="nc-picker-dots" aria-hidden="true">
+          {FOOD_ROWS.map((row, i) => (
+            <button
+              key={row.key}
+              type="button"
+              className={`nc-picker-dot ${categoryIndex === i ? "is-active" : ""}`}
+              onClick={() => goToCategory(i)}
+              aria-label={`Catégorie ${row.label}`}
+            />
+          ))}
+        </div>
+        <p className="nc-picker-swipe-hint">
+          <span className="nc-picker-swipe-hint__icon" aria-hidden="true">
+            ‹ ›
+          </span>
+          Glissez ou touchez un onglet
+        </p>
       </div>
 
       <div className="nc-row-units" role="group" aria-label="Unité de mesure">
@@ -383,7 +489,7 @@ export function NutritionCalculator() {
       </button>
 
       <p className="nc-feedback" role="status" aria-live="polite">
-        {!selectedFood && "Choisissez un aliment dans les listes, puis quantité et unité."}
+        {!selectedFood && "Choisissez une catégorie, un aliment, puis la quantité et l’unité."}
         {selectedFood && quantity === null && calc.display !== "Erreur" && "Indiquez une quantité supérieure à 0."}
         {selectedFood && calc.display === "Erreur" && "Calcul invalide — touchez C pour réinitialiser."}
       </p>
@@ -457,8 +563,7 @@ export function NutritionCalculator() {
       </div>
 
       <p className="nc-hint">
-        Faites défiler chaque ligne pour choisir. Les boissons vont au verre, les desserts à côté, le reste dans
-        l’assiette.
+        Changez de catégorie en glissant. Boissons → verre, dessert → zone à droite, le reste → assiette.
       </p>
     </div>
   );
