@@ -367,6 +367,15 @@ select {
     padding: 1.2rem 1rem 3rem;
   }
 
+  .lp-showcase__progress {
+    right: 4.75rem;
+  }
+
+  .lp-showcase__nav {
+    bottom: 0.55rem;
+    right: 0.65rem;
+  }
+
   .lp-showcase__title {
     font-size: clamp(1.25rem, 6.5vw, 1.6rem);
   }
@@ -976,7 +985,7 @@ select {
 .lp-showcase__progress {
   position: absolute;
   left: 0;
-  right: 0;
+  right: 5.5rem;
   bottom: 0;
   height: 4px;
   background: color-mix(in srgb, var(--border) 80%, transparent);
@@ -994,7 +1003,7 @@ select {
   position: absolute;
   z-index: 2;
   right: 0.75rem;
-  bottom: 2.5rem;
+  bottom: 0.65rem;
   display: flex;
   gap: 0.35rem;
 }
@@ -2522,6 +2531,112 @@ select {
   color: var(--c-muted);
   line-height: 1.5;
   text-align: center;
+}
+
+/* Formulaire liste d’attente — mobile : plus compact + marge bas pour barre Safari / encoche */
+@media (max-width: 520px) {
+  html {
+    scroll-padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px) + 1.5rem);
+  }
+
+  .lp-section--form {
+    padding-top: 0.65rem;
+    padding-bottom: calc(0.85rem + env(safe-area-inset-bottom, 0px) + 1.75rem);
+  }
+
+  .lp-form-intro {
+    margin-bottom: 0.4rem;
+  }
+
+  .lp-form-intro__title {
+    margin-bottom: 0.12rem;
+    font-size: clamp(1.02rem, 4.2vw, 1.32rem);
+  }
+
+  .lp-form-intro__lead {
+    font-size: 0.76rem;
+    line-height: 1.25;
+  }
+
+  .lp-form-card {
+    padding: 0.38rem 0.4rem 0.45rem;
+    border-radius: 14px;
+  }
+
+  .lp-form-role {
+    margin-bottom: 0.32rem;
+    padding: 0.22rem 0.38rem;
+  }
+
+  .lp-form-role__label,
+  .lp-form-role__value {
+    font-size: 0.62rem;
+  }
+
+  .lp-form__block {
+    margin-bottom: 0.34rem;
+  }
+
+  .lp-form__legend {
+    margin: 0 0 0.14rem;
+    font-size: 0.56rem;
+  }
+
+  .lp-form__grid {
+    gap: 0.24rem;
+  }
+
+  .lp-form--premium .lp-label {
+    gap: 0.1rem;
+    margin-bottom: 0.22rem;
+    font-size: 0.65rem;
+  }
+
+  .lp-form--premium .lp-label :is(input, select) {
+    min-height: 36px;
+    padding: 0 0.48rem;
+    border-radius: 10px;
+    font-size: 0.76rem;
+  }
+
+  .lp-form--premium .lp-label select {
+    padding-right: 2.1rem;
+  }
+
+  .lp-form__actions {
+    margin-top: 0.34rem;
+    padding-top: 0;
+  }
+
+  .lp-form__actions .lp-btn--submit {
+    min-height: 38px;
+    padding: 0 0.75rem;
+    font-size: 0.72rem;
+  }
+
+  .lp-form__foot {
+    margin: 0.22rem 0 0;
+    font-size: 0.6rem;
+    line-height: 1.35;
+  }
+
+  .lp-fieldset--premium {
+    padding: 0.36rem 0.42rem 0.4rem;
+  }
+
+  .lp-fieldset__hint {
+    margin: 0 0 0.32rem;
+    font-size: 0.68rem;
+  }
+
+  .lp-fieldset--checks .lp-checks {
+    gap: 0.22rem;
+  }
+
+  .lp-check {
+    padding: 0.26rem 0.34rem;
+    font-size: 0.72rem;
+  }
 }
 
 /* Footer */
