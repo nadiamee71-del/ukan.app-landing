@@ -14,10 +14,11 @@ const GOOGLE_PLAY_URL = "#inscription";
 
 /** Réseaux & contact — à mettre à jour avec les URLs officielles UKAN */
 const SOCIAL_LINKS = {
-  instagram: "mailto:hello@ukan.app",
+  instagram: "https://www.instagram.com/ukan.app/",
   linkedin: "https://www.linkedin.com/company/ukan",
   tiktok: "https://www.tiktok.com/@ukan.app",
-  email: "mailto:contact@ukan.app",
+  /** Contact direct (icône enveloppe) — distinct du profil Instagram */
+  email: "mailto:hello@ukan.app",
 };
 
 function storeLinkProps(url) {
