@@ -403,7 +403,7 @@ export function NutritionCalculator() {
                   <span className="nc-plate__hint">Ajoutez un aliment</span>
                 ) : (
                   <div
-                    className={`nc-plate-chips ${plateItems.length > 6 ? "nc-plate-chips--compact" : ""}`}
+                    className={`nc-plate-chips ${plateItems.length > 4 ? "nc-plate-chips--compact" : ""}`}
                     role="list"
                   >
                     {plateItems.map((item) => (
