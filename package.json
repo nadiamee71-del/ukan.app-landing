@@ -8,7 +8,8 @@
     "build": "node scripts/embed-legal-css.mjs && vite build",
     "preview": "vite preview",
     "bake-logo": "node scripts/flatten-logo-dark.mjs",
-    "legal:embed": "node scripts/embed-legal-css.mjs"
+    "legal:embed": "node scripts/embed-legal-css.mjs",
+    "favicon": "node scripts/generate-favicon.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",
