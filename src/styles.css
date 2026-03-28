@@ -184,7 +184,7 @@ select {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--c-muted);
+  color: var(--c-orange);
 }
 
 .lp-nav {
