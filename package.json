@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/embed-legal-css.mjs && vite build",
     "preview": "vite preview",
-    "bake-logo": "node scripts/flatten-logo-dark.mjs"
+    "bake-logo": "node scripts/flatten-logo-dark.mjs",
+    "legal:embed": "node scripts/embed-legal-css.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

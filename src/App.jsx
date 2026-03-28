@@ -1165,11 +1165,15 @@ export default function App() {
             <span className="lp-footer__legal-sep" aria-hidden>
               ·
             </span>
-            <a href="/politique-de-confidentialite">Politique de confidentialité</a>
+            <a href="/politique-de-confidentialite">Confidentialité</a>
             <span className="lp-footer__legal-sep" aria-hidden>
               ·
             </span>
-            <a href="/cgu">Conditions d’utilisation</a>
+            <a href="/politique-cookies">Cookies</a>
+            <span className="lp-footer__legal-sep" aria-hidden>
+              ·
+            </span>
+            <a href="/cgu">CGU</a>
           </nav>
           <span className="lp-footer__copy">
             © {new Date().getFullYear()}{" "}

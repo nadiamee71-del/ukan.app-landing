@@ -1,0 +1,31 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/mentions-legales",
+      "destination": "/mentions-legales/index.html"
+    },
+    {
+      "source": "/mentions-legales/",
+      "destination": "/mentions-legales/index.html"
+    },
+    {
+      "source": "/politique-de-confidentialite",
+      "destination": "/politique-de-confidentialite/index.html"
+    },
+    {
+      "source": "/politique-de-confidentialite/",
+      "destination": "/politique-de-confidentialite/index.html"
+    },
+    {
+      "source": "/politique-cookies",
+      "destination": "/politique-cookies/index.html"
+    },
+    {
+      "source": "/politique-cookies/",
+      "destination": "/politique-cookies/index.html"
+    },
+    { "source": "/cgu", "destination": "/cgu/index.html" },
+    { "source": "/cgu/", "destination": "/cgu/index.html" }
+  ]
+}

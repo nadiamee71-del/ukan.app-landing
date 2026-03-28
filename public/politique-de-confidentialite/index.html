@@ -8,69 +8,358 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Sora:wght@700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@700;800&display=swap"
       rel="stylesheet"
     />
     <style>
-      :root {
-        --text: #1a1a1a;
-        --muted: #6b7280;
-        --orange: #ff8a2b;
-        --red: #ff4d4d;
-        --max: 42rem;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        font-family: Inter, system-ui, sans-serif;
-        font-size: 1rem;
-        line-height: 1.6;
-        color: var(--text);
-        background: #fff;
-        padding: clamp(1.5rem, 5vw, 2.5rem);
-      }
-      .wrap {
-        max-width: var(--max);
-        margin: 0 auto;
-      }
-      a {
-        color: var(--orange);
-        font-weight: 600;
-        text-decoration: none;
-      }
-      a:hover {
-        color: var(--red);
-        text-decoration: underline;
-      }
-      h1 {
-        font-family: Sora, system-ui, sans-serif;
-        font-size: clamp(1.5rem, 4vw, 1.85rem);
-        font-weight: 800;
-        letter-spacing: -0.03em;
-        margin: 0 0 1rem;
-      }
-      p {
-        margin: 0 0 1rem;
-        color: var(--muted);
-      }
-      .brand {
-        color: var(--orange);
-        font-weight: 800;
-      }
+/* Pages légales UKAN — charte (orange / rouge / texte) */
+:root {
+  --legal-text: #1a1a1a;
+  --legal-muted: #6b7280;
+  --legal-orange: #ff8a2b;
+  --legal-red: #ff4d4d;
+  --legal-max: 46rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body.legal-page {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--legal-text);
+  background: #fff;
+  padding: clamp(1.25rem, 4vw, 2.25rem);
+}
+
+.legal-wrap {
+  max-width: var(--legal-max);
+  margin: 0 auto;
+}
+
+.legal-back {
+  margin: 0 0 1.25rem;
+}
+
+.legal-back a {
+  color: var(--legal-orange);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.legal-back a:hover {
+  color: var(--legal-red);
+  text-decoration: underline;
+}
+
+.legal-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+  margin: 0 0 1.75rem;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border: 1px solid rgba(26, 26, 26, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 138, 43, 0.06);
+}
+
+.legal-nav a {
+  color: var(--legal-orange);
+  text-decoration: none;
+}
+
+.legal-nav a:hover {
+  color: var(--legal-red);
+  text-decoration: underline;
+}
+
+.legal-nav span[aria-hidden] {
+  color: #f6c544;
+  font-weight: 800;
+  user-select: none;
+}
+
+.legal-nav a[aria-current="page"] {
+  color: var(--legal-text);
+  pointer-events: none;
+  font-weight: 700;
+}
+
+.legal-h1 {
+  font-family: Sora, system-ui, sans-serif;
+  font-size: clamp(1.45rem, 3.8vw, 1.9rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.5rem;
+  line-height: 1.2;
+}
+
+.legal-updated {
+  margin: 0 0 1.5rem;
+  font-size: 0.875rem;
+  color: var(--legal-muted);
+}
+
+.legal-intro {
+  margin: 0 0 1.25rem;
+  padding: 0.85rem 1rem;
+  font-size: 0.9rem;
+  color: var(--legal-muted);
+  border-left: 3px solid var(--legal-orange);
+  background: rgba(255, 138, 43, 0.08);
+}
+
+.legal-h2 {
+  font-family: Sora, system-ui, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin: 2rem 0 0.65rem;
+  letter-spacing: -0.02em;
+  color: var(--legal-text);
+}
+
+.legal-h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 1.25rem 0 0.5rem;
+  color: var(--legal-text);
+}
+
+.legal-page p {
+  margin: 0 0 0.85rem;
+  color: var(--legal-muted);
+}
+
+.legal-page ul,
+.legal-page ol {
+  margin: 0 0 1rem;
+  padding-left: 1.35rem;
+  color: var(--legal-muted);
+}
+
+.legal-page li {
+  margin-bottom: 0.4rem;
+}
+
+.legal-page .legal-wrap a {
+  color: var(--legal-orange);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.legal-page .legal-wrap a:hover {
+  color: var(--legal-red);
+  text-decoration: underline;
+}
+
+.field-placeholder {
+  display: inline;
+  background: rgba(255, 138, 43, 0.14);
+  border-bottom: 1px dashed var(--legal-orange);
+  padding: 0 0.2em;
+  color: var(--legal-text);
+  font-weight: 500;
+}
+
+.legal-table-wrap {
+  overflow-x: auto;
+  margin: 0 0 1rem;
+}
+
+.legal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.legal-table th,
+.legal-table td {
+  border: 1px solid rgba(26, 26, 26, 0.12);
+  padding: 0.5rem 0.65rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.legal-table th {
+  background: rgba(255, 138, 43, 0.1);
+  font-weight: 700;
+  color: var(--legal-text);
+}
+
+.legal-table td {
+  color: var(--legal-muted);
+}
+
+.legal-contact {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(26, 26, 26, 0.1);
+  font-size: 0.9rem;
+}
+
+.legal-brand {
+  color: var(--legal-orange);
+  font-weight: 800;
+}
+
     </style>
   </head>
-  <body>
-    <div class="wrap">
-      <p><a href="/">← Retour au site UKAN</a></p>
-      <h1>Politique de confidentialité</h1>
+  <body class="legal-page">
+    <div class="legal-wrap">
+      <p class="legal-back"><a href="/">← Retour au site UKAN</a></p>
+
+      <nav class="legal-nav" aria-label="Pages légales UKAN">
+        <a href="/mentions-legales">Mentions légales</a>
+        <span aria-hidden>·</span>
+        <a href="/politique-de-confidentialite" aria-current="page">Confidentialité</a>
+        <span aria-hidden>·</span>
+        <a href="/politique-cookies">Cookies</a>
+        <span aria-hidden>·</span>
+        <a href="/cgu">CGU</a>
+      </nav>
+
+      <h1 class="legal-h1">Politique de confidentialité</h1>
+      <p class="legal-updated">Dernière mise à jour : <span class="field-placeholder">[À compléter : date]</span></p>
+
+      <p class="legal-intro">
+        La présente politique décrit comment <span class="field-placeholder">[À compléter : raison sociale]</span>
+        (ci-après « nous », « UKAN ») traite les données personnelles dans le cadre du site et des services
+        associés, conformément au Règlement (UE) 2016/679 (RGPD) et à la loi française « Informatique et Libertés ».
+      </p>
+
+      <h2 class="legal-h2">1. Responsable du traitement</h2>
       <p>
-        Cette page détaillera bientôt le traitement des données personnelles, les finalités, la durée de
-        conservation et vos droits (RGPD).
+        Le responsable du traitement est :<br />
+        <span class="field-placeholder">[À compléter : dénomination sociale, adresse du siège, SIREN]</span><br />
+        Contact données personnelles : <a class="legal-brand" href="mailto:hello@ukan.app">hello@ukan.app</a><br />
+        Délégué à la protection des données (DPO) : <span class="field-placeholder">[À compléter ou « non désigné »]</span>
+      </p>
+
+      <h2 class="legal-h2">2. Données collectées</h2>
+      <p>Selon vos interactions avec le Site et les formulaires, nous pouvons collecter notamment :</p>
+      <ul>
+        <li>
+          <strong>Données d’identification et de contact</strong> : nom, prénom, adresse e-mail, ville, pays,
+          profil (sportif / coach), informations relatives à votre inscription à la liste d’attente ou à la bêta ;
+        </li>
+        <li>
+          <strong>Données relatives à l’usage du service</strong> (lorsque l’application sera disponible) :
+          <span class="field-placeholder">[À compléter : types de données — ex. objectifs sportifs, préférences]</span> ;
+        </li>
+        <li>
+          <strong>Données techniques</strong> : adresse IP, identifiants de connexion, journaux techniques, type de
+          navigateur, données issues des cookies et traceurs (voir la
+          <a href="/politique-cookies">Politique cookies</a>) ;
+        </li>
+        <li>
+          <strong>Données de communication</strong> : messages que vous nous adressez.
+        </li>
+      </ul>
+
+      <h2 class="legal-h2">3. Finalités et bases légales</h2>
+      <div class="legal-table-wrap">
+        <table class="legal-table">
+          <thead>
+            <tr>
+              <th>Finalité</th>
+              <th>Base légale (RGPD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Gestion des inscriptions, liste d’attente, communication sur le lancement du service</td>
+              <td>Exécution de mesures précontractuelles / contrat ; consentement lorsque requis</td>
+            </tr>
+            <tr>
+              <td>Réponse aux demandes de contact</td>
+              <td>Intérêt légitime / consentement</td>
+            </tr>
+            <tr>
+              <td>Amélioration du Site, statistiques d’audience, sécurité et prévention de la fraude</td>
+              <td>Intérêt légitime ; consentement pour cookies non nécessaires</td>
+            </tr>
+            <tr>
+              <td>Respect des obligations légales (comptabilité, réclamations, etc.)</td>
+              <td>Obligation légale</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="field-placeholder">[À compléter : autres finalités spécifiques à votre activité]</span>
+              </td>
+              <td><span class="field-placeholder">[À compléter]</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="legal-h2">4. Destinataires des données</h2>
+      <p>
+        Les données sont accessibles aux personnes habilitées au sein de l’éditeur et peuvent être communiquées à
+        nos sous-traitants strictement nécessaires à la fourniture du service (hébergement, envoi d’e-mails,
+        outils d’analyse, etc.), dans le respect de contrats conformes au RGPD.
       </p>
       <p>
-        Contact : <a class="brand" href="mailto:hello@ukan.app">hello@ukan.app</a>
+        Liste indicative des sous-traitants : <span class="field-placeholder">[À compléter : noms et rôles]</span>
+      </p>
+
+      <h2 class="legal-h2">5. Transferts hors de l’Espace économique européen</h2>
+      <p>
+        Certains prestataires peuvent être situés hors EEE (ex. hébergement cloud). Le cas échéant, nous mettons en
+        œuvre des garanties appropriées (clauses contractuelles types de la Commission européenne, etc.).
+        <span class="field-placeholder">[À compléter selon vos prestataires effectifs]</span>
+      </p>
+
+      <h2 class="legal-h2">6. Durées de conservation</h2>
+      <ul>
+        <li>
+          Données de prospection / liste d’attente : <span class="field-placeholder">[À compléter — ex. durée max ou 3 ans à compter du dernier contact]</span> ;
+        </li>
+        <li>Données de compte utilisateur (application) : durée du compte + <span class="field-placeholder">[À compléter]</span> après clôture ;</li>
+        <li>Preuves et obligations légales : durées imposées par la loi ;</li>
+        <li>Journaux techniques : <span class="field-placeholder">[À compléter — ex. 12 mois]</span>.</li>
+      </ul>
+
+      <h2 class="legal-h2">7. Vos droits</h2>
+      <p>Vous disposez des droits suivants, dans les conditions prévues par la réglementation :</p>
+      <ul>
+        <li>Droit d’accès, de rectification et d’effacement (« droit à l’oubli ») ;</li>
+        <li>Droit à la limitation du traitement ;</li>
+        <li>Droit à la portabilité des données ;</li>
+        <li>Droit d’opposition, notamment à la prospection commerciale ;</li>
+        <li>Droit de retirer votre consentement à tout moment lorsque le traitement est fondé sur le consentement ;</li>
+        <li>Droit d’introduire une réclamation auprès de la CNIL (<a href="https://www.cnil.fr" rel="noopener noreferrer" target="_blank">www.cnil.fr</a>).</li>
+      </ul>
+      <p>
+        Pour exercer vos droits : <a class="legal-brand" href="mailto:hello@ukan.app">hello@ukan.app</a>. Une pièce
+        d’identité peut être demandée en cas de doute raisonnable sur votre identité.
+      </p>
+
+      <h2 class="legal-h2">8. Sécurité</h2>
+      <p>
+        Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger les données
+        contre la destruction accidentelle ou illicite, la perte, l’altération, la divulgation ou l’accès non
+        autorisé. <span class="field-placeholder">[À compléter : précisions sur chiffrement, accès, sauvegardes si souhaité]</span>
+      </p>
+
+      <h2 class="legal-h2">9. Mineurs</h2>
+      <p>
+        Le Site n’est pas destiné aux mineurs de moins de <span class="field-placeholder">[À compléter — ex. 15 ou 16 ans selon votre politique]</span> sans autorisation parentale. <span class="field-placeholder">[À adapter]</span>
+      </p>
+
+      <h2 class="legal-h2">10. Modifications</h2>
+      <p>
+        Cette politique peut être mise à jour. La date de dernière mise à jour figure en haut de page ; nous vous
+        invitons à la consulter régulièrement.
+      </p>
+
+      <p class="legal-contact">
+        Contact : <a class="legal-brand" href="mailto:hello@ukan.app">hello@ukan.app</a>
       </p>
     </div>
   </body>
