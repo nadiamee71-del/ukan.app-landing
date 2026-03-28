@@ -14,7 +14,7 @@ const GOOGLE_PLAY_URL = "#inscription";
 
 /** Réseaux & contact — à mettre à jour avec les URLs officielles UKAN */
 const SOCIAL_LINKS = {
-  instagram: "https://www.instagram.com/ukan.app/",
+  instagram: "mailto:hello@ukan.app",
   linkedin: "https://www.linkedin.com/company/ukan",
   tiktok: "https://www.tiktok.com/@ukan.app",
   email: "mailto:contact@ukan.app",

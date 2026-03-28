@@ -62,8 +62,12 @@ const ICON_BY_ID = {
 export function SocialLinks({ links }) {
   const { instagram, linkedin, tiktok, email } = links;
 
+  const instagramLabel = String(instagram).startsWith("mailto:")
+    ? `Écrire à ${String(instagram).replace(/^mailto:/i, "")}`
+    : "UKAN sur Instagram";
+
   const items = [
-    { id: "instagram", href: instagram, label: "UKAN sur Instagram" },
+    { id: "instagram", href: instagram, label: instagramLabel },
     { id: "linkedin", href: linkedin, label: "UKAN sur LinkedIn" },
     { id: "tiktok", href: tiktok, label: "UKAN sur TikTok" },
     { id: "mail", href: email, label: "Contacter UKAN par e-mail" },
