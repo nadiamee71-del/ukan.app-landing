@@ -42,6 +42,7 @@
   color: var(--nc-text);
   font-family: "Inter", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 /* —— Icônes aliments : volume cartoon 3D soft (homogène, pas emoji / pas flat pur) —— */
@@ -137,16 +138,28 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.42rem;
-  align-items: end;
+  align-items: start;
   margin-bottom: 0.22rem;
 }
 
-/* 3 zones côte à côte dès les petits mobiles — moins de hauteur qu’en colonne */
+/* 3 zones côte à côte : verre & dessert en haut → place pour assiette plus grande */
 @media (min-width: 300px) {
   .nc-meal-stage {
-    /* Colonnes latérales plus étroites → assiette plus large */
-    grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.88fr) minmax(0, 0.62fr);
-    gap: 0.28rem 0.32rem;
+    grid-template-columns: minmax(0, 0.5fr) minmax(0, 2fr) minmax(0, 0.5fr);
+    gap: 0.24rem 0.28rem;
+    align-items: start;
+  }
+
+  .nc-slot--glass,
+  .nc-slot--dessert {
+    align-self: start;
+    padding-top: 0;
+    gap: 0.08rem;
+  }
+
+  .nc-slot--plate {
+    justify-self: stretch;
+    width: 100%;
   }
 }
 
@@ -595,16 +608,16 @@
 
 .nc-slot--plate .nc-plate {
   margin: 0 auto;
-  width: min(100%, 13.25rem);
+  width: min(100%, 14.5rem);
 }
 
-/* Assiette — plus grande pour afficher plus d’aliments lisiblement */
+/* Assiette — maximisée dans la carte (verre/dessert remontés en haut de la grille) */
 .nc-plate {
   --nc-plate-fill: 0;
   position: relative;
-  margin: 0 auto 0.45rem;
-  width: min(100%, 13.5rem);
-  aspect-ratio: 1.48 / 1;
+  margin: 0 auto 0.35rem;
+  width: min(100%, 14.75rem);
+  aspect-ratio: 1.42 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -671,10 +684,10 @@
 .nc-plate__inner {
   position: relative;
   z-index: 3;
-  padding: 0.42rem 0.48rem 0.5rem;
+  padding: 0.38rem 0.42rem 0.45rem;
   text-align: center;
-  width: 92%;
-  max-height: 90%;
+  width: 94%;
+  max-height: 94%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -688,26 +701,23 @@
   max-width: 12ch;
 }
 
-/* Grille d’icônes dans l’assiette — plus de hauteur, rangées centrées */
+/* Grille d’icônes dans l’assiette — pas de barre de défilement (découpe douce par l’ovale) */
 .nc-plate-chips {
   display: flex;
   flex-wrap: wrap;
   align-content: center;
   justify-content: center;
   align-items: stretch;
-  gap: 0.34rem 0.38rem;
+  gap: 0.3rem 0.34rem;
   width: 100%;
-  max-height: 7.25rem;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 0.12rem 0.08rem 0.15rem;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
+  max-height: none;
+  overflow: visible;
+  padding: 0.08rem 0.06rem 0.1rem;
 }
 
 .nc-plate-chips--compact {
-  gap: 0.26rem 0.3rem;
-  max-height: 7.5rem;
+  gap: 0.22rem 0.26rem;
+  max-height: none;
 }
 
 .nc-plate-chips--compact .nc-plate-chip {
@@ -1127,18 +1137,20 @@
   }
 
   .nc-meal-stage {
-    gap: 0.24rem 0.3rem;
+    align-items: start;
+    grid-template-columns: minmax(0, 0.48fr) minmax(0, 2.04fr) minmax(0, 0.48fr);
+    gap: 0.18rem 0.22rem;
     margin-bottom: 0.14rem;
+  }
+
+  .nc-slot--glass,
+  .nc-slot--dessert {
+    gap: 0.06rem;
   }
 
   .nc-slot__label {
     font-size: 0.5rem;
     letter-spacing: 0.1em;
-  }
-
-  .nc-meal-stage {
-    grid-template-columns: minmax(0, 0.58fr) minmax(0, 1.92fr) minmax(0, 0.58fr);
-    gap: 0.2rem 0.24rem;
   }
 
   .nc-glass {
@@ -1177,17 +1189,18 @@
   }
 
   .nc-slot--plate .nc-plate {
-    width: min(100%, 10.5rem);
+    width: min(100%, 11.35rem);
   }
 
   .nc-plate {
-    width: min(100%, 10.5rem);
+    width: min(100%, 11.35rem);
     margin-bottom: 0;
+    aspect-ratio: 1.4 / 1;
   }
 
   .nc-plate__inner {
-    max-height: 91%;
-    padding: 0.35rem 0.38rem 0.42rem;
+    max-height: 94%;
+    padding: 0.32rem 0.34rem 0.38rem;
   }
 
   .nc-plate__hint {
@@ -1195,12 +1208,13 @@
   }
 
   .nc-plate-chips {
-    max-height: 6.35rem;
-    gap: 0.22rem 0.26rem;
+    max-height: none;
+    overflow: visible;
+    gap: 0.2rem 0.22rem;
   }
 
   .nc-plate-chips--compact {
-    max-height: 6.65rem;
+    max-height: none;
   }
 
   .nc-plate-chip {
