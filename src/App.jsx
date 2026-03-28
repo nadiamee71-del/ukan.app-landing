@@ -733,6 +733,9 @@ export default function App() {
             <h2 className="lp-h2 lp-nutri-calc__title" id="nutri-calc-title">
               Reprends le <span className="lp-hero__accent">contrôle</span> jusqu’à dans ton assiette
             </h2>
+            <p className="lp-nutri-calc__subtitle">
+              Teste cette <span className="lp-nutri-calc__subtitle-accent">calculette intelligente</span> ci-dessous
+            </p>
             <NutritionCalculator />
           </div>
         </section>
@@ -785,43 +788,8 @@ export default function App() {
               {role === "coach" ? (
                 <>
                   <p className="lp-pricing-bar__label lp-pricing-bar__label--premium" id="pricing-bar-label">
-                    Élèves couverts par votre forfait
+                    Choisissez votre forfait
                   </p>
-                  <div className="lp-pricing-bar__value-row lp-pricing-bar__value-row--premium-coach">
-                    <output
-                      className="lp-pricing-bar__value lp-pricing-bar__value--premium-coach"
-                      htmlFor="pricing-students-range"
-                    >
-                      {coachStudentTierLabel(activePricingPlan)}
-                    </output>
-                    <span className="lp-pricing-bar__hint lp-pricing-bar__hint--premium">
-                      {activeCoachStudentThreshold != null
-                        ? "élèves maximum"
-                        : "Offre entreprise — sur devis"}
-                    </span>
-                  </div>
-
-                  <div className="lp-pricing-pills" role="tablist" aria-label="Nombre d’élèves par forfait">
-                    {PRICING_PLANS.map((plan, i) => (
-                      <button
-                        key={plan.id}
-                        type="button"
-                        role="tab"
-                        id={`coach-tier-tab-${i}`}
-                        aria-selected={coachPlanIdx === i}
-                        aria-controls="coach-pricing-panel"
-                        className={`lp-pricing-pill ${coachPlanIdx === i ? "is-active" : ""}`}
-                        onClick={() => setCoachPlanIdx(i)}
-                        aria-label={
-                          plan.studentCount != null
-                            ? `Jusqu’à ${plan.studentCount} élèves`
-                            : "Plus de 100 élèves — offre entreprise"
-                        }
-                      >
-                        {coachStudentTierLabel(plan)}
-                      </button>
-                    ))}
-                  </div>
 
                   <div className="lp-pricing-premium-track lp-pricing-premium-track--coach">
                     <input
@@ -841,19 +809,35 @@ export default function App() {
                     />
                   </div>
 
-                  <div className="lp-pricing-bar__segments lp-pricing-bar__segments--premium" aria-hidden="true">
-                    {PRICING_BAR_SEGMENTS.map((seg) => (
-                      <div
-                        key={seg.id}
-                        className={`lp-pricing-bar__segment ${activePricingPlan.id === seg.id ? "is-active" : ""}`}
-                        style={{ flex: seg.flex }}
+                  <div
+                    className="lp-pricing-bar__segments lp-pricing-bar__segments--premium lp-pricing-bar__segments--sportif"
+                    role="tablist"
+                    aria-label="Nombre d'élèves par forfait"
+                  >
+                    {PRICING_PLANS.map((plan, i) => (
+                      <button
+                        key={plan.id}
+                        type="button"
+                        role="tab"
+                        id={`coach-tier-tab-${i}`}
+                        aria-selected={coachPlanIdx === i}
+                        aria-controls="coach-pricing-panel"
+                        className={`lp-pricing-bar__segment ${coachPlanIdx === i ? "is-active" : ""}`}
+                        style={{ flex: 1 }}
+                        onClick={() => setCoachPlanIdx(i)}
+                        aria-label={
+                          plan.studentCount != null
+                            ? `Jusqu'à ${plan.studentCount} élèves`
+                            : "Plus de 100 élèves — offre entreprise"
+                        }
                       >
                         <span className="lp-pricing-bar__segment-name">
-                          {coachStudentTierLabel(PRICING_PLANS.find((p) => p.id === seg.id))}
+                          {coachStudentTierLabel(plan)}
                         </span>
-                      </div>
+                      </button>
                     ))}
                   </div>
+
 
                   <div className="lp-pricing-premium-card-shell">
                     <article

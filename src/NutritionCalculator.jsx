@@ -3,53 +3,63 @@ import { FoodIcon } from "./FoodIcons.jsx";
 import "./nutrition-calculator.css";
 
 /** zone: plate = assiette, drink = verre, dessert = zone dessert — kcal pour le calcul final uniquement */
+/** defaultUnit: unité auto-sélectionnée quand on choisit cet aliment */
 const FOODS = [
-  /* Féculents */
-  { id: "rice", name: "Riz", shortLabel: "Riz", kcalPer100: 130, zone: "plate" },
-  { id: "spaghetti", name: "Pâtes", shortLabel: "Pâtes", kcalPer100: 158, zone: "plate" },
-  { id: "fries", name: "Frites", shortLabel: "Frites", kcalPer100: 312, zone: "plate" },
-  { id: "potato", name: "Pommes de terre", shortLabel: "Pommes de terre", kcalPer100: 77, zone: "plate" },
-  { id: "quinoa", name: "Quinoa", shortLabel: "Quinoa", kcalPer100: 120, zone: "plate" },
-  { id: "semoule", name: "Semoule", shortLabel: "Semoule", kcalPer100: 360, zone: "plate" },
-  { id: "bread", name: "Pain", shortLabel: "Pain", kcalPer100: 265, zone: "plate" },
-  { id: "sweet_potato", name: "Patate douce", shortLabel: "Patate douce", kcalPer100: 86, zone: "plate" },
-  /* Légumes */
-  { id: "broccoli", name: "Brocoli", shortLabel: "Brocoli", kcalPer100: 34, zone: "plate" },
-  { id: "carrot", name: "Carotte", shortLabel: "Carotte", kcalPer100: 41, zone: "plate" },
-  { id: "tomato", name: "Tomate", shortLabel: "Tomate", kcalPer100: 18, zone: "plate" },
-  { id: "zucchini", name: "Courgette", shortLabel: "Courgette", kcalPer100: 17, zone: "plate" },
-  { id: "pepper", name: "Poivron", shortLabel: "Poivron", kcalPer100: 31, zone: "plate" },
-  { id: "green_beans", name: "Haricots verts", shortLabel: "Haricots verts", kcalPer100: 31, zone: "plate" },
-  { id: "eggplant", name: "Aubergine", shortLabel: "Aubergine", kcalPer100: 25, zone: "plate" },
-  { id: "cucumber", name: "Concombre", shortLabel: "Concombre", kcalPer100: 16, zone: "plate" },
-  /* Protéines */
-  { id: "chicken", name: "Poulet", shortLabel: "Poulet", kcalPer100: 165, zone: "plate" },
-  { id: "steak", name: "Steak", shortLabel: "Steak", kcalPer100: 250, zone: "plate" },
-  { id: "fish", name: "Poisson", shortLabel: "Poisson", kcalPer100: 150, zone: "plate" },
-  { id: "egg", name: "Œuf", shortLabel: "Œuf", kcalPer100: 155, zone: "plate" },
-  { id: "turkey", name: "Dinde", shortLabel: "Dinde", kcalPer100: 135, zone: "plate" },
-  { id: "salmon", name: "Saumon", shortLabel: "Saumon", kcalPer100: 208, zone: "plate" },
-  { id: "tuna", name: "Thon", shortLabel: "Thon", kcalPer100: 130, zone: "plate" },
-  { id: "tofu", name: "Tofu", shortLabel: "Tofu", kcalPer100: 76, zone: "plate" },
-  /* Boissons */
-  { id: "water", name: "Eau", shortLabel: "Eau", kcalPer100: 0, perVolume: true, zone: "drink" },
-  { id: "milk", name: "Lait", shortLabel: "Lait", kcalPer100: 42, perVolume: true, zone: "drink" },
-  { id: "juice", name: "Jus", shortLabel: "Jus", kcalPer100: 45, perVolume: true, zone: "drink" },
-  { id: "soda", name: "Soda", shortLabel: "Soda", kcalPer100: 42, perVolume: true, zone: "drink" },
-  { id: "coffee", name: "Café", shortLabel: "Café", kcalPer100: 2, perVolume: true, zone: "drink" },
-  { id: "tea", name: "Thé", shortLabel: "Thé", kcalPer100: 1, perVolume: true, zone: "drink" },
-  { id: "smoothie", name: "Smoothie", shortLabel: "Smoothie", kcalPer100: 60, perVolume: true, zone: "drink" },
-  { id: "energy_drink", name: "Boisson énergétique", shortLabel: "Boisson énergétique", kcalPer100: 45, perVolume: true, zone: "drink" },
-  /* Desserts */
-  { id: "cake", name: "Gâteau", shortLabel: "Gâteau", kcalPer100: 320, zone: "dessert" },
-  { id: "fruit", name: "Fruit", shortLabel: "Fruit", kcalPer100: 52, zone: "dessert" },
-  { id: "yogurt", name: "Yaourt", shortLabel: "Yaourt", kcalPer100: 59, zone: "dessert" },
-  { id: "chocolate_bar", name: "Chocolat", shortLabel: "Chocolat", kcalPer100: 545, zone: "dessert" },
-  { id: "ice_cream", name: "Glace", shortLabel: "Glace", kcalPer100: 207, zone: "dessert" },
-  { id: "biscuit", name: "Biscuit", shortLabel: "Biscuit", kcalPer100: 480, zone: "dessert" },
-  { id: "pancake", name: "Pancake", shortLabel: "Pancake", kcalPer100: 227, zone: "dessert" },
-  { id: "muffin", name: "Muffin", shortLabel: "Muffin", kcalPer100: 377, zone: "dessert" },
+  /* Féculents — grammes */
+  { id: "rice", name: "Riz", shortLabel: "Riz", kcalPer100: 130, zone: "plate", defaultUnit: "g" },
+  { id: "spaghetti", name: "Pâtes", shortLabel: "Pâtes", kcalPer100: 158, zone: "plate", defaultUnit: "g" },
+  { id: "fries", name: "Frites", shortLabel: "Frites", kcalPer100: 312, zone: "plate", defaultUnit: "g" },
+  { id: "potato", name: "Pommes de terre", shortLabel: "Pommes de terre", kcalPer100: 77, zone: "plate", defaultUnit: "g" },
+  { id: "quinoa", name: "Quinoa", shortLabel: "Quinoa", kcalPer100: 120, zone: "plate", defaultUnit: "g" },
+  { id: "semoule", name: "Semoule", shortLabel: "Semoule", kcalPer100: 360, zone: "plate", defaultUnit: "g" },
+  { id: "bread", name: "Pain", shortLabel: "Pain", kcalPer100: 265, zone: "plate", defaultUnit: "g" },
+  { id: "sweet_potato", name: "Patate douce", shortLabel: "Patate douce", kcalPer100: 86, zone: "plate", defaultUnit: "g" },
+  /* Légumes — grammes */
+  { id: "broccoli", name: "Brocoli", shortLabel: "Brocoli", kcalPer100: 34, zone: "plate", defaultUnit: "g" },
+  { id: "carrot", name: "Carotte", shortLabel: "Carotte", kcalPer100: 41, zone: "plate", defaultUnit: "g" },
+  { id: "tomato", name: "Tomate", shortLabel: "Tomate", kcalPer100: 18, zone: "plate", defaultUnit: "g" },
+  { id: "zucchini", name: "Courgette", shortLabel: "Courgette", kcalPer100: 17, zone: "plate", defaultUnit: "g" },
+  { id: "pepper", name: "Poivron", shortLabel: "Poivron", kcalPer100: 31, zone: "plate", defaultUnit: "g" },
+  { id: "green_beans", name: "Haricots verts", shortLabel: "Haricots verts", kcalPer100: 31, zone: "plate", defaultUnit: "g" },
+  { id: "eggplant", name: "Aubergine", shortLabel: "Aubergine", kcalPer100: 25, zone: "plate", defaultUnit: "g" },
+  { id: "cucumber", name: "Concombre", shortLabel: "Concombre", kcalPer100: 16, zone: "plate", defaultUnit: "g" },
+  /* Protéines — grammes */
+  { id: "chicken", name: "Poulet", shortLabel: "Poulet", kcalPer100: 165, zone: "plate", defaultUnit: "g" },
+  { id: "steak", name: "Steak", shortLabel: "Steak", kcalPer100: 250, zone: "plate", defaultUnit: "g" },
+  { id: "fish", name: "Poisson", shortLabel: "Poisson", kcalPer100: 150, zone: "plate", defaultUnit: "g" },
+  { id: "egg", name: "Œuf", shortLabel: "Œuf", kcalPer100: 155, zone: "plate", defaultUnit: "g" },
+  { id: "turkey", name: "Dinde", shortLabel: "Dinde", kcalPer100: 135, zone: "plate", defaultUnit: "g" },
+  { id: "salmon", name: "Saumon", shortLabel: "Saumon", kcalPer100: 208, zone: "plate", defaultUnit: "g" },
+  { id: "tuna", name: "Thon", shortLabel: "Thon", kcalPer100: 130, zone: "plate", defaultUnit: "g" },
+  { id: "tofu", name: "Tofu", shortLabel: "Tofu", kcalPer100: 76, zone: "plate", defaultUnit: "g" },
+  /* Boissons — ml pour verre, cl pour canette */
+  { id: "water", name: "Eau", shortLabel: "Eau", kcalPer100: 0, perVolume: true, zone: "drink", defaultUnit: "ml" },
+  { id: "milk", name: "Lait", shortLabel: "Lait", kcalPer100: 42, perVolume: true, zone: "drink", defaultUnit: "ml" },
+  { id: "juice", name: "Jus", shortLabel: "Jus", kcalPer100: 45, perVolume: true, zone: "drink", defaultUnit: "ml" },
+  { id: "soda", name: "Soda", shortLabel: "Soda", kcalPer100: 42, perVolume: true, zone: "drink", defaultUnit: "cl" },
+  { id: "coffee", name: "Café", shortLabel: "Café", kcalPer100: 2, perVolume: true, zone: "drink", defaultUnit: "ml" },
+  { id: "tea", name: "Thé", shortLabel: "Thé", kcalPer100: 1, perVolume: true, zone: "drink", defaultUnit: "ml" },
+  { id: "smoothie", name: "Smoothie", shortLabel: "Smoothie", kcalPer100: 60, perVolume: true, zone: "drink", defaultUnit: "ml" },
+  { id: "energy_drink", name: "Boisson énergétique", shortLabel: "Boisson énergétique", kcalPer100: 45, perVolume: true, zone: "drink", defaultUnit: "cl" },
+  /* Desserts — grammes */
+  { id: "cake", name: "Gâteau", shortLabel: "Gâteau", kcalPer100: 320, zone: "dessert", defaultUnit: "g" },
+  { id: "fruit", name: "Fruit", shortLabel: "Fruit", kcalPer100: 52, zone: "dessert", defaultUnit: "g" },
+  { id: "yogurt", name: "Yaourt", shortLabel: "Yaourt", kcalPer100: 59, zone: "dessert", defaultUnit: "g" },
+  { id: "chocolate_bar", name: "Chocolat", shortLabel: "Chocolat", kcalPer100: 545, zone: "dessert", defaultUnit: "g" },
+  { id: "ice_cream", name: "Glace", shortLabel: "Glace", kcalPer100: 207, zone: "dessert", defaultUnit: "g" },
+  { id: "biscuit", name: "Biscuit", shortLabel: "Biscuit", kcalPer100: 480, zone: "dessert", defaultUnit: "g" },
+  { id: "pancake", name: "Pancake", shortLabel: "Pancake", kcalPer100: 227, zone: "dessert", defaultUnit: "g" },
+  { id: "muffin", name: "Muffin", shortLabel: "Muffin", kcalPer100: 377, zone: "dessert", defaultUnit: "g" },
 ];
+
+/** Unité par défaut par catégorie (utilisée au changement d'onglet) */
+const CATEGORY_DEFAULT_UNIT = {
+  starches: "g",
+  vegetables: "g",
+  protein: "g",
+  drinks: "ml",
+  sweet: "g",
+};
 
 /** Catégories : 8 aliments chacune, grille unique (pas de carrousel interne) */
 const FOOD_ROWS = [
@@ -224,6 +234,8 @@ export function NutritionCalculator() {
   const [lastAddedId, setLastAddedId] = useState(null);
   const [calc, dispatch] = useReducer(calcReducer, calcInitial);
   const [categoryIndex, setCategoryIndex] = useState(0);
+  const [hasPickedTab, setHasPickedTab] = useState(false);
+  const [unitHintDone, setUnitHintDone] = useState(false);
   const pickerScrollRef = useRef(null);
   const scrollSettleRef = useRef(null);
   const landTimerRef = useRef(null);
@@ -253,6 +265,25 @@ export function NutritionCalculator() {
   const quantity = useMemo(() => parseQuantityFromDisplay(calc.display), [calc.display]);
   const canAdd = Boolean(selectedFood && quantity !== null);
 
+  useEffect(() => {
+    if (!selectedId) { setUnitHintDone(false); return; }
+    const t = setTimeout(() => setUnitHintDone(true), 2000);
+    return () => clearTimeout(t);
+  }, [selectedId]);
+
+  const guideStep = useMemo(() => {
+    if (items.length > 0 && !selectedId) return 7;
+    if (!selectedId && !hasPickedTab) return 1;
+    if (!selectedId && hasPickedTab) return 2;
+    if (selectedId && !unitHintDone && calc.display === "0" && calc.fresh) return 3;
+    if (selectedId && quantity === null) return 4;
+    if (selectedId && quantity !== null) return 5;
+    return 0;
+  }, [selectedId, hasPickedTab, items.length, unitHintDone, calc.display, calc.fresh, quantity]);
+
+  const showEqPulse = !!lastAddedId;
+  const showHeartbeat = items.length > 0;
+
   const syncCategoryFromScroll = useCallback(() => {
     const el = pickerScrollRef.current;
     if (!el) return;
@@ -260,7 +291,16 @@ export function NutritionCalculator() {
     if (w <= 0) return;
     const idx = Math.round(el.scrollLeft / w);
     const next = Math.max(0, Math.min(FOOD_ROWS.length - 1, idx));
-    setCategoryIndex((c) => (c !== next ? next : c));
+    setCategoryIndex((prev) => {
+      if (prev !== next) {
+        const row = FOOD_ROWS[next];
+        if (row) {
+          const catUnit = CATEGORY_DEFAULT_UNIT[row.key];
+          if (catUnit) setUnitId(catUnit);
+        }
+      }
+      return next;
+    });
   }, []);
 
   useEffect(() => {
@@ -307,6 +347,12 @@ export function NutritionCalculator() {
     const w = el.clientWidth;
     el.scrollTo({ left: i * w, behavior: "smooth" });
     setCategoryIndex(i);
+    setHasPickedTab(true);
+    const row = FOOD_ROWS[i];
+    if (row) {
+      const catUnit = CATEGORY_DEFAULT_UNIT[row.key];
+      if (catUnit) setUnitId(catUnit);
+    }
   }, []);
 
   const clearAll = useCallback(() => {
@@ -316,6 +362,8 @@ export function NutritionCalculator() {
     setItems([]);
     setSelectedId(null);
     setUnitId("g");
+    setHasPickedTab(false);
+    setUnitHintDone(false);
     dispatch({ type: "clear" });
   }, []);
 
@@ -358,7 +406,7 @@ export function NutritionCalculator() {
     <div className="nc">
       <div className={`nc-plate-card${lastAddedId ? " nc-plate-card--bump" : ""}`}>
         <p className="nc-plate-card__total">
-          Total : <strong className="nc-total-kcal">{Math.round(animatedTotal * 10) / 10}</strong> kcal
+          Total : <strong className={`nc-total-kcal${showHeartbeat ? " nc-total-heartbeat" : ""}`}>{Math.round(animatedTotal * 10) / 10}</strong> kcal
         </p>
 
         <div className="nc-meal-stage" aria-hidden="true">
@@ -469,6 +517,9 @@ export function NutritionCalculator() {
 
       <div className="nc-picker-premium" role="region" aria-label="Choisir des aliments par catégorie">
         <div className="nc-picker-premium__head">
+          {guideStep === 1 && (
+            <p className="nc-guide nc-guide--category">Choisis une catégorie</p>
+          )}
           <div className="nc-cat-tabs" role="tablist" aria-label="Catégories d’aliments">
             {FOOD_ROWS.map((row, i) => (
               <button
@@ -487,6 +538,9 @@ export function NutritionCalculator() {
           </div>
         </div>
 
+        {guideStep === 2 && (
+          <p className="nc-guide nc-guide--food">Choisis un aliment</p>
+        )}
         <div className="nc-picker-premium__viewport">
           <div
             ref={pickerScrollRef}
@@ -512,7 +566,10 @@ export function NutritionCalculator() {
                         key={f.id}
                         type="button"
                         className={`nc-food nc-food--picker ${selectedId === f.id ? "is-selected" : ""}`}
-                        onClick={() => setSelectedId(f.id)}
+                        onClick={() => {
+                          setSelectedId(f.id);
+                          if (f.defaultUnit) setUnitId(f.defaultUnit);
+                        }}
                         aria-pressed={selectedId === f.id}
                         aria-label={f.name}
                       >
@@ -530,6 +587,9 @@ export function NutritionCalculator() {
         </div>
       </div>
 
+      {guideStep === 3 && (
+        <p className="nc-guide nc-guide--unit">Choisis l’unité</p>
+      )}
       <div className="nc-row-units" role="group" aria-label="Unité de mesure">
         {UNITS.map((u) => (
           <button
@@ -546,7 +606,7 @@ export function NutritionCalculator() {
 
       <button
         type="button"
-        className="nc-btn-add"
+        className={`nc-btn-add${guideStep === 5 ? " nc-btn-add--pulse" : ""}`}
         onClick={addItem}
         disabled={!canAdd}
         aria-disabled={!canAdd}
@@ -577,6 +637,9 @@ export function NutritionCalculator() {
         {selectedFood && calc.display === "Erreur" && "Calcul invalide — touchez C pour réinitialiser."}
       </p>
 
+      {guideStep === 4 && (
+        <p className="nc-guide nc-guide--quantity">Saisis la quantité</p>
+      )}
       <div className="nc-calc">
         <p className="nc-calc__label">Quantité</p>
         <div className="nc-calc__display" aria-live="polite">
@@ -631,7 +694,7 @@ export function NutritionCalculator() {
           <button type="button" className="nc-calc__btn nc-calc__btn--num" onClick={() => handleKey("3")}>
             3
           </button>
-          <button type="button" className="nc-calc__btn nc-calc__btn--eq" onClick={() => handleKey("=")}>
+          <button type="button" className={`nc-calc__btn nc-calc__btn--eq${showEqPulse ? " nc-calc__btn--eq-pulse" : ""}`} onClick={() => handleKey("=")}>
             =
           </button>
 
