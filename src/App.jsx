@@ -1159,8 +1159,21 @@ export default function App() {
             </div>
           </div>
           <SocialLinks links={SOCIAL_LINKS} />
+          <nav className="lp-footer__legal" aria-label="Informations légales">
+            <a href="/mentions-legales">Mentions légales</a>
+            <span className="lp-footer__legal-sep" aria-hidden>
+              ·
+            </span>
+            <a href="/politique-de-confidentialite">Politique de confidentialité</a>
+            <span className="lp-footer__legal-sep" aria-hidden>
+              ·
+            </span>
+            <a href="/cgu">Conditions d’utilisation</a>
+          </nav>
           <span className="lp-footer__copy">
-            © {new Date().getFullYear()} UKAN —{" "}
+            © {new Date().getFullYear()}{" "}
+            <span className="lp-footer__copy-brand">UKAN</span>
+            {" — "}
             {role === "coach" ? "Coaching, nutrition & activité pro." : "Sport, nutrition & progression."}
           </span>
         </div>

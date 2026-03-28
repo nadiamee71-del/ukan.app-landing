@@ -2569,7 +2569,7 @@ select {
 .lp-form__foot {
   margin: 0.4rem 0 0;
   font-size: 0.68rem;
-  color: var(--c-muted);
+  color: var(--c-orange);
   line-height: 1.5;
   text-align: center;
 }
@@ -2693,7 +2693,7 @@ select {
   align-items: center;
   gap: 1.15rem;
   font-size: 0.75rem;
-  color: var(--muted);
+  color: var(--c-text);
   text-align: center;
 }
 
@@ -2710,7 +2710,7 @@ select {
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: var(--muted);
+  color: var(--c-text);
   text-align: center;
   line-height: 1.45;
 }
@@ -2718,8 +2718,8 @@ select {
 .lp-footer__stores-platforms {
   font-family: var(--font-head);
   font-weight: 800;
-  color: #ffc83d;
-  text-shadow: 0 0 24px rgba(255, 200, 61, 0.35);
+  color: var(--c-yellow);
+  text-shadow: 0 0 20px rgba(246, 197, 68, 0.4);
 }
 
 .lp-footer__stores-badges {
@@ -2738,6 +2738,44 @@ select {
   gap: 0.65rem 1rem;
   width: 100%;
   margin-top: 0.15rem;
+}
+
+.lp-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem 0.45rem;
+  max-width: 26rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.lp-footer__legal a {
+  color: var(--c-orange);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.lp-footer__legal a:hover {
+  color: var(--c-red);
+  border-bottom-color: rgba(255, 77, 77, 0.45);
+}
+
+.lp-footer__legal a:focus-visible {
+  outline: 2px solid var(--c-orange);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.lp-footer__legal-sep {
+  color: var(--c-yellow);
+  font-weight: 800;
+  user-select: none;
 }
 
 .lp-social-link {
@@ -2788,6 +2826,14 @@ select {
   display: block;
   max-width: 36rem;
   line-height: 1.5;
+  color: var(--c-muted);
+}
+
+.lp-footer__copy-brand {
+  font-family: var(--font-head);
+  font-weight: 800;
+  color: var(--c-orange);
+  letter-spacing: -0.02em;
 }
 
 @media (min-width: 640px) {
