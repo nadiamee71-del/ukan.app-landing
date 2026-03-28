@@ -564,7 +564,14 @@ export default function App() {
               <div className="lp-hero__device-glow" aria-hidden="true" />
               <div className="lp-hero__device">
                 <div className="lp-hero__device-screen">
-                  <video autoPlay muted loop playsInline preload="metadata">
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    onEnded={(e) => { e.target.currentTime = 0; e.target.play(); }}
+                  >
                     <source src={demoVideo} type="video/mp4" />
                   </video>
                 </div>
