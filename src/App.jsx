@@ -515,7 +515,7 @@ export default function App() {
       <header className="lp-header">
         <div className="lp-wrap lp-header__inner">
           <a href="#top" className="lp-brand">
-            <img src={logoSrc} alt="UKAN" className="lp-brand__logo" width={48} height={48} />
+            <img src={logoSrc} alt="UKAN" className="lp-brand__logo" width={64} height={64} />
             <div>
               <span className="lp-brand__name">UKAN</span>
               <span className="lp-brand__tag">Liste d’attente</span>
