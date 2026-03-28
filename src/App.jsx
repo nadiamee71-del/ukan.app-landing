@@ -572,7 +572,9 @@ export default function App() {
               Pourquoi UKAN change la <span className="lp-txt-green">donne</span>
             </h2>
             <p className="lp-sub lp-sub--wow">
-              <strong>Une app claire.</strong> Une expérience simple, fluide et efficace.
+              <strong>Une app claire.</strong>
+              <br />
+              Une expérience simple, fluide et efficace.
             </p>
 
             <div className="lp-showcase">

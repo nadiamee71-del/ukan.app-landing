@@ -824,22 +824,15 @@ select {
   transform: translateY(0);
 }
 
-/* Band « Pourquoi UKAN » — dégradé rouge rosé + touche orange */
+/* Band « Pourquoi UKAN » — fond blanc ; accents rouge-orange conservés sur le showcase */
 .lp-band {
   --band-accent: #dc2626;
   --band-accent-mid: #ea580c;
   --band-accent-soft: rgba(220, 38, 38, 0.14);
   padding: clamp(3rem, 8vw, 5rem) 0;
-  background: linear-gradient(
-    168deg,
-    #fff8f7 0%,
-    #ffebee 28%,
-    #ffcdd2 55%,
-    #ffccbc 82%,
-    #ffe8d5 100%
-  );
-  border-top: 1px solid rgba(248, 113, 113, 0.22);
-  border-bottom: 1px solid rgba(251, 146, 60, 0.28);
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .lp-band .lp-h2 .lp-txt-green {
@@ -944,19 +937,15 @@ select {
   position: relative;
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: var(--surface);
+  background: #ffffff;
   overflow: hidden;
   min-height: 220px;
   padding: clamp(1.5rem, 4vw, 2.25rem) clamp(1.25rem, 3vw, 2rem) 3.25rem;
 }
 
+/* Voile retiré : fond carte showcase strictement blanc */
 .lp-showcase__glow {
-  position: absolute;
-  inset: -40% -20% auto;
-  height: 120%;
-  background: radial-gradient(ellipse at 50% 0%, rgba(0, 0, 0, 0.04), transparent 58%);
-  pointer-events: none;
-  opacity: 0.95;
+  display: none;
 }
 
 .lp-showcase__card {
