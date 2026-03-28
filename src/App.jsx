@@ -368,6 +368,12 @@ function pricingPerStudent(plan, billing, studentsFollowed) {
   return per.toFixed(2).replace(".", ",");
 }
 
+/** Affichage palier coach : chiffres d’élèves, +100 pour l’offre entreprise */
+function coachStudentTierLabel(plan) {
+  if (!plan) return "";
+  return plan.studentCount != null ? String(plan.studentCount) : "+100";
+}
+
 /** Largeurs relatives des segments sur la barre (1–120 élèves) */
 const PRICING_BAR_SEGMENTS = [
   { id: "starter", flex: 5 },
@@ -778,21 +784,23 @@ export default function App() {
               {role === "coach" ? (
                 <>
                   <p className="lp-pricing-bar__label lp-pricing-bar__label--premium" id="pricing-bar-label">
-                    Nombre d’élèves suivis
+                    Élèves couverts par votre forfait
                   </p>
                   <div className="lp-pricing-bar__value-row lp-pricing-bar__value-row--premium-coach">
                     <output
                       className="lp-pricing-bar__value lp-pricing-bar__value--premium-coach"
                       htmlFor="pricing-students-range"
                     >
-                      {activeCoachStudentThreshold ?? "Illimité"}
+                      {coachStudentTierLabel(activePricingPlan)}
                     </output>
                     <span className="lp-pricing-bar__hint lp-pricing-bar__hint--premium">
-                      {activeCoachStudentThreshold ? "élèves max" : "sans limite"}
+                      {activeCoachStudentThreshold != null
+                        ? "élèves maximum"
+                        : "Offre entreprise — sur devis"}
                     </span>
                   </div>
 
-                  <div className="lp-pricing-pills" role="tablist" aria-label="Formules coach">
+                  <div className="lp-pricing-pills" role="tablist" aria-label="Nombre d’élèves par forfait">
                     {PRICING_PLANS.map((plan, i) => (
                       <button
                         key={plan.id}
@@ -803,8 +811,13 @@ export default function App() {
                         aria-controls="coach-pricing-panel"
                         className={`lp-pricing-pill ${coachPlanIdx === i ? "is-active" : ""}`}
                         onClick={() => setCoachPlanIdx(i)}
+                        aria-label={
+                          plan.studentCount != null
+                            ? `Jusqu’à ${plan.studentCount} élèves`
+                            : "Plus de 100 élèves — offre entreprise"
+                        }
                       >
-                        {plan.name}
+                        {coachStudentTierLabel(plan)}
                       </button>
                     ))}
                   </div>
@@ -822,9 +835,7 @@ export default function App() {
                       aria-valuemin={0}
                       aria-valuemax={PRICING_PLANS.length - 1}
                       aria-valuenow={coachPlanIdx}
-                      aria-valuetext={`${activePricingPlan.name} — ${activeCoachStudentThreshold ?? "illimité"} élève${
-                        activeCoachStudentThreshold && activeCoachStudentThreshold > 1 ? "s" : ""
-                      }`}
+                      aria-valuetext={`${coachStudentTierLabel(activePricingPlan)} élèves — ${activePricingPlan.name}`}
                       aria-labelledby="pricing-bar-label"
                     />
                   </div>
@@ -837,7 +848,7 @@ export default function App() {
                         style={{ flex: seg.flex }}
                       >
                         <span className="lp-pricing-bar__segment-name">
-                          {PRICING_PLANS.find((p) => p.id === seg.id)?.name ?? seg.id}
+                          {coachStudentTierLabel(PRICING_PLANS.find((p) => p.id === seg.id))}
                         </span>
                       </div>
                     ))}
