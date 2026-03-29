@@ -332,8 +332,8 @@ const PRICING_PLANS = [
 
 const PRICING_SPORTIF_PLANS = [
   {
-    id: "non-coaches",
-    name: "NON COACHES",
+    id: "freemium",
+    name: "FREEMIUM",
     monthlyLabel: "4,99€",
     features: ["Accès de base UKAN", "Suivi personnel essentiel"],
   },
