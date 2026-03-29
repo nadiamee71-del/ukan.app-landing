@@ -7,11 +7,11 @@ import "./nutrition-calculator.css";
 const FOODS = [
   /* Féculents — grammes */
   { id: "rice", name: "Riz", shortLabel: "Riz", kcalPer100: 130, zone: "plate", defaultUnit: "g" },
-  { id: "spaghetti", name: "Pâtes", shortLabel: "Pâtes", kcalPer100: 158, zone: "plate", defaultUnit: "g" },
+  { id: "spaghetti", name: "Pâtes", shortLabel: "Pâtes", kcalPer100: 131, zone: "plate", defaultUnit: "g" },
   { id: "fries", name: "Frites", shortLabel: "Frites", kcalPer100: 312, zone: "plate", defaultUnit: "g" },
   { id: "potato", name: "Pommes de terre", shortLabel: "Pommes de terre", kcalPer100: 77, zone: "plate", defaultUnit: "g" },
   { id: "quinoa", name: "Quinoa", shortLabel: "Quinoa", kcalPer100: 120, zone: "plate", defaultUnit: "g" },
-  { id: "semoule", name: "Semoule", shortLabel: "Semoule", kcalPer100: 360, zone: "plate", defaultUnit: "g" },
+  { id: "semoule", name: "Semoule", shortLabel: "Semoule", kcalPer100: 170, zone: "plate", defaultUnit: "g" },
   { id: "bread", name: "Pain", shortLabel: "Pain", kcalPer100: 265, zone: "plate", defaultUnit: "g" },
   { id: "sweet_potato", name: "Patate douce", shortLabel: "Patate douce", kcalPer100: 86, zone: "plate", defaultUnit: "g" },
   /* Légumes — grammes */
@@ -19,14 +19,14 @@ const FOODS = [
   { id: "carrot", name: "Carotte", shortLabel: "Carotte", kcalPer100: 41, zone: "plate", defaultUnit: "g" },
   { id: "tomato", name: "Tomate", shortLabel: "Tomate", kcalPer100: 18, zone: "plate", defaultUnit: "g" },
   { id: "zucchini", name: "Courgette", shortLabel: "Courgette", kcalPer100: 17, zone: "plate", defaultUnit: "g" },
-  { id: "pepper", name: "Poivron", shortLabel: "Poivron", kcalPer100: 31, zone: "plate", defaultUnit: "g" },
+  { id: "pepper", name: "Poivron", shortLabel: "Poivron", kcalPer100: 26, zone: "plate", defaultUnit: "g" },
   { id: "green_beans", name: "Haricots verts", shortLabel: "Haricots verts", kcalPer100: 31, zone: "plate", defaultUnit: "g" },
   { id: "eggplant", name: "Aubergine", shortLabel: "Aubergine", kcalPer100: 25, zone: "plate", defaultUnit: "g" },
-  { id: "cucumber", name: "Concombre", shortLabel: "Concombre", kcalPer100: 16, zone: "plate", defaultUnit: "g" },
+  { id: "cucumber", name: "Concombre", shortLabel: "Concombre", kcalPer100: 12, zone: "plate", defaultUnit: "g" },
   /* Protéines — grammes */
   { id: "chicken", name: "Poulet", shortLabel: "Poulet", kcalPer100: 165, zone: "plate", defaultUnit: "g" },
   { id: "steak", name: "Steak", shortLabel: "Steak", kcalPer100: 250, zone: "plate", defaultUnit: "g" },
-  { id: "fish", name: "Poisson", shortLabel: "Poisson", kcalPer100: 150, zone: "plate", defaultUnit: "g" },
+  { id: "fish", name: "Poisson", shortLabel: "Poisson", kcalPer100: 90, zone: "plate", defaultUnit: "g" },
   { id: "egg", name: "Œuf", shortLabel: "Œuf", kcalPer100: 155, zone: "plate", defaultUnit: "g" },
   { id: "turkey", name: "Dinde", shortLabel: "Dinde", kcalPer100: 135, zone: "plate", defaultUnit: "g" },
   { id: "salmon", name: "Saumon", shortLabel: "Saumon", kcalPer100: 208, zone: "plate", defaultUnit: "g" },
@@ -34,7 +34,7 @@ const FOODS = [
   { id: "tofu", name: "Tofu", shortLabel: "Tofu", kcalPer100: 76, zone: "plate", defaultUnit: "g" },
   /* Boissons — ml pour verre, cl pour canette */
   { id: "water", name: "Eau", shortLabel: "Eau", kcalPer100: 0, perVolume: true, zone: "drink", defaultUnit: "ml" },
-  { id: "milk", name: "Lait", shortLabel: "Lait", kcalPer100: 42, perVolume: true, zone: "drink", defaultUnit: "ml" },
+  { id: "milk", name: "Lait", shortLabel: "Lait", kcalPer100: 46, perVolume: true, zone: "drink", defaultUnit: "ml" },
   { id: "juice", name: "Jus", shortLabel: "Jus", kcalPer100: 45, perVolume: true, zone: "drink", defaultUnit: "ml" },
   { id: "soda", name: "Soda", shortLabel: "Soda", kcalPer100: 42, perVolume: true, zone: "drink", defaultUnit: "cl" },
   { id: "coffee", name: "Café", shortLabel: "Café", kcalPer100: 2, perVolume: true, zone: "drink", defaultUnit: "ml" },
@@ -42,8 +42,8 @@ const FOODS = [
   { id: "smoothie", name: "Smoothie", shortLabel: "Smoothie", kcalPer100: 60, perVolume: true, zone: "drink", defaultUnit: "ml" },
   { id: "energy_drink", name: "Boisson énergétique", shortLabel: "Boisson énergétique", kcalPer100: 45, perVolume: true, zone: "drink", defaultUnit: "cl" },
   /* Desserts — grammes */
-  { id: "cake", name: "Gâteau", shortLabel: "Gâteau", kcalPer100: 320, zone: "dessert", defaultUnit: "g" },
-  { id: "fruit", name: "Fruit", shortLabel: "Fruit", kcalPer100: 52, zone: "dessert", defaultUnit: "g" },
+  { id: "cake", name: "Gâteau", shortLabel: "Gâteau", kcalPer100: 350, zone: "dessert", defaultUnit: "g" },
+  { id: "fruit", name: "Fruit", shortLabel: "Fruit", kcalPer100: 89, zone: "dessert", defaultUnit: "g" },
   { id: "yogurt", name: "Yaourt", shortLabel: "Yaourt", kcalPer100: 59, zone: "dessert", defaultUnit: "g" },
   { id: "chocolate_bar", name: "Chocolat", shortLabel: "Chocolat", kcalPer100: 545, zone: "dessert", defaultUnit: "g" },
   { id: "ice_cream", name: "Glace", shortLabel: "Glace", kcalPer100: 207, zone: "dessert", defaultUnit: "g" },
