@@ -236,6 +236,9 @@ export function NutritionCalculator() {
   const [categoryIndex, setCategoryIndex] = useState(0);
   const [hasPickedTab, setHasPickedTab] = useState(false);
   const [unitHintDone, setUnitHintDone] = useState(false);
+  const [demoCycle, setDemoCycle] = useState(0);
+  const demoActiveRef = useRef(true);
+  const demoTimersRef = useRef([]);
   const pickerScrollRef = useRef(null);
   const scrollSettleRef = useRef(null);
   const landTimerRef = useRef(null);
@@ -271,7 +274,10 @@ export function NutritionCalculator() {
     return () => clearTimeout(t);
   }, [selectedId]);
 
+  const isDemo = demoCycle >= 0;
+
   const guideStep = useMemo(() => {
+    if (isDemo) return 0;
     if (items.length > 0 && !selectedId) return 7;
     if (!selectedId && !hasPickedTab) return 1;
     if (!selectedId && hasPickedTab) return 2;
@@ -279,7 +285,7 @@ export function NutritionCalculator() {
     if (selectedId && quantity === null) return 4;
     if (selectedId && quantity !== null) return 5;
     return 0;
-  }, [selectedId, hasPickedTab, items.length, unitHintDone, calc.display, calc.fresh, quantity]);
+  }, [isDemo, selectedId, hasPickedTab, items.length, unitHintDone, calc.display, calc.fresh, quantity]);
 
   const showEqPulse = !!lastAddedId;
   const showHeartbeat = items.length > 0;
@@ -367,6 +373,92 @@ export function NutritionCalculator() {
     dispatch({ type: "clear" });
   }, []);
 
+  const stopDemo = useCallback(() => {
+    demoActiveRef.current = false;
+    demoTimersRef.current.forEach(clearTimeout);
+    demoTimersRef.current = [];
+    setDemoCycle(-1);
+    if (landTimerRef.current) window.clearTimeout(landTimerRef.current);
+    landTimerRef.current = null;
+    setLastAddedId(null);
+    setItems([]);
+    setSelectedId(null);
+    setUnitId("g");
+    setHasPickedTab(false);
+    setUnitHintDone(false);
+    dispatch({ type: "clear" });
+  }, []);
+
+  useEffect(() => {
+    if (demoCycle < 0) return;
+    demoActiveRef.current = true;
+    const timers = [];
+    const q = (fn, ms) => {
+      const id = setTimeout(() => { if (demoActiveRef.current) fn(); }, ms);
+      timers.push(id);
+    };
+    demoTimersRef.current = timers;
+
+    const demoAdd = (foodId, zone, qty, unitLabel, delay) => {
+      q(() => {
+        const food = foodById(foodId);
+        if (!food) return;
+        const kcal = Math.round((food.kcalPer100 * qty) / 100 * 10) / 10;
+        const id = `demo-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+        setItems((p) => [...p, { id, foodId, zone, label: `${food.name} · ${qty} ${unitLabel}`, kcal }]);
+        setLastAddedId(id);
+        dispatch({ type: "clear" });
+        setSelectedId(null);
+        const lid = setTimeout(() => { if (demoActiveRef.current) setLastAddedId(null); }, 720);
+        timers.push(lid);
+      }, delay);
+    };
+
+    let d = 600;
+
+    q(() => goToCategory(2), d); d += 1100;
+    q(() => { setSelectedId("chicken"); setUnitId("g"); }, d); d += 900;
+    q(() => dispatch({ type: "digit", d: "1" }), d); d += 300;
+    q(() => dispatch({ type: "digit", d: "5" }), d); d += 300;
+    q(() => dispatch({ type: "digit", d: "0" }), d); d += 800;
+    demoAdd("chicken", "plate", 150, "g", d); d += 1800;
+
+    q(() => goToCategory(1), d); d += 1100;
+    q(() => { setSelectedId("broccoli"); setUnitId("g"); }, d); d += 900;
+    q(() => dispatch({ type: "digit", d: "2" }), d); d += 300;
+    q(() => dispatch({ type: "digit", d: "0" }), d); d += 300;
+    q(() => dispatch({ type: "digit", d: "0" }), d); d += 800;
+    demoAdd("broccoli", "plate", 200, "g", d); d += 1800;
+
+    q(() => goToCategory(3), d); d += 1100;
+    q(() => { setSelectedId("juice"); setUnitId("ml"); }, d); d += 900;
+    q(() => dispatch({ type: "digit", d: "2" }), d); d += 300;
+    q(() => dispatch({ type: "digit", d: "5" }), d); d += 300;
+    q(() => dispatch({ type: "digit", d: "0" }), d); d += 800;
+    demoAdd("juice", "drink", 250, "ml", d); d += 1800;
+
+    q(() => goToCategory(4), d); d += 1100;
+    q(() => { setSelectedId("cake"); setUnitId("g"); }, d); d += 900;
+    q(() => dispatch({ type: "digit", d: "8" }), d); d += 300;
+    q(() => dispatch({ type: "digit", d: "0" }), d); d += 800;
+    demoAdd("cake", "dessert", 80, "g", d); d += 3000;
+
+    q(() => {
+      setItems([]);
+      setSelectedId(null);
+      setUnitId("g");
+      setLastAddedId(null);
+      setHasPickedTab(false);
+      dispatch({ type: "clear" });
+      const rid = setTimeout(() => {
+        if (demoActiveRef.current) setDemoCycle((c) => c + 1);
+      }, 2000);
+      timers.push(rid);
+    }, d);
+
+    return () => { timers.forEach(clearTimeout); };
+  }, [demoCycle]);
+
   const addItem = useCallback(() => {
     if (!selectedFood) return;
     const qty = parseQuantityFromDisplay(calc.display);
@@ -403,7 +495,13 @@ export function NutritionCalculator() {
   };
 
   return (
-    <div className="nc">
+    <div className="nc" onPointerDown={isDemo ? stopDemo : undefined}>
+      {isDemo && (
+        <div className="nc-demo-badge">
+          <span className="nc-demo-badge__dot" />
+          Démo auto — touche pour essayer
+        </div>
+      )}
       <div className={`nc-plate-card${lastAddedId ? " nc-plate-card--bump" : ""}`}>
         <p className="nc-plate-card__total">
           Total : <strong className={`nc-total-kcal${showHeartbeat ? " nc-total-heartbeat" : ""}`}>{Math.round(animatedTotal * 10) / 10}</strong> kcal
